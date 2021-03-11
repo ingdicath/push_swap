@@ -58,7 +58,7 @@ int *pop(t_stack **head)
 	return (data);
 }
 
-void display(t_stack *head) //funcion de prueba
+void display(t_stack *head, char * name) //funcion de prueba
 {
 	t_stack *temp;
 	t_stack *tail;
@@ -77,7 +77,7 @@ void display(t_stack *head) //funcion de prueba
 		}
 		printf("%d\n", temp->data);
 	}
-	printf("---- \n");
+	printf("---- %s \n", name);
 }
 
 void swap(t_stack **head)
@@ -103,7 +103,30 @@ void push_to_stack(t_stack **from, t_stack **to)
 	if (data != NULL)
 		push(to, *data);
 }
-// int main (int argc, char **argv)
+
+void rotate(t_stack **head)
+{
+	if (*head != NULL)
+		*head = (*head)->prev;
+}
+
+void rotate_multiple(t_stack **head_a, t_stack **head_b)
+{
+	rotate(head_a);
+	rotate(head_b);
+}
+
+void reverse(t_stack **head)
+{
+	if (*head != NULL)
+		*head = (*head)->next;
+}
+
+void reverse_multiple(t_stack **head_a, t_stack **head_b)
+{
+	reverse(head_a);
+	reverse(head_b);
+}
 int main (void)
 {
 	t_stack *temp = NULL;
@@ -111,51 +134,74 @@ int main (void)
 	
 	push(&temp, 2);
 	
-	display(temp);
+	display(temp,"A");
 	push(&temp, 2);
-	display(temp);
+	display(temp, "A");
 	push(&temp, 16);
-	display(temp);
+	display(temp, "A");
 	push(&temp, 4);
-	display(temp);
+	display(temp, "A");
 	push(&temp, 3);
-	display(temp);
+	display(temp, "A");
 	printf("starting pop\n");
 	pop(&temp);
-	display(temp);
+	display(temp, "A");
 	pop(&temp);
-	display(temp);
+	display(temp, "A");
 	pop(&temp);
-	display(temp);
+	display(temp, "A");
 	pop(&temp);
-	display(temp);
+	display(temp, "A");
 	pop(&temp);
-	display(temp);
+	display(temp, "A");
 	pop(&temp);
-	display(temp);
+	display(temp, "A");
 	push(&temp, 3423);
 	push(&temp, 312);
 	push(&temp, 3);
-	display(temp);
+	display(temp, "A");
 	pop(&temp);
 	push(&temp, 0);
-	display(temp);
+	display(temp, "A");
 	swap(&temp);
-	display(temp);
+	display(temp, "A");
 	swap(&temp);
-	display(temp);
+	display(temp, "A");
 	printf("push entre stacks\n");
 	push_to_stack(&temp, &otro);
-	display(temp);
-	display(otro);
-	push_to_stack(&otro, &temp);
-	push_to_stack(&otro, &temp);
-	push_to_stack(&otro, &temp);
-	push_to_stack(&otro, &temp);
-	push_to_stack(&otro, &temp);
-	display(temp);
-	display(otro);
-
+	display(temp, "A");
+	display(otro, "B");
+	// push_to_stack(&otro, &temp);
+	// push_to_stack(&otro, &temp);
+	// push_to_stack(&otro, &temp);
+	// push_to_stack(&otro, &temp);
+	// push_to_stack(&otro, &temp);
+	display(temp, "A");
+	display(otro, "B");
+	push(&temp, 57);
+	display(temp, "A");
+	push(&temp, 78);
+	display(temp, "A");
+	printf("rotate\n");
+	rotate(&temp);
+	push(&otro, 8);
+	push(&otro, 48);
+	display(temp, "A");
+	display(otro, "B");
+	printf("rotate multiple\n");
+	rotate_multiple(&temp,&otro);
+	display(temp, "A");
+	display(otro, "B");
+	printf("reverse\n");
+	reverse(&temp);
+	reverse(&otro);
+	display(temp, "A");
+	display(otro, "B");
+	printf("reverse multiple\n");
+	reverse_multiple(&temp, &otro);
+	display(temp, "A");
+	display(otro, "B");
+	
 // validacion de argumentos de entrada: numeros enteros, no duplicados, error si no hay entrada
 	return (0);
 }
