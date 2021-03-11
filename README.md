@@ -17,7 +17,41 @@ Write 2 programs in C:
 - The second one called **push_swap** which calculates and displays on the standard
 output the smallest progam using _Push_swap_ instruction language that sorts integer arguments received.
 
+### Movements allowed
+
+#### _Swap_
+
+Do nothing if there is only one or no elements.
+
+- **sa** -> swap a - swap the first 2 elements at the top of stack a.
+- **sb** -> swap b - swap the first 2 elements at the top of stack b.
+- **ss** -> sa and sb at the same time.
+
+#### _Push_
+
+- **pa** -> push a - take the first element at the top of b and put it at the top of a. Do
+nothing if b is empty.
+- **pb** -> push b - take the first element at the top of a and put it at the top of b. Do
+nothing if a is empty.
+
+#### _Rotate_
+
+The first element becomes the last one.
+
+- **ra** -> rotate a - shift up all elements of stack a by 1.
+- **rb** -> rotate b - shift up all elements of stack b by 1.
+- **rr** -> ra and rb at the same time.
+
+#### _Reverse_
+
+The last element becomes the first one.
+
+- **rra** -> reverse rotate a - shift down all elements of stack a by 1.
+- **rrb** -> reverse rotate b - shift down all elements of stack b by 1.
+- **rrr** -> rra and rrb at the same time
+
 ---
+
 ## Terms
 
 - [Complexity](https://en.wikipedia.org/wiki/Analysis_of_algorithms)
@@ -28,13 +62,12 @@ output the smallest progam using _Push_swap_ instruction language that sorts int
 - [Data structures and Algorithms with their complexities](https://www.hackerearth.com/practice/notes/big-o-cheatsheet-series-data-structures-and-algorithms-with-thier-complexities-1/)
 - [Big O notation](https://www.youtube.com/watch?v=v4cd1O4zkGw&list=PLX6IKgS15Ue02WDPRCmYKuZicQHit9kFt&index=5)
 - [Introduction to Big O Notation and Time Complexity](https://www.youtube.com/watch?v=D6xkbGLQesk)
-
-
-https://www.youtube.com/watch?v=GKgAVjJxh9w&list=PLX6IKgS15Ue02WDPRCmYKuZicQHit9kFt&index=1
-https://www.youtube.com/watch?v=6Gv8vg0kcHc&list=PLX6IKgS15Ue02WDPRCmYKuZicQHit9kFt&index=17
+- [Medium article](https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a)
+- [Seven steps to solve algorithms](https://www.youtube.com/watch?v=GKgAVjJxh9w&list=PLX6IKgS15Ue02WDPRCmYKuZicQHit9kFt&index=1)
+- [Data structures - series](https://www.youtube.com/watch?v=92S4zgXN17o&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=2)
 
 ver de ultimas
-https://www.youtube.com/watch?v=7ArHz8jPglw&list=PLX6IKgS15Ue02WDPRCmYKuZicQHit9kFt&index=31
+
 
 ---
 
