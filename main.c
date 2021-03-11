@@ -35,15 +35,15 @@ void push(t_stack **head, int data)
 	}
 }
 
-int pop(t_stack **head)
+int *pop(t_stack **head)
 {
-	int data;
+	int *data;
 	t_stack *temp;
 	t_stack *tail;
 	
 	temp = *head;
 	if (*head == NULL)
-		return ('0');
+		return (NULL);
 	else if ((*head)->next == *head)
 		*head = NULL;
 	else
@@ -53,7 +53,7 @@ int pop(t_stack **head)
 		(*head)->next = tail;
 		tail->prev = *head;
 	}
-	data = temp->data;
+	data = &temp->data;
 	free(temp);
 	return (data);
 }
@@ -97,17 +97,19 @@ void swap_multiple(t_stack **head_a, t_stack **head_b)
 
 void push_to_stack(t_stack **from, t_stack **to)
 {
-	printf("hola");
-	int data; 
+	int *data; 
 
 	data = pop(from);
-	push(to, data);
+	if (data != NULL)
+		push(to, *data);
 }
 // int main (int argc, char **argv)
 int main (void)
 {
-	t_stack *temp;
-	t_stack *otro;
+	t_stack *temp = NULL;
+	t_stack *otro = NULL;
+	
+	push(&temp, 2);
 	
 	display(temp);
 	push(&temp, 2);
@@ -145,7 +147,14 @@ int main (void)
 	printf("push entre stacks\n");
 	push_to_stack(&temp, &otro);
 	display(temp);
-	//display(new2);
+	display(otro);
+	push_to_stack(&otro, &temp);
+	push_to_stack(&otro, &temp);
+	push_to_stack(&otro, &temp);
+	push_to_stack(&otro, &temp);
+	push_to_stack(&otro, &temp);
+	display(temp);
+	display(otro);
 
 // validacion de argumentos de entrada: numeros enteros, no duplicados, error si no hay entrada
 	return (0);
