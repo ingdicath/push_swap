@@ -1,9 +1,5 @@
 #include "push_swap.h"
 
-// Data Structures: Linked List implementation of stacks
-// t_stack *head; // es variable global, meterla luego como local
-// head = NULL;
-
 t_stack *create_element(int data)
 {
 	t_stack *new_element;
@@ -18,82 +14,139 @@ t_stack *create_element(int data)
 void push(t_stack **head, int data)
 {
 	t_stack *new_element;
+	t_stack *tail;
 
 	new_element = create_element(data);
 	if (*head == NULL)
 	{
 		*head = new_element;
-		return ;
+		tail = new_element;
+		tail->next = *head;
+		tail->prev = *head;
 	}
-	(*head)->prev = new_element;
-	new_element->next = *head;
-	*head = new_element;
+	else
+	{
+		tail = (*head)->next;
+		(*head)->next = new_element;
+		new_element->prev = *head;
+		new_element->next = tail;
+		tail->prev = new_element;
+		*head = new_element;
+	}
 }
 
 int pop(t_stack **head)
 {
 	int data;
 	t_stack *temp;
-
+	t_stack *tail;
+	
+	temp = *head;
 	if (*head == NULL)
 		return ('0');
-	temp = *head;
-
-	data = temp->data;
-	if (temp->next != NULL)
-	{
-		*head = (*head)->next;
-		(*head)->prev = NULL;
-		free(temp);
-	}
+	else if ((*head)->next == *head)
+		*head = NULL;
 	else
 	{
-		free(*head);
-		*head = NULL;
+		tail = (*head)->next;
+		*head = (*head)->prev;
+		(*head)->next = tail;
+		tail->prev = *head;
 	}
+	data = temp->data;
+	free(temp);
 	return (data);
 }
 
-// void head()
-
-// void is_empty_stack()
-
-void print(t_stack *head)
+void display(t_stack *head) //funcion de prueba
 {
-	printf("stack: ");	
-	while (head != NULL)
+	t_stack *temp;
+	t_stack *tail;
+
+	temp = head;
+	if (head == NULL)
+		printf("Empty stack\n");
+	else
 	{
-		printf("%d ", head->data);
-		head = head->next;
+		tail = head->next;
+
+		while (temp != tail)
+		{
+			printf("%d\n", temp->data);
+			temp = temp->prev;
+		}
+		printf("%d\n", temp->data);
 	}
-	printf("\n");
+	printf("---- \n");
 }
 
+void swap(t_stack **head)
+{
+	int temp;
 
+	temp = (*head)->data;
+	(*head)->data = (*head)->prev->data;
+	(*head)->prev->data = temp;
+}
+
+void swap_multiple(t_stack **head_a, t_stack **head_b)
+{
+	swap(head_a);
+	swap(head_b);
+}
+
+void push_to_stack(t_stack **from, t_stack **to)
+{
+	printf("hola");
+	int data; 
+
+	data = pop(from);
+	push(to, data);
+}
 // int main (int argc, char **argv)
 int main (void)
 {
 	t_stack *temp;
-	print(temp);
+	t_stack *otro;
+	
+	display(temp);
 	push(&temp, 2);
-	print(temp);
-	push(&temp, 6);
-	print(temp);
-	push(&temp, 89);
-	print(temp);
+	display(temp);
+	push(&temp, 16);
+	display(temp);
+	push(&temp, 4);
+	display(temp);
+	push(&temp, 3);
+	display(temp);
+	printf("starting pop\n");
 	pop(&temp);
-	print(temp);
+	display(temp);
 	pop(&temp);
-	print(temp);
+	display(temp);
 	pop(&temp);
-	print(temp);
+	display(temp);
 	pop(&temp);
-	print(temp);
-
-	// if (argc < 2)
-
+	display(temp);
+	pop(&temp);
+	display(temp);
+	pop(&temp);
+	display(temp);
+	push(&temp, 3423);
+	push(&temp, 312);
+	push(&temp, 3);
+	display(temp);
+	pop(&temp);
+	push(&temp, 0);
+	display(temp);
+	swap(&temp);
+	display(temp);
+	swap(&temp);
+	display(temp);
+	printf("push entre stacks\n");
+	push_to_stack(&temp, &otro);
+	display(temp);
+	//display(new2);
 
 // validacion de argumentos de entrada: numeros enteros, no duplicados, error si no hay entrada
-
 	return (0);
 }

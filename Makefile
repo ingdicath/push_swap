@@ -8,9 +8,7 @@ WHITE = \033[0m
 
 # ----- Variables -----
 
-NAME_PS = push_swap
-NAME_CHECK = checker
-NAME = $(NAME_PS) $(NAME_CHECK)
+NAME = push_swap checker
 
 INCLUDES = push_swap.h
 
@@ -35,12 +33,12 @@ $(LIBFT):
 	@cp $(LIBFT_DIR)/$(LIBFT) .
 	@echo "$(CYAN)libft library successfully created$(WHITE)\n"
 
-$(NAME_PS): $(OBJ_PS) $(LIBFT)
-	@$(CC) $(FLAGS) -o $(NAME_PS) $(OBJ_PS) $(LIBFT)
+$(word 1, $(NAME)): $(OBJ_PS) $(LIBFT)
+	@$(CC) $(FLAGS) -o $(word 1, $(NAME)) $(OBJ_PS) $(LIBFT)
 	@echo "$(GREEN)push_swap successfully created$(WHITE)\n"
 
-$(NAME_CHECK): $(OBJ_CHECK) $(LIBFT)
-	@$(CC) $(FLAGS) -o $(NAME_CHECK) $(OBJ_CHECK) $(LIBFT)
+$(word 2, $(NAME)): $(OBJ_CHECK) $(LIBFT)
+	@$(CC) $(FLAGS) -o $(word 2, $(NAME)) $(OBJ_CHECK) $(LIBFT)
 	@echo "$(GREEN)checker successfully created$(WHITE)\n"
 
 %.o: %.c $(INCLUDES)

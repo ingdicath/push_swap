@@ -59,6 +59,7 @@ The last element becomes the first one.
 
 
 ## Useful links
+
 - [Data structures and Algorithms with their complexities](https://www.hackerearth.com/practice/notes/big-o-cheatsheet-series-data-structures-and-algorithms-with-thier-complexities-1/)
 - [Big O notation](https://www.youtube.com/watch?v=v4cd1O4zkGw&list=PLX6IKgS15Ue02WDPRCmYKuZicQHit9kFt&index=5)
 - [Introduction to Big O Notation and Time Complexity](https://www.youtube.com/watch?v=D6xkbGLQesk)
@@ -68,12 +69,12 @@ The last element becomes the first one.
 
 ver de ultimas
 
-
 ---
 
 ## To do
 
 ### Allowed functions
+
 ◦ write
 ◦ read
 ◦ malloc
@@ -85,7 +86,9 @@ ver de ultimas
 Build stacks: The game is composed of 2 stacks named a and b
 
 1) CHECKER PROGRAM (manual)
+
 - Input Validation
+
 	- No duplicates
 	- random number integer of either positive or negative
 	- name of the executable: ./checker ./push_swap
@@ -93,6 +96,7 @@ Build stacks: The game is composed of 2 stacks named a and b
 	- numbers separated by spaces
 
 - Data structure
+
 	- Check stacks
 		- stack a have numbers
 		- stack b starts empty
@@ -109,6 +113,7 @@ Build stacks: The game is composed of 2 stacks named a and b
 Study: List, linked list, double linked list, stack, queue,
 
 2) PUSH SWAP (automatic)
+
 - Algorithm (push_swap)
 
 Study:  review sorting algorithm (bubble ), binary tree (could be)
