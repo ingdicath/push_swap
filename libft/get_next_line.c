@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		ft_read_buffer(int fd, char **remainder)
+static int	ft_read_buffer(int fd, char **remainder)
 {
 	static char	buf[BUFFER_SIZE + 1];
 	int			index_buf;
@@ -30,10 +30,13 @@ static int		ft_read_buffer(int fd, char **remainder)
 		if (ft_strchr(*remainder, '\n'))
 			break ;
 	}
-	return (index_buf > 0 ? 1 : 0);
+	if (index_buf > 0)
+		return (1);
+	else
+		return (0);
 }
 
-static int		ft_break_index(char *remainder)
+static int	ft_break_index(char *remainder)
 {
 	int			i;
 
@@ -43,7 +46,7 @@ static int		ft_break_index(char *remainder)
 	return (i);
 }
 
-static int		ft_extract_line(char **remainder, char **line)
+static int	ft_extract_line(char **remainder, char **line)
 {
 	int			i;
 	int			res;
@@ -61,9 +64,9 @@ static int		ft_extract_line(char **remainder, char **line)
 	return (res);
 }
 
-int				get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
-	static char *remainder;
+	static char	*remainder;
 	int			read_result;
 
 	if (fd < 0 || read(fd, 0, 0) == -1 || line == NULL)

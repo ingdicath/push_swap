@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int			ft_array_size(char **array)
+int	ft_array_size(char **array)
 {
 	int		i;
 

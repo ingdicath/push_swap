@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int			ft_strcmp_trim(const char *s1, const char *s2)
+int	ft_strcmp_trim(const char *s1, const char *s2)
 {
 	char	*white_spaces;
 	int		result;

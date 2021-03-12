@@ -39,5 +39,8 @@ int		ft_array_size(char **array);
 int		ft_max(int num1, int num2);
 int		ft_min(int num1, int num2);
 int		ft_ispositive_number(char *str);
+int		ft_isdigit(int c);
+void	ft_putchar_fd(char c, int fd);
+void    ft_putendl_fd(char *s, int fd);
 
 #endif

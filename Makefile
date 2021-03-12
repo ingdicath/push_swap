@@ -18,11 +18,11 @@ FLAGS = -Wall -Werror -Wextra
 LIBFT = libft.a
 LIBFT_DIR = libft
 
-SRC_PS = Problem_1.c
+SRC_PS = main.c
 SRC_CHECK = Problem_2.c
 
-OBJ_PS = $(SRC_PS:%.c=%.o)
-OBJ_CHECK = $(SRC_CHECK:%.c=%.o)
+OBJ_PS = $(SRC_PS:.c=.o)
+OBJ_CHECK = $(SRC_CHECK:.c=.o)
 
 # ----- Rules -----
 

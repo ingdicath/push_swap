@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int			ft_ispositive_number(char *str)
+int	ft_ispositive_number(char *str)
 {
 	int		i;
 	char	*no_space;

@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int		ft_isemptyline(char *str)
+int	ft_isemptyline(char *str)
 {
 	int	i;
 

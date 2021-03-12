@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static void		ft_clean_memory(char **str, size_t index)
+static void	ft_clean_memory(char **str, size_t index)
 {
 	size_t		i;
 
@@ -55,14 +55,14 @@ static size_t	ft_word_size(char const *s, char c)
 	return (i);
 }
 
-static char		*ft_next_word(char const *s, char c)
+static char	*ft_next_word(char const *s, char c)
 {
 	while (*s && *s == c)
 		s++;
 	return ((char *)s);
 }
 
-char			**ft_split(char *s, char c)
+char	**ft_split(char *s, char c)
 {
 	size_t		count;
 	size_t		i;
