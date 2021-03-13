@@ -125,3 +125,8 @@ Study:  review sorting algorithm (bubble ), binary tree (could be)
 - Stack a store input data as requested
 - In sorted stack we apply merge sort.
 - sorted stack is just double linked, a and b are circular double linked list
+
+
+porque escogi el merge sort???
+
+
