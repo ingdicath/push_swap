@@ -1,8 +1,8 @@
 #include "push_swap.h"
 
-t_stack	*create_element(int data)
+t_stack *create_element(int data)
 {
-	t_stack	*new_element;
+	t_stack *new_element;
 
 	new_element = (t_stack *)malloc(sizeof(t_stack));
 	new_element->data = data;
@@ -11,10 +11,10 @@ t_stack	*create_element(int data)
 	return (new_element);
 }
 
-void	push(t_stack **head, int data)
+void push(t_stack **head, int data)
 {
-	t_stack	*new_element;
-	t_stack	*tail;
+	t_stack *new_element;
+	t_stack *tail;
 
 	new_element = create_element(data);
 	if (*head == NULL)
@@ -35,11 +35,11 @@ void	push(t_stack **head, int data)
 	}
 }
 
-int	*pop(t_stack **head)
+int *pop(t_stack **head)
 {
-	int		*data;
-	t_stack	*temp;
-	t_stack	*tail;
+	int *data;
+	t_stack *temp;
+	t_stack *tail;
 
 	temp = *head;
 	if (*head == NULL)
@@ -58,10 +58,10 @@ int	*pop(t_stack **head)
 	return (data);
 }
 
-void	display(t_stack *head, char *name) //funcion de prueba
+void display(t_stack *head, char *name) //funcion de prueba
 {
-	t_stack	*temp;
-	t_stack	*tail;
+	t_stack *temp;
+	t_stack *tail;
 
 	temp = head;
 	if (head == NULL)
@@ -79,49 +79,49 @@ void	display(t_stack *head, char *name) //funcion de prueba
 	printf("---- %s \n", name);
 }
 
-void	swap(t_stack **head)
+void swap(t_stack **head)
 {
-	int	temp;
+	int temp;
 
 	temp = (*head)->data;
 	(*head)->data = (*head)->prev->data;
 	(*head)->prev->data = temp;
 }
 
-void	swap_multiple(t_stack **head_a, t_stack **head_b)
+void swap_multiple(t_stack **head_a, t_stack **head_b)
 {
 	swap(head_a);
 	swap(head_b);
 }
 
-void	push_to_stack(t_stack **from, t_stack **to)
+void push_to_stack(t_stack **from, t_stack **to)
 {
-	int	*data;
+	int *data;
 
 	data = pop(from);
 	if (data != NULL)
 		push(to, *data);
 }
 
-void	rotate(t_stack **head)
+void rotate(t_stack **head)
 {
 	if (*head != NULL)
 		*head = (*head)->prev;
 }
 
-void	rotate_multiple(t_stack **head_a, t_stack **head_b)
+void rotate_multiple(t_stack **head_a, t_stack **head_b)
 {
 	rotate(head_a);
 	rotate(head_b);
 }
 
-void	reverse(t_stack **head)
+void reverse(t_stack **head)
 {
 	if (*head != NULL)
 		*head = (*head)->next;
 }
 
-void	reverse_multiple(t_stack **head_a, t_stack **head_b)
+void reverse_multiple(t_stack **head_a, t_stack **head_b)
 {
 	reverse(head_a);
 	reverse(head_b);
@@ -136,73 +136,69 @@ void	reverse_multiple(t_stack **head_a, t_stack **head_b)
 // si el numero no esta duplicado, lo mando al nuevo arreglo dinamico
 // al final debo recorrer el arreglo de atras hacia adelante para meterlo en la pila
 
-// void print_error(char *error)
-// {
+void print_int_array(int *input, int size) //funcion de prueba
+{
+	int i;
 
-// }
+	i = 0;	
+	while (i < size)
+	{
+		printf("%d ", input[i]);
+		i++;
+	}
+	printf("\n");
+}
 
 void error_exit(void)
 {
 	ft_putstr("Error\n");
-	exit(1);
+	exit(1); //validar
 }
 
-// int check_valid_number(int argc, char **argv)
-// {
-// 	int i;
-// 	int j;
-
-// 	i = 1;
-// 	while (i < argc)
-// 	{
-// 		j = 0;
-// 		if (argv[i][j] == '-')
-// 			j++;
-// 		if (!ft_isdigit(argv[i][j]))
-// 			return (0);
-// 		while (ft_isdigit(argv[i][j]))
-// 			j++;
-// 		if (argv[i][j]) //no entiendo
-// 			return (0); //no entiendo
-// 		i++;
-// 	}
-// 	return (1);
-// }
-
-int	main(int argc, char **argv)
+int *build_input(int size, char **argv)
 {
-	// if (argc == 1)
-	// 	return (0);
-	// printf("%s\n", argv[2]);
-		printf("Hi\n");
-	static int pos[4294967294] = {0};
-	int	neg[2147483647] = {0};
 	int i;
+	int *input;
 
-	printf("Hi\n");
-	if (argc > 1)
+	i = 0;
+	input = (int *)malloc(size * sizeof(int));
+	if (input == NULL)
+		error_exit();
+
+	while (i < size)
 	{
-		i = 1;
-		while (argv[i])
+		if (ft_isnumber(argv[i + 1]))
+			input[i] = ft_atoi(argv[i + 1]);
+		else
 		{
-			printf("Hi\n");
-			if(ft_isnumber(argv[i]))
-			{
-				if (ft_ispositive_number(argv[i]) && pos[(int)argv[i]] == 0)
-					pos[(int)argv[i]] = 1;
-				else if (pos[(int)argv[i]] == 0)
-					neg[(int)argv[i]] = 1;
-			}
-			i++;
+			free(input);
+			error_exit();
 		}
-		printf("%d\n", pos[10]);
-		printf("%d\n", neg[10]);
+		i++;
 	}
+	return (input);
+}
+
+int main(int argc, char **argv)
+{
+	if (argc == 1)
+		return (0);
+
+	int *input;
+	input = build_input(argc-1, argv);
+
+	print_int_array(input, argc-1);
+
 	return (0);
 }
 
 // int main (void)
 // {
+// char *s = "123";
+// int num = atoi(s);
+// int cu = ft_isnumber(s);
+// printf("El valor num es: %d\n", num);
+// printf("El valor cu es: %d\n", cu);
 // 	t_stack *temp = NULL;
 // 	t_stack *otro = NULL;
 // 	push(&temp, 2);
