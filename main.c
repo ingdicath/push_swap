@@ -68,13 +68,15 @@ void display(t_stack *head, char *name) //funcion de prueba
 		printf("Empty stack\n");
 	else
 	{
-		tail = head->next;
-		while (temp != tail)
+		if (head->next != NULL)
+			tail = head->next;
+		while (temp != NULL && temp != tail)
 		{
 			printf("%d\n", temp->data);
 			temp = temp->prev;
 		}
-		printf("%d\n", temp->data);
+		if (temp != NULL)
+			printf("%d\n", temp->data);
 	}
 	printf("---- %s \n", name);
 }
@@ -130,24 +132,24 @@ void reverse_multiple(t_stack **head_a, t_stack **head_b)
 // validar duplicados
 // validar sean numeros
 
-// validar numero por numero
+// validar numero por numero ok
 // si es numero, lo meto al arreglo de positivo o negativo
 // creo arreglo dinamico con malloc(tamano argc-1)
 // si el numero no esta duplicado, lo mando al nuevo arreglo dinamico
 // al final debo recorrer el arreglo de atras hacia adelante para meterlo en la pila
 
-void print_int_array(int *input, int size) //funcion de prueba
-{
-	int i;
+// void print_int_array(int *input, int size) //funcion de prueba
+// {
+// 	int i;
 
-	i = 0;	
-	while (i < size)
-	{
-		printf("%d ", input[i]);
-		i++;
-	}
-	printf("\n");
-}
+// 	i = 0;
+// 	while (i < size)
+// 	{
+// 		printf("%d ", input[i]);
+// 		i++;
+// 	}
+// 	printf("\n");
+// }
 
 void error_exit(void)
 {
@@ -155,40 +157,126 @@ void error_exit(void)
 	exit(1); //validar
 }
 
-int *build_input(int size, char **argv)
+void clean_stack(t_stack **stack)
+{
+	if (*stack != NULL)
+	{
+		free(*stack);
+		*stack = NULL;
+	}
+}
+
+// tail is included to disconnect from a circular double linked list
+void build_input(int size, char **argv, t_stack **a, t_stack **sorted)
 {
 	int i;
-	int *input;
+	long data;
+	t_stack *tail;
 
-	i = 0;
-	input = (int *)malloc(size * sizeof(int));
-	if (input == NULL)
-		error_exit();
-
-	while (i < size)
+	i = size;
+	while (i > 0)
 	{
-		if (ft_isnumber(argv[i + 1]))
-			input[i] = ft_atoi(argv[i + 1]);
-		else
-		{
-			free(input);
-			error_exit();
-		}
-		i++;
+		if (!ft_isnumber(argv[i]))
+			break;
+		data = ft_atol(argv[i]);
+		if (data > INT_MAX || data < INT_MIN)
+			break;
+		push(a, (int)data);
+		push(sorted, (int)data);
+		i--;
 	}
-	return (input);
+	if (i > 0)
+	{
+		// clean_stack(a);
+		// clean_stack(sorted);
+		error_exit();
+	}
+	tail = (*sorted)->next;
+	(*sorted)->next = NULL;
+	tail->prev = NULL;
+}
+
+// Function to merge two linked lists
+t_stack *merge(t_stack *first, t_stack *second)
+{
+	if (!first)
+		return (second);
+	if (!second)
+		return (first);
+	if (first->data == second->data)
+	{
+		error_exit();
+		return (NULL);
+	}
+	else if (first->data < second->data)
+	{
+		first->prev = merge(first->prev, second);
+		first->prev->next = first;
+		first->next = NULL;
+		return (first);
+	}
+	else
+	{
+		second->prev = merge(first, second->prev);
+		second->prev->next = second;
+		second->next = NULL;
+		return (second);
+	}
+}
+
+// Split a doubly linked list (DLL) into 2 DLLs of half sizes
+// we use prev because we start in the top of the stack
+t_stack *split_merge_sort(t_stack *head)
+{
+	t_stack *fast;
+	t_stack *slow;
+	t_stack *temp;
+
+	fast = head;
+	slow = head;
+	while (fast->prev && fast->prev->prev)
+	{
+		fast = fast->prev->prev;
+		slow = slow->prev;
+	}
+	temp = slow->prev;
+	slow->prev = NULL;
+	return (temp);
+}
+
+// Function to do merge sort
+t_stack *merge_sort(t_stack *head)
+{
+	t_stack *second;
+	second = NULL;
+
+	if (!head || !head->prev)
+		return (head);
+	second = split_merge_sort(head);
+
+	head = merge_sort(head);
+	second = merge_sort(second);
+
+	return (merge(head, second)); //not defined yet
 }
 
 int main(int argc, char **argv)
 {
+	t_stack *stack_a;
+	// t_stack *stack_b;
+	t_stack *sorted_stack;
+
+	stack_a = NULL;
+	// stack_b = NULL;
+	sorted_stack = NULL;
+
 	if (argc == 1)
 		return (0);
+	build_input(argc - 1, argv, &stack_a, &sorted_stack);
+	sorted_stack = merge_sort(sorted_stack);
 
-	int *input;
-	input = build_input(argc-1, argv);
-
-	print_int_array(input, argc-1);
-
+	display(stack_a, "stack a");
+	display(sorted_stack, "sorted");
 	return (0);
 }
 

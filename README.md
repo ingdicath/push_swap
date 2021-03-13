@@ -117,3 +117,11 @@ Study: List, linked list, double linked list, stack, queue,
 - Algorithm (push_swap)
 
 Study:  review sorting algorithm (bubble ), binary tree (could be)
+
+### Learnings
+
+- We build 3 stacks: a, b, sorted
+- When sorting the stack, we also identify duplicates
+- Stack a store input data as requested
+- In sorted stack we apply merge sort.
+- sorted stack is just double linked, a and b are circular double linked list

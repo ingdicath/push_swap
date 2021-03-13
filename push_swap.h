@@ -6,6 +6,7 @@
 */
 
 # include <stdlib.h>
+# include <limits.h>
 # include <stdio.h> //borrar
 # include "libft/libft.h"
 

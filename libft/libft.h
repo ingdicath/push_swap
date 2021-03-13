@@ -6,7 +6,7 @@
 /*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 11:46:25 by dsalaman      #+#    #+#                 */
-/*   Updated: 2020/08/20 16:59:23 by dsalaman      ########   odam.nl         */
+/*   Updated: 2021/03/13 17:27:01 by anonymous     ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ int		ft_ispositive_number(char *str);
 int		ft_isdigit(int c);
 void	ft_putchar_fd(char c, int fd);
 void    ft_putendl_fd(char *s, int fd);
+long	ft_atol(const char *str);
 
 #endif
