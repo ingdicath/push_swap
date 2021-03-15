@@ -18,8 +18,12 @@ FLAGS = -Wall -Werror -Wextra
 LIBFT = libft.a
 LIBFT_DIR = libft
 
-SRC_PS = main.c
-SRC_CHECK = Problem_2.c
+SRC_PS = checks.c input.c instructions.c merge_sort.c node_actions.c\
+			queue_actions.c rotate_reverse_moves.c swap_push_moves.c\
+			utils.c main_copy.c
+SRC_CHECK = checks.c input.c instructions.c merge_sort.c node_actions.c\
+			queue_actions.c rotate_reverse_moves.c swap_push_moves.c\
+			utils.c main.c
 
 OBJ_PS = $(SRC_PS:.c=.o)
 OBJ_CHECK = $(SRC_CHECK:.c=.o)
