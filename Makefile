@@ -20,7 +20,7 @@ LIBFT_DIR = libft
 
 SRC_PS = checks.c input.c instructions.c merge_sort.c node_actions.c\
 			queue_actions.c rotate_reverse_moves.c swap_push_moves.c\
-			utils.c main_copy.c
+			utils.c main_push_swap.c
 SRC_CHECK = checks.c input.c instructions.c merge_sort.c node_actions.c\
 			queue_actions.c rotate_reverse_moves.c swap_push_moves.c\
 			utils.c main.c
