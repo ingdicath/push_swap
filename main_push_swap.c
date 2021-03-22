@@ -194,20 +194,12 @@ int main(int argc, char **argv)
 		{
 			pop2(&sorted_stack);
 			continue ;
-//			inst = RRA;
-//			apply_instructions(&stack_a, &stack_b, inst);
 		}
 		else if (stack_b != NULL && stack_b->data == sorted_stack->data)
 		{
 			inst = PA;
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
-//		else if (stack_a->data < sorted_stack->data &&
-//				stack_b->data < sorted_stack->data)
-//		{
-//
-//
-//		}
 		else if (stack_a->data < sorted_stack->data &&
 				 stack_b->data > stack_b->prev->data)
 		{
@@ -221,56 +213,89 @@ int main(int argc, char **argv)
 		}
 		else if (stack_a->data < stack_b->data &&
 				 stack_b->data > stack_b->next->data &&
-				 stack_b->next->data == stack_b->prev->data)
+				 stack_b->data > stack_b->prev->data
+				 && stack_a->data < stack_b->prev->data
+				 && stack_b->prev->data != stack_b->next->data
+				 )
 		{
-			inst = PB;
+			inst = RB;
+			apply_instructions(&stack_a, &stack_b, inst);
+		}
+		else if (stack_a->data < stack_b->data &&
+				 stack_b->data > stack_b->next->data &&
+				 stack_b->data > stack_b->prev->data
+				 && stack_a->data > stack_b->prev->data
+				 && stack_a->data < stack_b->next->data
+				 && stack_b->prev->data != stack_b->next->data)
+		{
+			inst = RB;
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
 		else if (stack_a->data > stack_b->data &&
 				stack_b->data > stack_b->prev->data &&
-				stack_b->data > stack_b->next->data)
+				stack_b->data > stack_b->next->data &&
+				stack_b->prev->data != stack_b->next->data)
 		{
 			inst = RB;
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
 		else if (stack_a->data > stack_b->data &&
 				 stack_b->data < stack_b->prev->data &&
-				 stack_b->data > stack_b->next->data)
+				 stack_b->data > stack_b->next->data &&
+				 stack_b->prev->data != stack_b->next->data)
 		{
 			inst = RB;
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
 		else if (stack_a->data < stack_b->data &&
 				 stack_b->data < stack_b->prev->data &&
-				 stack_b->data > stack_b->next->data)
+				 stack_b->data > stack_b->next->data
+				 && stack_a->data < stack_b->next->data
+				&& stack_b->prev->data != stack_b->next->data)
+		{
+			inst = RRB;
+			apply_instructions(&stack_a, &stack_b, inst);
+		}
+		else if (stack_a->data > stack_b->data &&
+				 stack_b->data < stack_b->prev->data &&
+				 stack_b->data < stack_b->next->data &&
+				stack_a->data < stack_b->next->data &&
+				stack_b->prev->data != stack_b->next->data)
 		{
 			inst = RB;
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
-		else if (stack_a->data < stack_b->data &&
-				 stack_b->data > stack_b->prev->data &&
-				 stack_b->data > stack_b->next->data)
+		else if (stack_b->prev->data == stack_b->next->data &&
+				stack_a->data > stack_b->data &&
+				stack_b->data > stack_b->prev->data
+				&& stack_a->data > stack_b->next->data)
 		{
-			inst = RB;
+			inst = SB;
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
-
-//		else if (stack_a->data > stack_b->data)
-//		{
-//			inst = PB;
-//			apply_instructions(&stack_a, &stack_b, inst);
-//		}
-
-
+		else if (stack_b->prev->data == stack_b->next->data &&
+				 stack_a->data > stack_b->data &&
+				 stack_b->data < stack_b->prev->data
+				 && stack_a->data < stack_b->next->data)
+		{
+			inst = SB;
+			apply_instructions(&stack_a, &stack_b, inst);
+		}
+		else if (stack_b->prev->data == stack_b->next->data &&
+				 stack_a->data < stack_b->data &&
+				 stack_b->data > stack_b->prev->data
+				 && stack_a->data < stack_b->next->data)
+		{
+			inst = SB;
+			apply_instructions(&stack_a, &stack_b, inst);
+		}
 		else
 		{
-			inst = PB; //revisar esta condicion
+			inst = PB;
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
 		enqueue(&instr_queue, inst);
 		display_step(stack_a, stack_b, sorted_stack, i++, inst); //funcion prueba
 	}
-
-
 	return (0);
 }

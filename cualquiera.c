@@ -1,88 +1,6 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   test.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: null <null@student.codam.nl>                 +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/03/18 16:03:44 by null          #+#    #+#                 */
-/*   Updated: 2021/03/18 16:03:44 by null          ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-//		{
-//			// Se anade esta condicion para incluir RR instruction
-//			if (stack_a->data < stack_b->data &&  //ver si esta cndicion es necesaria
-//				stack_b->data != stack_b->prev->data &&
-//				stack_b->data > stack_b->prev->data &&
-//				stack_b->data > stack_b->next->data)
-//				{
-//					apply_instructions(&stack_a, &stack_b, RR);
-//					enqueue(&instr_queue, RR);
-//				}
-//			apply_instructions(&stack_a, &stack_b, RA);
-//			enqueue(&instr_queue, RA);
-//			pop(&sorted_stack);
-//		}
-////		else if (stack_a->prev->data == sorted_stack->data)
-////		{
-////			apply_instructions(&stack_a, &stack_b, SA);
-////			enqueue(&instr_queue, SA);
-////		}
-////		else if (stack_a->next->data == sorted_stack->data)
-////		{
-////			apply_instructions(&stack_a, &stack_b, RRA);
-////			enqueue(&instr_queue, RRA);
-////		}
-//		else // como decirle que  ejecute este paso solo si stack b esta vacio
-//		{
-////			colocar al contrario las condiiones para no hacer tan largo el if
-//
-//			if (stack_b != NULL && stack_b->data != stack_b->prev->data) //add 18mar
-//			{
-//				// si el elemento que acaba de entrar a stack b es mayor al prev y al tail de pila b
-//				//esto se puede factorizar, ver como
-//				if (stack_a->data < stack_b->data &&
-//					stack_b->data > stack_b->prev->data &&
-//					stack_b->data > stack_b->next->data)
-//				{
-//					apply_instructions(&stack_a, &stack_b, PB);
-//					enqueue(&instr_queue, PB);
-//					apply_instructions(&stack_a, &stack_b, RB);
-//					enqueue(&instr_queue, RB);
-//				}
-//				// caso 2, cuando head de stack 'a' coincide con el valor buscado en sorted stack
-//				else if (stack_a->data == sorted_stack->data &&
-//					stack_a->data < stack_b->data && //revisar si es necesaria esta condicion, tal vez quitar
-//					stack_b->data > stack_b->prev->data &&
-//					stack_b->data > stack_b->next->data)
-//				{
-//					apply_instructions(&stack_a, &stack_b, RB);
-//					enqueue(&instr_queue, RB);
-//				}
-//				// cuando las dos pilas se encuentran ordenadas, hay que empezar a pasar de 'b' a 'a'
-//				else if ( (stack_b->data == sorted_stack->data))
-//				{
-//					apply_instructions(&stack_a, &stack_b, PA);
-//					enqueue(&instr_queue, PA);
-//					apply_instructions(&stack_a, &stack_b, RA);
-//					enqueue(&instr_queue, RA);
-//				}
-//			}
-//			apply_instructions(&stack_a, &stack_b, PB);
-//			enqueue(&instr_queue, PB);
-//1) aplicar reglas de insertion sort en la pila B, completar validaciones
-//2) movimientos multiples, establecer reglas
-//		}
-
-
-/*
- * 18 de marzo
- */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
@@ -253,9 +171,6 @@ int main(int argc, char **argv)
 	build_input(argc - 1, argv, &stack_a, &sorted_stack);
 	sorted_stack = merge_sort(sorted_stack);
 
-//	display(stack_a, "init stack a"); //test
-//	display(sorted_stack, "sorted"); //test
-
 //	display_step(stack_a, stack_b, sorted_stack,1, 1);
 
 // selection sort stack A initial conditions, completar
@@ -287,31 +202,130 @@ int main(int argc, char **argv)
 			inst = PA;
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
+		else if (stack_a->data < sorted_stack->data &&
+				 stack_b->data > stack_b->prev->data)
+		{
+			inst = RB;
+			apply_instructions(&stack_a, &stack_b, inst);
+		}
 		else if (stack_b == NULL || stack_b->data == stack_b->prev->data)
 		{
 			inst = PB;
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
-		else if (stack_a->data > stack_b->data &&
-				stack_b->data > stack_b->prev->data &&
-				stack_b->data > stack_b->next->data)
+		else if (stack_a->data > stack_b->data && //validate
+				 stack_b->data > stack_b->prev->data &&
+				 stack_b->prev->data == stack_b->next->data)
 		{
 			inst = SB;
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
-		else if (stack_a->data > stack_b->data)
+		else if (stack_a->data < stack_b->data &&
+				 stack_a->data > stack_b->next->data &&
+				 stack_a->data < stack_b->prev->data)
 		{
-			inst = PB;
+			inst = RRB;
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
-		else if (stack_a->data < stack_b->data && stack_b->data > stack_b->next->data)
+		else if (stack_a->data > stack_b->data &&
+				 stack_a->data > stack_b->next->data &&
+				 stack_a->data < stack_b->prev->data)
+		{
+			inst = RRB;
+			apply_instructions(&stack_a, &stack_b, inst);
+		}
+		else if (stack_a->data > stack_b->data &&
+				 stack_a->data < stack_b->next->data &&
+				 stack_a->data < stack_b->prev->data)
 		{
 			inst = RB;
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
+		else if (stack_a->data > stack_b->data &&
+				 stack_a->data < stack_b->next->data &&
+				 stack_a->data > stack_b->prev->data)
+		{
+			inst = RB;
+			apply_instructions(&stack_a, &stack_b, inst);
+		}
+
+		else if (stack_a->data > stack_b->data &&
+				 stack_a->data > stack_b->next->data &&
+				 stack_a->data > stack_b->prev->data &&
+				 stack_b->data < stack_b->prev->data &&
+				 stack_b->prev->data != stack_b->next->data)
+		{
+			inst = RB;
+			apply_instructions(&stack_a, &stack_b, inst);
+		}
+
+//		else if (stack_a->data > stack_b->data &&
+//				 stack_a->data > stack_b->next->data &&
+//				 stack_a->data > stack_b->prev->data &&
+//				 stack_b->data > stack_b->prev->data &&
+//				 stack_b->data > stack_b->next->data &&
+//				 stack_b->prev->data != stack_b->next->data)
+//		{
+//			inst = RB;
+//			apply_instructions(&stack_a, &stack_b, inst);
+//		}
+
+
+
+
+
+
+
+
+
+
+
+//		else if (stack_a->data < stack_b->data &&
+//				 stack_b->data > stack_b->next->data &&
+//				 stack_b->next->data == stack_b->prev->data)
+//		{
+//			inst = PB;
+//			apply_instructions(&stack_a, &stack_b, inst);
+//		}
+//		else if (stack_a->data > stack_b->data &&
+//				stack_b->data > stack_b->prev->data &&
+//				stack_b->data > stack_b->next->data)
+//		{
+//			inst = RB;
+//			apply_instructions(&stack_a, &stack_b, inst);
+//		}
+//		else if (stack_a->data > stack_b->data &&
+//				 stack_b->data < stack_b->prev->data &&
+//				 stack_b->data > stack_b->next->data)
+//		{
+//			inst = RB;
+//			apply_instructions(&stack_a, &stack_b, inst);
+//		}
+//		else if (stack_a->data < stack_b->data &&
+//				 stack_b->data < stack_b->prev->data &&
+//				 stack_b->data > stack_b->next->data)
+//		{
+//			inst = RB;
+//			apply_instructions(&stack_a, &stack_b, inst);
+//		}
+//		else if (stack_a->data < stack_b->data &&
+//				 stack_b->data > stack_b->prev->data &&
+//				 stack_b->data > stack_b->next->data)
+//		{
+//			inst = RB;
+//			apply_instructions(&stack_a, &stack_b, inst);
+//		}
+
+//		else if (stack_a->data > stack_b->data)
+//		{
+//			inst = PB;
+//			apply_instructions(&stack_a, &stack_b, inst);
+//		}
+
+
 		else
 		{
-			inst = PB;
+			inst = PB; //revisar esta condicion
 			apply_instructions(&stack_a, &stack_b, inst);
 		}
 		enqueue(&instr_queue, inst);
