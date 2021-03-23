@@ -1,5 +1,6 @@
 .idea
 cmake-build-debug
-.o
-.exe
-.out
+*.o
+*.exe
+*.out
+*.a
