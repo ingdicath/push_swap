@@ -31,7 +31,7 @@ int	*pop2(t_node **head)
 	return (data);
 }
 
-int node_size(t_node *head)
+int	node_size(t_node *head)
 {
 	int i;
 	t_node *temp;
@@ -56,7 +56,7 @@ int node_size(t_node *head)
 	return (i);
 }
 
-void display_step(t_node *stack_a, t_node *stack_b, t_node *sorted_stack,
+void	display_step(t_node *stack_a, t_node *stack_b, t_node *sorted_stack,
 				  int count, int inst)
 {
 	int size_a;
@@ -110,7 +110,7 @@ void display_step(t_node *stack_a, t_node *stack_b, t_node *sorted_stack,
 	printf("----------------- %d\n", inst);
 }
 
-void display(t_node *head, char *name) //funcion de prueba
+void	display(t_node *head, char *name) //funcion de prueba
 {
 	t_node *temp;
 	t_node *tail;
@@ -133,7 +133,7 @@ void display(t_node *head, char *name) //funcion de prueba
 	printf("---- %s \n", name);
 }
 
-void display_qu(t_node *head, char *name) //funcion de prueba
+void	display_qu(t_node *head, char *name) //funcion de prueba
 {
 	t_node *temp;
 	t_node *tail;
@@ -155,52 +155,53 @@ void display_qu(t_node *head, char *name) //funcion de prueba
 	}
 	printf("---- %s \n", name);
 }
-int swap_a(t_node **stack_a, t_node *sorted_stack) //incluir en include
+
+int	swap_a(t_node **stack_a, t_node *sorted_stack) //incluir en include
 {
 	if ((*stack_a)->prev->data == sorted_stack->data)
 		return (1);
 	return (0);
 }
 
-int swap_b(t_node **stack_a, t_node **stack_b) //incluir en include
+int	swap_b(t_node **stack_a, t_node **stack_b) //incluir en include
 {
 	if ( *stack_b == NULL || (*stack_b)->prev->data !=  (*stack_b)->next->data)
 		return (0);
-	else if ( (*stack_a)->data >  (*stack_b)->data &&
-			  (*stack_b)->data >  (*stack_b)->prev->data
-			 &&  (*stack_a)->data >  (*stack_b)->next->data)
+	else if ((*stack_a)->data >  (*stack_b)->data &&
+			(*stack_b)->data >  (*stack_b)->prev->data &&
+			(*stack_a)->data >  (*stack_b)->next->data)
 		return (1);
-	else if ( (*stack_a)->data >  (*stack_b)->data &&
-			  (*stack_b)->data <  (*stack_b)->prev->data
-			 &&  (*stack_a)->data <  (*stack_b)->next->data)
+	else if ((*stack_a)->data >  (*stack_b)->data &&
+			(*stack_b)->data <  (*stack_b)->prev->data &&
+			(*stack_a)->data <  (*stack_b)->next->data)
 		return (1);
-	else if ( (*stack_a)->data <  (*stack_b)->data &&
-			  (*stack_b)->data >  (*stack_b)->prev->data
-			 &&  (*stack_a)->data <  (*stack_b)->next->data)
+	else if ((*stack_a)->data <  (*stack_b)->data &&
+			(*stack_b)->data >  (*stack_b)->prev->data &&
+			(*stack_a)->data <  (*stack_b)->next->data)
 		return (1);
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_node *stack_a;
-	t_node *stack_b;
-	t_node *sorted_stack;
-	t_node *instr_queue;
-	 int inst;
+	t_node	*stack_a;
+	t_node	*stack_b;
+	t_node	*sorted_stack;
+	t_node	*instr_queue;
+	 int	inst;
 
 	reset_input(&stack_a, &stack_b, &sorted_stack);
 	if (argc == 1)
 		return (0);
-	build_input(argc - 1, argv, &stack_a, &sorted_stack);
+	build_input(argc - 1, argv, &stack_a, &sorted_stack); //revisar spaces case
 	sorted_stack = merge_sort(sorted_stack);
 
 //	display_step(stack_a, stack_b, sorted_stack,1, 1);
 
 // selection sort stack A initial conditions, completar
 	int i = 0;
-	display_step(stack_a, stack_b, sorted_stack, i++, 0); //funcion prueba
-
+//	display_step(stack_a, stack_b, sorted_stack, i, 0); //funcion prueba
+	i++;
 	while (sorted_stack != NULL)
 	{
 		if (stack_a->data == sorted_stack->data)
@@ -208,12 +209,10 @@ int main(int argc, char **argv)
 			inst = RA;
 			pop2(&sorted_stack);
 		}
-		else if (swap_a(&stack_a, sorted_stack) &&
-				 swap_b(&stack_a, &stack_b))
+		else if (swap_a(&stack_a, sorted_stack) && swap_b(&stack_a, &stack_b))
 			inst = SS;
 		else if (swap_a(&stack_a, sorted_stack))
 			inst = SA;
-
 		else if (stack_a->next->data == sorted_stack->data)
 		{
 			pop2(&sorted_stack);
@@ -224,21 +223,20 @@ int main(int argc, char **argv)
 		else if (stack_b == NULL || stack_b->data == stack_b->prev->data)
 			inst = PB;
 		else if (stack_a->data < sorted_stack->data &&
-				 stack_b->data > stack_b->prev->data)
+				stack_b->data > stack_b->prev->data)
 			inst = RB;
 		else if (stack_a->data < stack_b->data &&
-				 stack_b->data > stack_b->next->data &&
-				 stack_b->data > stack_b->prev->data
-				 && stack_a->data < stack_b->prev->data
-				 && stack_b->prev->data != stack_b->next->data
-				 )
+				stack_b->data > stack_b->next->data &&
+				stack_b->data > stack_b->prev->data &&
+				stack_a->data < stack_b->prev->data &&
+				stack_b->prev->data != stack_b->next->data)
 			inst = RB;
 		else if (stack_a->data < stack_b->data &&
-				 stack_b->data > stack_b->next->data &&
-				 stack_b->data > stack_b->prev->data
-				 && stack_a->data > stack_b->prev->data
-				 && stack_a->data < stack_b->next->data
-				 && stack_b->prev->data != stack_b->next->data)
+				stack_b->data > stack_b->next->data &&
+				stack_b->data > stack_b->prev->data &&
+				stack_a->data > stack_b->prev->data &&
+				stack_a->data < stack_b->next->data &&
+				stack_b->prev->data != stack_b->next->data)
 			inst = RB;
 		else if (stack_a->data > stack_b->data &&
 				stack_b->data > stack_b->prev->data &&
@@ -246,9 +244,9 @@ int main(int argc, char **argv)
 				stack_b->prev->data != stack_b->next->data)
 			inst = RB;
 		else if (stack_a->data > stack_b->data &&
-				 stack_b->data < stack_b->prev->data &&
-				 stack_b->data > stack_b->next->data &&
-				 stack_b->prev->data != stack_b->next->data)
+				stack_b->data < stack_b->prev->data &&
+				stack_b->data > stack_b->next->data &&
+				stack_b->prev->data != stack_b->next->data)
 			inst = RB;
 		else if (stack_a->data > stack_b->data &&
 				stack_b->data < stack_b->prev->data &&
@@ -257,20 +255,21 @@ int main(int argc, char **argv)
 				stack_b->prev->data != stack_b->next->data)
 			inst = RB;
 		else if (stack_a->data < stack_b->data &&
-				 stack_b->data < stack_b->prev->data &&
-				 stack_b->data > stack_b->next->data
-				 && stack_a->data < stack_b->next->data
-				&& stack_b->prev->data != stack_b->next->data)
+				stack_b->data < stack_b->prev->data &&
+				stack_b->data > stack_b->next->data &&
+				stack_a->data < stack_b->next->data &&
+				stack_b->prev->data != stack_b->next->data)
 			inst = RRB;
-
 		else if (swap_b(&stack_a, &stack_b))
 			inst = SB;
 		else
 			inst = PB;
-
 		apply_instructions(&stack_a, &stack_b, inst);
 		enqueue(&instr_queue, inst);
-		display_step(stack_a, stack_b, sorted_stack, i++, inst); //funcion prueba
+		display_step(stack_a, stack_b, sorted_stack, i, inst); //funcion prueba
+		i++;  // remove, it is just for testing
 	}
+//	display_step(stack_a, stack_b, sorted_stack, i, inst);
+	printf("Moves %d\n", i-1);
 	return (0);
 }
