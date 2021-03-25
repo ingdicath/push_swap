@@ -23,6 +23,10 @@
 # include "libft/libft.h"
 # include <stdio.h> //borrar
 
+/*
+** ------------------ Circular doubly-linked list -----------------------------
+*/
+
 typedef struct s_node
 {
 	int				data;
@@ -30,6 +34,9 @@ typedef struct s_node
 	struct s_node	*prev;
 }	t_node;
 
+/*
+** -------------------------- Movements ---------------------------------------
+*/
 typedef enum e_inst
 {
 	SA = 1,
@@ -77,10 +84,20 @@ void	reset_input(t_node **stack_a, t_node **stack_b, t_node **sorted);
 t_node	*sort_checker(t_node *stack_a, t_node *stack_b); //revisar
 
 /*
-** ------------------------------ test functions -----------------------------------
+** ------------------------------ push_swap -----------------------------------
+*/
+
+int		*pop_sorted_stack(t_node **head);
+int		node_size(t_node *head);
+int		swap_a(t_node **stack_a, t_node *sorted_stack);
+int		swap_b(t_node **stack_a, t_node **stack_b);
+int		sorted(t_node *stack_a);
+/*
+** ------------------------------ test functions ------------------------------
 */
 
 void	display(t_node *head, char *name);
 void	display_qu(t_node *head, char *name);
-
+void	display_step(t_node *stack_a, t_node *stack_b, t_node *sorted_stack,
+					 int count, int inst);
 #endif

@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	*pop2(t_node **head)
+int	*pop_sorted_stack(t_node **head)
 {
 	int		*data;
 	t_node	*temp;
@@ -57,7 +57,7 @@ int	node_size(t_node *head)
 }
 
 void	display_step(t_node *stack_a, t_node *stack_b, t_node *sorted_stack,
-				  int count, int inst)
+				  int count, int inst) //funcion de prueba
 {
 	int size_a;
 	int size_b;
@@ -156,14 +156,14 @@ void	display_qu(t_node *head, char *name) //funcion de prueba
 	printf("---- %s \n", name);
 }
 
-int	swap_a(t_node **stack_a, t_node *sorted_stack) //incluir en include
+int	swap_a(t_node **stack_a, t_node *sorted_stack)
 {
 	if ((*stack_a)->prev->data == sorted_stack->data)
 		return (1);
 	return (0);
 }
 
-int	swap_b(t_node **stack_a, t_node **stack_b) //incluir en include
+int	swap_b(t_node **stack_a, t_node **stack_b)
 {
 	if ( *stack_b == NULL || (*stack_b)->prev->data !=  (*stack_b)->next->data)
 		return (0);
@@ -182,6 +182,23 @@ int	swap_b(t_node **stack_a, t_node **stack_b) //incluir en include
 	return (0);
 }
 
+// Verify stack a is sorted, before starting
+int	sorted(t_node *stack_a)
+{
+	t_node	*temp;
+
+	if (!stack_a)
+		return (0);
+	temp = stack_a;
+	while (temp->prev != stack_a)
+	{
+		if (temp->data > temp->prev->data)
+			return (0);
+		temp = temp->prev;
+	}
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_node	*stack_a;
@@ -193,31 +210,93 @@ int	main(int argc, char **argv)
 	reset_input(&stack_a, &stack_b, &sorted_stack);
 	if (argc == 1)
 		return (0);
-	build_input(argc - 1, argv, &stack_a, &sorted_stack); //revisar spaces case
+	build_input(argc - 1, argv, &stack_a, &sorted_stack); //revisar toca hacer dos veces ctrl + D
+	if (sorted(stack_a))
+		exit(0);
 	sorted_stack = merge_sort(sorted_stack);
 
 //	display_step(stack_a, stack_b, sorted_stack,1, 1);
 
-// selection sort stack A initial conditions, completar
 	int i = 0;
-//	display_step(stack_a, stack_b, sorted_stack, i, 0); //funcion prueba
 	i++;
+//	display_step(stack_a, stack_b, sorted_stack, i, 0); //funcion prueba
+
 	while (sorted_stack != NULL)
 	{
-		if (stack_a->data == sorted_stack->data)
+		if (stack_a->next->data == stack_a->prev->prev->data &&
+			((stack_a->data > stack_a->prev->data &&
+			  stack_a->data > stack_a->next->data)||
+			 (stack_a->data < stack_a->prev->data &&
+			  stack_a->data < stack_a->next->data)) &&
+			stack_a->prev->data > stack_a->next->data &&
+			swap_b(&stack_a, &stack_b))
+			inst = SS;
+		else if (stack_a->next->data == stack_a->prev->prev->data &&
+			((stack_a->data > stack_a->prev->data &&
+			  stack_a->data > stack_a->next->data)||
+			 (stack_a->data < stack_a->prev->data &&
+			  stack_a->data < stack_a->next->data)) &&
+			stack_a->prev->data > stack_a->next->data)
+			inst = SA;
+		else if (stack_a->next->data == stack_a->prev->prev->data &&
+				stack_a->data > stack_a->prev->data &&
+				stack_a->data < stack_a->next->data)
+		{
+			inst = SA;
+			if (stack_a->prev->data == sorted_stack->data)
+				pop_sorted_stack(&sorted_stack);
+			if (stack_a->data == sorted_stack->data)
+				pop_sorted_stack(&sorted_stack);
+			if (stack_a->next->data == sorted_stack->data)
+				pop_sorted_stack(&sorted_stack);
+		}
+		else if (stack_a->next->data == stack_a->prev->prev->data &&
+				stack_a->data > stack_a->prev->data &&
+				stack_a->data > stack_a->next->data)
 		{
 			inst = RA;
-			pop2(&sorted_stack);
+			if (stack_a->prev->data == sorted_stack->data)
+				pop_sorted_stack(&sorted_stack);
+			if (stack_a->next->data == sorted_stack->data)
+				pop_sorted_stack(&sorted_stack);
+			if (stack_a->data == sorted_stack->data)
+				pop_sorted_stack(&sorted_stack);
+		}
+		else if (stack_a->next->data == stack_a->prev->prev->data &&
+				stack_a->data < stack_a->prev->data &&
+				stack_a->data > stack_a->next->data)
+		{
+			inst = RRA;
+			if (stack_a->next->data == sorted_stack->data)
+				pop_sorted_stack(&sorted_stack);
+			if (stack_a->data == sorted_stack->data)
+				pop_sorted_stack(&sorted_stack);
+			if (stack_a->prev->data == sorted_stack->data)
+				pop_sorted_stack(&sorted_stack);
+		}
+		else if (stack_a->data == sorted_stack->data)
+		{
+			inst = RA;
+			pop_sorted_stack(&sorted_stack);
+		}
+		else if (stack_a->next->data == sorted_stack->data)
+		{
+			pop_sorted_stack(&sorted_stack);
+			continue ;
 		}
 		else if (swap_a(&stack_a, sorted_stack) && swap_b(&stack_a, &stack_b))
 			inst = SS;
 		else if (swap_a(&stack_a, sorted_stack))
 			inst = SA;
-		else if (stack_a->next->data == sorted_stack->data)
-		{
-			pop2(&sorted_stack);
-			continue ;
-		}
+		else if (stack_a->prev->data < stack_a->next->data &&
+				stack_a->data < stack_a->next->data &&
+				stack_a->next->data > sorted_stack->data &&
+				stack_a->prev->data > sorted_stack->data)
+			inst = RRA;
+		else if (stack_a->data < stack_a->prev->data &&
+				stack_a->next->data < stack_a->prev->data &&
+				stack_a->prev->data > sorted_stack->data)
+			inst = SA;
 		else if (stack_b != NULL && stack_b->data == sorted_stack->data)
 			inst = PA;
 		else if (stack_b == NULL || stack_b->data == stack_b->prev->data)

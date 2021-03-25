@@ -169,5 +169,4 @@ echo ""
 ./push_swap.exe 5 -6 -3 1 2 3 7 9 4 -5 10 11 8 6 12 -4
 
 
-
-./push_swap.exe 2 5 3 1 4
+./push_swap.exe 9 1 2 3 6 10 -3 11 4 -5 7 8 -6 -4 5 12
