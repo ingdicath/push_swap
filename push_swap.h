@@ -92,6 +92,8 @@ int		node_size(t_node *head);
 int		swap_a(t_node **stack_a, t_node *sorted_stack);
 int		swap_b(t_node **stack_a, t_node **stack_b);
 int		sorted(t_node *stack_a);
+//void sort_3(t_node **stack_a, t_node **stack_b, t_node *sorted_stack) //chequear
+
 /*
 ** ------------------------------ test functions ------------------------------
 */
