@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   checks.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/03/29 08:06:45 by dsalaman      #+#    #+#                 */
+/*   Updated: 2021/03/29 08:06:45 by dsalaman      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	check_sort(t_node *stack_a, t_node *stack_b, t_node *sorted)

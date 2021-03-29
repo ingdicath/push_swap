@@ -88,18 +88,23 @@ t_node	*sort_checker(t_node *stack_a, t_node *stack_b); //revisar
 */
 
 int		*pop_sorted_stack(t_node **head);
-int		node_size(t_node *head);
-int		swap_a(t_node **stack_a, t_node *sorted_stack);
-int		swap_b(t_node **stack_a, t_node **stack_b);
+int		check_swap_a(t_node *stack_a, t_node *sorted_stack);
+int		check_swap_b(t_node *stack_a, t_node *stack_b);
 int		sorted(t_node *stack_a);
-//void sort_3(t_node **stack_a, t_node **stack_b, t_node *sorted_stack) //chequear
+t_node	*get_node_from_index(int index, t_node *head_a);
+int		choose_best_node_index(int index, int winner, t_node *head_a);
+int		find_index_less_moves(int *moves, t_node *head_a);
+void	set_moves_array(int *moves, t_node *stack_a, t_node *stack_b);
+int		next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack);
+int		find_len_stack(t_node **head); //check if remains
 
 /*
 ** ------------------------------ test functions ------------------------------
 */
 
+int		node_size(t_node *head);
 void	display(t_node *head, char *name);
 void	display_qu(t_node *head, char *name);
 void	display_step(t_node *stack_a, t_node *stack_b, t_node *sorted_stack,
-					 int count, int inst);
+				int count, int inst); // test function, borrar despues
 #endif

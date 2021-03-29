@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   input.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/03/29 08:07:09 by dsalaman      #+#    #+#                 */
+/*   Updated: 2021/03/29 08:07:09 by dsalaman      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 // tail is included to disconnect from a circular double linked list
