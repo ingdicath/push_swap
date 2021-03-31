@@ -12,6 +12,32 @@
 
 #include "push_swap.h"
 
+void	print_instructions(int instr) //incluir en el header
+{
+	if (SA == instr)
+		ft_putstr_fd("sa", STDOUT_FILENO);
+	else if (SB == instr)
+		ft_putstr_fd("sb", STDOUT_FILENO);
+	else if (SS == instr)
+		ft_putstr_fd("ss", STDOUT_FILENO);
+	else if (PA == instr)
+		ft_putstr_fd("pa", STDOUT_FILENO);
+	else if (PB == instr)
+		ft_putstr_fd("pb", STDOUT_FILENO);
+	else if (RA == instr)
+		ft_putstr_fd("ra", STDOUT_FILENO);
+	else if (RB == instr)
+		ft_putstr_fd("rb", STDOUT_FILENO);
+	else if (RR == instr)
+		ft_putstr_fd("rr", STDOUT_FILENO);
+	else if (RRA == instr)
+		ft_putstr_fd("rra", STDOUT_FILENO);
+	else if (RRB == instr)
+		ft_putstr_fd("rrb", STDOUT_FILENO);
+	else if (RRR == instr)
+		ft_putstr_fd("rrr", STDOUT_FILENO);
+}
+
 int	check_swap_a(t_node *stack_a, t_node *sorted_stack)
 {
 	if (stack_a->prev->data == sorted_stack->data)
@@ -44,7 +70,7 @@ int	main(int argc, char **argv)
 	t_node	*stack_b;
 	t_node	*sorted_stack;
 	t_node	*instr_queue;
-	 int	inst;
+	int	inst;
 
 	reset_input(&stack_a, &stack_b, &sorted_stack);
 	if (argc == 1)
@@ -76,7 +102,7 @@ int	main(int argc, char **argv)
 				  (stack_a->data < stack_a->prev->data && stack_a->data < stack_a->next->data)) &&
 				 stack_a->prev->data > stack_a->next->data)
 		{
-			printf("Ik ben een problem\n");
+//			printf("Ik ben een problem\n");
 			inst = SA;
 		}
 		else if (stack_a->next->data == stack_a->prev->prev->data &&
@@ -130,7 +156,7 @@ int	main(int argc, char **argv)
 			inst = SS;
 		else if (check_swap_a(stack_a, sorted_stack))
 		{
-			printf("Edgaaaaar!\n");
+//			printf("Edgaaaaar!\n");
 			inst = SA;
 		}
 		else if (stack_a->prev->data < stack_a->next->data &&
@@ -161,11 +187,30 @@ int	main(int argc, char **argv)
 
 		apply_instructions(&stack_a, &stack_b, inst);
 		enqueue(&instr_queue, inst);
-		display_step(stack_a, stack_b, sorted_stack, i, inst); //funcion prueba
+//		display_step(stack_a, stack_b, sorted_stack, i, inst); //funcion prueba
 		i++;  // remove, it is just for testing
 	}
+//	display_qu(instr_queue, "instructions");
 //	display_step(stack_a, stack_b, sorted_stack, i, inst);
-	printf("Moves %d\n", i-1);
+//	printf("Moves %d\n", i-1);
+
+//	printf("Instruction is: %d", inst);
+
+// print instructions
+	int *step;
+	while (peek(instr_queue))
+	{
+		step = deque(&instr_queue);
+		print_instructions(*step);
+		if (instr_queue != NULL)
+			ft_putstr("\n");
+		else
+			write(1, "\n", 1);
+//		step = deque(&instr_queue);
+		free(step);
+//		pop de la cola
+//		lo que salga del pop lo envio al print
+	}
 	return (0);
 }
 

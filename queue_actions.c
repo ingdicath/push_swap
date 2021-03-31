@@ -33,7 +33,7 @@ void	enqueue(t_node **head, int data)
 		new_element->prev = tail;
 		new_element->next = *head;
 		(*head)->prev = new_element;
-		tail = new_element;
+//		tail = new_element;  ///check this, the value is never used
 	}
 }
 

@@ -81,7 +81,7 @@ t_node	*get_instructions(void);
 void	apply_instructions(t_node **stack_a, t_node **stack_b, int instr);
 int		check_sort(t_node *stack_a, t_node *stack_b, t_node *sorted);
 void	reset_input(t_node **stack_a, t_node **stack_b, t_node **sorted);
-t_node	*sort_checker(t_node *stack_a, t_node *stack_b); //revisar
+t_node	*sort_checker(t_node **stack_a, t_node **stack_b);
 
 /*
 ** ------------------------------ push_swap -----------------------------------

@@ -58,7 +58,7 @@ void	display_qu(t_node *head, char *name) //funcion de prueba
 	printf("---- %s \n", name);
 }
 
-t_node	*sort_checker(t_node *stack_a, t_node *stack_b)
+t_node	*sort_checker(t_node **stack_a, t_node **stack_b)
 {
 	int		*inst;
 	t_node	*instr_queue;
@@ -68,9 +68,9 @@ t_node	*sort_checker(t_node *stack_a, t_node *stack_b)
 	{
 		printf("instruction %d\n", *peek(instr_queue));
 		inst = deque(&instr_queue);
-		apply_instructions(&stack_a, &stack_b, *inst);
-		display(stack_a, "stack a -- middle");
-		display(stack_b, "stack b -- middle");
+		apply_instructions(stack_a, stack_b, *inst);
+		display(*stack_a, "stack a -- middle");
+		display(*stack_b, "stack b -- middle");
 		free(inst);
 	}
 	return (instr_queue);
@@ -89,7 +89,7 @@ int	main(int argc, char **argv)
 	sorted_stack = merge_sort(sorted_stack);
 	display(stack_a, "init stack a");
 	display(sorted_stack, "sorted");
-	sort_checker(stack_a, stack_b);
+	sort_checker(&stack_a, &stack_b);
 	if (check_sort(stack_a, stack_b, sorted_stack))
 		ft_putendl_fd("OK", STDOUT_FILENO);
 	else
