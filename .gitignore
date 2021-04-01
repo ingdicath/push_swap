@@ -4,3 +4,4 @@ cmake-build-debug
 *.exe
 *.out
 *.a
+.DS_Store
