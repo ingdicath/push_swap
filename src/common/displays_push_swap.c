@@ -1,4 +1,4 @@
-#include "../../push_swap.h"
+#include "push_swap.h"
 
 int	node_size(t_node *head)
 {

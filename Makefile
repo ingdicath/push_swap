@@ -9,13 +9,14 @@ WHITE = \033[0m
 # ----- Variables -----
 
 NAME = 		push_swap checker
-INCLUDES = 	push_swap.h
-
 CC = 		gcc
 FLAGS = 	-Wall -Werror -Wextra
 
 LIBFT = 	libft.a
-LIBFT_DIR = libft
+LIBFT_DIR = libft/
+
+INC_PS = includes/
+INCLUDES = -I $(INC_PS) -I $(LIBFT_DIR)
 
 DIR_SRC_PS = 		src/push_swap/
 DIR_SRC_CHECK = 	src/checker/
@@ -45,19 +46,19 @@ all: $(NAME)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
-	@cp $(LIBFT_DIR)/$(LIBFT) .
+	@cp $(LIBFT_DIR)$(LIBFT) .
 	@echo "$(CYAN)libft library successfully created$(WHITE)\n"
 
 $(word 1, $(NAME)): $(OBJ_PS) $(OBJ_COMMON) $(LIBFT)
-	@$(CC) $(FLAGS) -o $(word 1, $(NAME)) $(OBJ_PS) $(OBJ_COMMON) $(LIBFT)
+	@$(CC) $(FLAGS) -o $(word 1, $(NAME)) $(OBJ_PS) $(OBJ_COMMON) $(LIBFT) $(INCLUDES)
 	@echo "$(GREEN)push_swap successfully created$(WHITE)\n"
 
 $(word 2, $(NAME)): $(OBJ_CHECK) $(OBJ_COMMON) $(LIBFT)
-	@$(CC) $(FLAGS) -o $(word 2, $(NAME)) $(OBJ_CHECK) $(OBJ_COMMON) $(LIBFT)
+	@$(CC) $(FLAGS) -o $(word 2, $(NAME)) $(OBJ_CHECK) $(OBJ_COMMON) $(LIBFT) $(INCLUDES)
 	@echo "$(GREEN)checker successfully created$(WHITE)\n"
 
-%.o: %.c $(INCLUDES)
-	@$(CC) -c $(FLAGS) -Ilibft $< -o $@
+%.o: %.c
+	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	@rm -f $(OBJ) $(LIBFT)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../push_swap.h"
+#include "push_swap.h"
 
 int	check_sort(t_node *stack_a, t_node *stack_b, t_node *sorted)
 {
