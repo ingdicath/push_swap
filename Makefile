@@ -8,26 +8,36 @@ WHITE = \033[0m
 
 # ----- Variables -----
 
-NAME = push_swap checker
+NAME = 		push_swap checker
+INCLUDES = 	push_swap.h
 
-INCLUDES = push_swap.h
+CC = 		gcc
+FLAGS = 	-Wall -Werror -Wextra
 
-CC = gcc
-FLAGS = -Wall -Werror -Wextra
-
-LIBFT = libft.a
+LIBFT = 	libft.a
 LIBFT_DIR = libft
 
-SRC_PS = checks.c input.c instructions.c merge_sort.c node_actions.c\
-			queue_actions.c rotate_reverse_moves.c swap_push_moves.c\
-			utils.c main_push_swap.c displays_push_swap.c\
-			utils_push_swap.c choose_moves.c
-SRC_CHECK = checks.c input.c instructions.c merge_sort.c node_actions.c\
-			queue_actions.c rotate_reverse_moves.c swap_push_moves.c\
-			utils.c main.c
+DIR_SRC_PS = 		src/push_swap/
+DIR_SRC_CHECK = 	src/checker/
+DIR_SRC_COMMON = 	src/common/
 
-OBJ_PS = $(SRC_PS:.c=.o)
-OBJ_CHECK = $(SRC_CHECK:.c=.o)
+SRC_PS = 		push_swap.c choose_moves.c
+SRC_CHECK = 	check_sort.c checker.c
+SRC_COMMON = 	input.c instructions.c\
+				merge_sort.c node_actions.c\
+				queue_actions.c\
+				rotate_reverse_moves.c swap_push_moves.c\
+				utils.c utils_push_swap.c\
+				displays_push_swap.c
+
+PATH_SRC_PS = 		$(addprefix $(DIR_SRC_PS), $(SRC_PS))
+PATH_SRC_CHECK = 	$(addprefix $(DIR_SRC_CHECK), $(SRC_CHECK))
+PATH_SRC_COMMON = 	$(addprefix $(DIR_SRC_COMMON), $(SRC_COMMON))
+
+OBJ_PS = 		$(PATH_SRC_PS:%.c=%.o)
+OBJ_CHECK = 	$(PATH_SRC_CHECK:%.c=%.o)
+OBJ_COMMON = 	$(PATH_SRC_COMMON:%.c=%.o)
+OBJ = 			$(OBJ_PS) $(OBJ_CHECK) $(OBJ_COMMON)
 
 # ----- Rules -----
 
@@ -38,19 +48,19 @@ $(LIBFT):
 	@cp $(LIBFT_DIR)/$(LIBFT) .
 	@echo "$(CYAN)libft library successfully created$(WHITE)\n"
 
-$(word 1, $(NAME)): $(OBJ_PS) $(LIBFT)
-	@$(CC) $(FLAGS) -o $(word 1, $(NAME)) $(OBJ_PS) $(LIBFT)
+$(word 1, $(NAME)): $(OBJ_PS) $(OBJ_COMMON) $(LIBFT)
+	@$(CC) $(FLAGS) -o $(word 1, $(NAME)) $(OBJ_PS) $(OBJ_COMMON) $(LIBFT)
 	@echo "$(GREEN)push_swap successfully created$(WHITE)\n"
 
-$(word 2, $(NAME)): $(OBJ_CHECK) $(LIBFT)
-	@$(CC) $(FLAGS) -o $(word 2, $(NAME)) $(OBJ_CHECK) $(LIBFT)
+$(word 2, $(NAME)): $(OBJ_CHECK) $(OBJ_COMMON) $(LIBFT)
+	@$(CC) $(FLAGS) -o $(word 2, $(NAME)) $(OBJ_CHECK) $(OBJ_COMMON) $(LIBFT)
 	@echo "$(GREEN)checker successfully created$(WHITE)\n"
 
 %.o: %.c $(INCLUDES)
-	@$(CC) $(FLAGS) -Ilibft -c $< -o $@
+	@$(CC) -c $(FLAGS) -Ilibft $< -o $@
 
 clean:
-	@rm -f $(OBJ_PS) $(OBJ_CHECK) $(LIBFT)
+	@rm -f $(OBJ) $(LIBFT)
 	@make clean -C $(LIBFT_DIR)
 	@echo "$(PURPLE)Objects were removed - clean.$(WHITE)\n"
 
@@ -60,7 +70,7 @@ fclean: clean
 	@echo "$(ORANGE)Names were removed - fclean.$(WHITE)\n"
 
 sclean:
-	@rm -f $(OBJ_PS) $(OBJ_CHECK)
+	@rm -f $(OBJ)
 	@echo "Objects file were removed - small clean."
 
 push: sclean $(NAME)

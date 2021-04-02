@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../push_swap.h"
 
 // tail is included to disconnect from a circular double linked list
 void	build_input(int size, char **argv, t_node **a, t_node **sorted)

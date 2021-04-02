@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../push_swap.h"
 
 // Get element from array returns a node H, P or N
 t_node	*get_node_from_index(int index, t_node *head_a)

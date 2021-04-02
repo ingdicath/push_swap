@@ -10,53 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	display(t_node *head, char *name) //funcion de prueba
-{
-	t_node	*temp;
-	t_node	*tail;
-
-	temp = head;
-	if (head == NULL)
-		printf("Empty stack\n");
-	else
-	{
-		if (head->next != NULL)
-			tail = head->next;
-		while (temp != NULL && temp != tail)
-		{
-			printf("%d\n", temp->data);
-			temp = temp->prev;
-		}
-		if (temp != NULL)
-			printf("%d\n", temp->data);
-	}
-	printf("---- %s \n", name);
-}
-
-void	display_qu(t_node *head, char *name) //funcion de prueba
-{
-	t_node	*temp;
-	t_node	*tail;
-
-	temp = head;
-	if (head == NULL)
-		printf("Empty queue\n");
-	else
-	{
-		if (head->prev != NULL)
-			tail = head->prev;
-		while (temp != NULL && temp != tail)
-		{
-			printf("%d\n", temp->data);
-			temp = temp->next;
-		}
-		if (temp != NULL)
-			printf("%d\n", temp->data);
-	}
-	printf("---- %s \n", name);
-}
+#include "../../push_swap.h"
 
 t_node	*sort_checker(t_node **stack_a, t_node **stack_b)
 {

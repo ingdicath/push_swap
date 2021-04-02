@@ -6,7 +6,7 @@
 /*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/13 21:55:17 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/15 09:38:19 by dsalaman      ########   odam.nl         */
+/*   Updated: 2021/04/01 19:09:00 by dsalaman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int		find_index_less_moves(int *moves, t_node *head_a);
 void	set_moves_array(int *moves, t_node *stack_a, t_node *stack_b);
 int		next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack);
 int		find_len_stack(t_node **head); //check if remains
+void	print_instructions(int instr);
 
 /*
 ** ------------------------------ test functions ------------------------------

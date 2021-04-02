@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   checks.c                                           :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/03/29 08:06:45 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/29 08:06:45 by dsalaman      ########   odam.nl         */
+/*   Created: 2021/03/29 08:09:22 by dsalaman      #+#    #+#                 */
+/*   Updated: 2021/03/29 08:09:22 by dsalaman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../push_swap.h"
 
-int	check_sort(t_node *stack_a, t_node *stack_b, t_node *sorted)
+void	error_exit(void)
 {
-	if (stack_b != NULL)
-		return (0);
-	while (sorted != NULL)
+	ft_putendl_fd("Error", STDERR_FILENO);
+	exit(1); //revisar este codigo de error, 0? -1?
+}
+
+void	clean_stack(t_node **stack)
+{
+	if (*stack != NULL)
 	{
-		if (stack_a->data != sorted->data)
-			return (0);
-		stack_a = stack_a->prev;
-		sorted = sorted->prev;
+		free(*stack);
+		*stack = NULL;
 	}
-	return (1);
+}
+
+void	reset_input(t_node **stack_a, t_node **stack_b, t_node **sorted)
+{
+	*stack_a = NULL;
+	*stack_b = NULL;
+	*sorted = NULL;
 }

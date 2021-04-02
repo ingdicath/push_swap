@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   rotate_reverse_moves.c                             :+:    :+:            */
+/*   swap_push_moves.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/03/29 08:09:09 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/29 08:09:09 by dsalaman      ########   odam.nl         */
+/*   Created: 2021/03/29 08:09:14 by dsalaman      #+#    #+#                 */
+/*   Updated: 2021/03/29 08:09:14 by dsalaman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../push_swap.h"
 
-void	rotate(t_node **head)
+void	swap(t_node **head)
 {
-	if (*head != NULL)
-		*head = (*head)->prev;
+	int	temp;
+
+	if (*head == NULL)
+		return ;
+	temp = (*head)->data;
+	(*head)->data = (*head)->prev->data;
+	(*head)->prev->data = temp;
 }
 
-void	rotate_multiple(t_node **head_a, t_node **head_b)
+void	swap_multiple(t_node **head_a, t_node **head_b)
 {
-	rotate(head_a);
-	rotate(head_b);
+	swap(head_a);
+	swap(head_b);
 }
 
-void	reverse(t_node **head)
+void	push_to_stack(t_node **from, t_node **to)
 {
-	if (*head != NULL)
-		*head = (*head)->next;
-}
+	int	*data;
 
-void	reverse_multiple(t_node **head_a, t_node **head_b)
-{
-	reverse(head_a);
-	reverse(head_b);
+	data = pop(from);
+	if (data != NULL)
+		push(to, *data);
+	free(data);
 }

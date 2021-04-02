@@ -1,42 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main_push_swap.c                                   :+:    :+:            */
+/*   push_swap.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/03/29 08:40:06 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/29 08:40:06 by dsalaman      ########   odam.nl         */
+/*   Updated: 2021/04/01 19:22:15 by dsalaman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	print_instructions(int instr) //incluir en el header
-{
-	if (SA == instr)
-		ft_putstr_fd("sa", STDOUT_FILENO);
-	else if (SB == instr)
-		ft_putstr_fd("sb", STDOUT_FILENO);
-	else if (SS == instr)
-		ft_putstr_fd("ss", STDOUT_FILENO);
-	else if (PA == instr)
-		ft_putstr_fd("pa", STDOUT_FILENO);
-	else if (PB == instr)
-		ft_putstr_fd("pb", STDOUT_FILENO);
-	else if (RA == instr)
-		ft_putstr_fd("ra", STDOUT_FILENO);
-	else if (RB == instr)
-		ft_putstr_fd("rb", STDOUT_FILENO);
-	else if (RR == instr)
-		ft_putstr_fd("rr", STDOUT_FILENO);
-	else if (RRA == instr)
-		ft_putstr_fd("rra", STDOUT_FILENO);
-	else if (RRB == instr)
-		ft_putstr_fd("rrb", STDOUT_FILENO);
-	else if (RRR == instr)
-		ft_putstr_fd("rrr", STDOUT_FILENO);
-}
+#include "../../push_swap.h"
 
 int	check_swap_a(t_node *stack_a, t_node *sorted_stack)
 {

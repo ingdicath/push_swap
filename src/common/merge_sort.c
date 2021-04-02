@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../push_swap.h"
 
 // Function to merge two linked lists
 t_node	*merge(t_node *first, t_node *second)

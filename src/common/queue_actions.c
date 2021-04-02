@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   node_actions.c                                     :+:    :+:            */
+/*   queue_actions.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/03/29 08:08:41 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/29 08:08:41 by dsalaman      ########   odam.nl         */
+/*   Created: 2021/03/29 08:08:54 by dsalaman      #+#    #+#                 */
+/*   Updated: 2021/03/29 08:08:54 by dsalaman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../../push_swap.h"
 
-t_node	*create_element(int data)
-{
-	t_node	*new_element;
-
-	new_element = (t_node *)malloc(sizeof(t_node));
-	new_element->data = data;
-	new_element->prev = NULL;
-	new_element->next = NULL;
-	return (new_element);
-}
-
-void	push(t_node **head, int data)
+// put on queue
+void	enqueue(t_node **head, int data)
 {
 	t_node	*new_element;
 	t_node	*tail;
@@ -38,16 +28,26 @@ void	push(t_node **head, int data)
 	}
 	else
 	{
-		tail = (*head)->next;
-		(*head)->next = new_element;
-		new_element->prev = *head;
-		new_element->next = tail;
-		tail->prev = new_element;
-		*head = new_element;
+		tail = (*head)->prev;
+		tail->next = new_element;
+		new_element->prev = tail;
+		new_element->next = *head;
+		(*head)->prev = new_element;
+//		tail = new_element;  ///check this, the value is never used
 	}
 }
 
-int	*pop(t_node **head)
+// chismosear head node
+int	*peek(t_node *head)
+{
+	if (head == NULL)
+		return (NULL);
+	else
+		return (&head->data);
+}
+
+// remove from the queue
+int	*deque(t_node **head)
 {
 	int		*data;
 	t_node	*temp;
@@ -60,10 +60,10 @@ int	*pop(t_node **head)
 		*head = NULL;
 	else
 	{
-		tail = (*head)->next;
-		*head = (*head)->prev;
-		(*head)->next = tail;
-		tail->prev = *head;
+		tail = (*head)->prev;
+		*head = (*head)->next;
+		(*head)->prev = tail;
+		tail->next = *head;
 	}
 	data = (int *)malloc(sizeof(int));
 	*data = temp->data;
