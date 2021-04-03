@@ -1,3 +1,7 @@
+#
+# Created by dsalaman on 2021/04/03
+#
+
 # ----- Colors -----
 
 CYAN = \033[38;5;81m
@@ -21,6 +25,7 @@ INCLUDES = 			-I $(INC_PS) -I $(LIBFT_DIR)
 DIR_SRC_PS = 		src/push_swap/
 DIR_SRC_CHECK = 	src/checker/
 DIR_SRC_COMMON = 	src/common/
+#DIR_OBJ = 			objs/
 
 SRC_PS = 			push_swap.c choose_moves.c
 SRC_CHECK = 		check_sort.c checker.c
@@ -36,6 +41,11 @@ OBJ_PS = 			$(PATH_SRC_PS:%.c=%.o)
 OBJ_CHECK = 		$(PATH_SRC_CHECK:%.c=%.o)
 OBJ_COMMON = 		$(PATH_SRC_COMMON:%.c=%.o)
 OBJ = 				$(OBJ_PS) $(OBJ_CHECK) $(OBJ_COMMON)
+
+#OBJ_PS = 			$(PATH_SRC_PS:%.c=%.o))
+#OBJ_CHECK = 		$(addprefix $(DIR_OBJ), $(PATH_SRC_CHECK:%.c=%.o))
+#OBJ_COMMON = 		$(addprefix $(DIR_OBJ), $(PATH_SRC_COMMON:%.c=%.o))
+#OBJ = 				$(OBJ_PS) $(OBJ_CHECK) $(OBJ_COMMON)
 
 # ----- Rules -----
 
@@ -53,6 +63,12 @@ $(word 1, $(NAME)): $(OBJ_PS) $(OBJ_COMMON) $(LIBFT)
 $(word 2, $(NAME)): $(OBJ_CHECK) $(OBJ_COMMON) $(LIBFT)
 	@$(CC) $(FLAGS) -o $(word 2, $(NAME)) $(OBJ_CHECK) $(OBJ_COMMON) $(LIBFT) $(INCLUDES)
 	@echo "$(GREEN)checker successfully created$(WHITE)\n"
+
+#$(DIR_OBJ):
+#	@mkdir -p $@
+#
+#$(OBJ): $(DIR_OBJ)%.o:%.c
+#	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
 
 %.o: %.c
 	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@

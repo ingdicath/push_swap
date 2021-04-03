@@ -1,14 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   instructions.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/03/29 08:08:03 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/04/01 19:22:08 by dsalaman      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+/*
+** Created by dsalaman on 2021/04/03
+*/
 
 #include "push_swap.h"
 
@@ -27,7 +19,7 @@ int	read_instruction(char *input)
 	else if (ft_strcmp("ra", input) == 0)
 		return (RA);
 	else if (ft_strcmp("rb", input) == 0)
-		return (RA);
+		return (RB);
 	else if (ft_strcmp("rr", input) == 0)
 		return (RR);
 	else if (ft_strcmp("rra", input) == 0)

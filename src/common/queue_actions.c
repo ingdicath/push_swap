@@ -1,22 +1,12 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   queue_actions.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/03/29 08:08:54 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/29 08:08:54 by dsalaman      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+/*
+** Created by dsalaman on 2021/04/03
+*/
 
 #include "push_swap.h"
 
-/*
-** Enqueue: adding an element to the rear of the queue.
-** Peek: returns the value of the head node without dequeuing it.
-** Dequeue: removing an element from the front of the queue.
-*/
+// Enqueue: adding an element to the rear of the queue.
+// Dequeue: removing an element from the front of the queue.
+// Peek: returns the value of the head node without dequeuing it.
 
 void	enqueue(t_node **head, int data)
 {
@@ -38,7 +28,6 @@ void	enqueue(t_node **head, int data)
 		new_element->prev = tail;
 		new_element->next = *head;
 		(*head)->prev = new_element;
-//		tail = new_element;  ///check this, the value is never used
 	}
 }
 

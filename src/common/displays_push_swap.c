@@ -78,7 +78,8 @@ void	display_step(t_node *stack_a, t_node *stack_b, t_node *sorted_stack,
 		printf("\n");
 		i--;
 	}
-	printf("----------------- %d\n", inst);
+	print_instructions(inst);
+	printf("  >  ------- %d\n", inst);
 }
 
 void	display(t_node *head, char *name) //funcion de prueba

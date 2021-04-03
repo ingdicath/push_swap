@@ -1,17 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   choose_moves.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/03/29 08:37:18 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/29 08:37:18 by dsalaman      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+/*
+** Created by dsalaman on 2021/04/03
+*/
 
 #include "push_swap.h"
-
 
 // Get element from array returns a node Head, Prev or Next
 
@@ -41,9 +32,7 @@ int	choose_best_node_index(int index, int winner, t_node *head_a)
 		return (winner);
 }
 
-/*
-** Get the element from stack A that requires less movements to push in stack B
-*/
+// Get the element from stack A that requires less movements to push in stack B
 
 int	find_index_less_moves(int *moves, t_node *head_a)
 {
@@ -65,33 +54,50 @@ int	find_index_less_moves(int *moves, t_node *head_a)
 	return (winner);
 }
 
-/*
-** Find the amount of movements.
-** First, we calculate differences between A-Head, A-Prev and A-Next vs stack B
-*/
+// Find the amount of movements.
+// First, we calculate differences between A-Head, A-Prev and A-Next vs stack 'b'
+// temp is for current value
+// biggest finds breakpoint
 
 void	set_moves_array(int *moves, t_node *stack_a, t_node *stack_b) //acortar
 {
 	t_node	*temp;
 	int		res;
+	int		biggest;
 
 	temp = stack_b;
+	biggest = temp->data;
 	while (temp)
 	{
 		res = stack_a->data - temp->data;
-		if (res > 0 && moves[1] == 0)
+		if (biggest > temp->data)
+			res *= -1;
+		if (biggest > stack_a->data)
+			res *= -1;
+//		if (res > 0 && moves[1] == 0)
+		if (res > 0)
 			moves[0]++;
 		else if (res < 0)
 			moves[1]++;
 		res = stack_a->prev->data - temp->data;
-		if (res > 0 && moves[3] == 0)
+		if (biggest > temp->data)
+			res *= -1;
+		if (biggest > stack_a->data)
+			res *= -1;
+//		if (res > 0 && moves[3] == 0)
+		if (res > 0)
 			moves[2]++;
 		else if (res < 0)
 			moves[3]++;
 		if (moves[4] != -1)
 		{
 			res = stack_a->next->data - temp->data;
-			if (res > 0 && moves[5] == 0)
+			if (biggest > temp->data)
+				res *= -1;
+			if (biggest > stack_a->data)
+				res *= -1;
+			if (res > 0)
+//			if (res > 0 && moves[5] == 0)
 				moves[4]++;
 			else if (res < 0)
 				moves[5]++;
@@ -102,16 +108,14 @@ void	set_moves_array(int *moves, t_node *stack_a, t_node *stack_b) //acortar
 	}
 }
 
-/*
-** Choose next move
-*/
+// Choose next move
 
 int	next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack)
 {
 	int	moves[6];
 	int	winner;
 
-	printf("Hola\n"); //quitar despues
+//	printf("Hola\n"); //quitar despues
 	ft_bzero(moves, 6);
 	if (stack_a->next->data < sorted_stack->data)
 	{
@@ -120,8 +124,8 @@ int	next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack)
 	}
 	set_moves_array(moves, stack_a, stack_b);
 	winner = find_index_less_moves(moves, stack_a);
-	printf("0-%d 1-%d 2-%d 3-%d 4-%d 5-%d\n", moves[0], moves[1], moves[2], moves[3], moves[4], moves[5]); //quitar despues
-	printf("winner: %d, value %d\n", winner, moves[winner]); //quitar despues
+//	printf("0-%d 1-%d 2-%d 3-%d 4-%d 5-%d\n", moves[0], moves[1], moves[2], moves[3], moves[4], moves[5]); //quitar despues
+//	printf("winner: %d, value %d\n", winner, moves[winner]); //quitar despues
 	if ((winner == 0 || winner == 1) && moves[winner] == 0 )
 		return (PB);
 	else if (winner == 0)

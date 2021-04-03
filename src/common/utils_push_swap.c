@@ -1,14 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   utils_push_swap.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/03/29 08:32:00 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/29 08:32:00 by dsalaman      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+/*
+** Created by dsalaman on 2021/04/03
+*/
 
 #include "push_swap.h"
 
@@ -30,7 +22,8 @@ int	*pop_sorted_stack(t_node **head)
 	return (data);
 }
 
-// Verify stack a is sorted, before starting
+// Verifies if stack 'a' is already sorted
+
 int	sorted(t_node *stack_a)
 {
 	t_node	*temp;
@@ -47,7 +40,7 @@ int	sorted(t_node *stack_a)
 	return (1);
 }
 
-int	find_len_stack(t_node **head)
+int	find_len_stack(t_node **head) //borrar si no se necesita
 {
 	t_node	*stack;
 	t_node	*end;

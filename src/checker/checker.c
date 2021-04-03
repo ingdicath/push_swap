@@ -1,14 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/03/15 09:51:57 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/15 09:51:57 by dsalaman      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+/*
+** Created by dsalaman on 2021/04/03
+*/
 
 #include "push_swap.h"
 
@@ -18,13 +10,16 @@ t_node	*sort_checker(t_node **stack_a, t_node **stack_b)
 	t_node	*instr_queue;
 
 	instr_queue = get_instructions();
+//	int i=1; //borrar
 	while (peek(instr_queue))
 	{
 		printf("instruction %d\n", *peek(instr_queue));
 		inst = deque(&instr_queue);
 		apply_instructions(stack_a, stack_b, *inst);
-		display(*stack_a, "stack a -- middle");
-		display(*stack_b, "stack b -- middle");
+//		display(*stack_a, "stack a -- middle");
+//		display(*stack_b, "stack b -- middle");
+//		display_step(*stack_a, *stack_b, NULL, i++, *inst); //funcion prueba
+
 		free(inst);
 	}
 	return (instr_queue);

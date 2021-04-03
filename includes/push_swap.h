@@ -68,7 +68,7 @@ void	rotate_multiple(t_node **head_a, t_node **head_b);
 void	reverse(t_node **head);
 void	reverse_multiple(t_node **head_a, t_node **head_b);
 void	error_exit(void);
-void	clean_stack(t_node **stack);
+void	clean_stack(t_node **stack); //borrar
 void	build_input(int size, char **argv, t_node **a, t_node **sorted);
 t_node	*merge(t_node *first, t_node *second);
 t_node	*split_merge_sort(t_node *head);

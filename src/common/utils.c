@@ -1,14 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/03/29 08:09:22 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/29 08:09:22 by dsalaman      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+/*
+** Created by dsalaman on 2021/04/03
+*/
 
 #include "push_swap.h"
 
@@ -18,7 +10,7 @@ void	error_exit(void)
 	exit(1); //revisar este codigo de error, 0? -1?
 }
 
-void	clean_stack(t_node **stack)
+void	clean_stack(t_node **stack) //borrar luego si no se nececita
 {
 	if (*stack != NULL)
 	{

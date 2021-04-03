@@ -1,18 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   merge_sort.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/03/29 08:08:33 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/29 08:08:33 by dsalaman      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+/*
+** Created by dsalaman on 2021/04/03
+*/
 
 #include "push_swap.h"
 
-// Function to merge two linked lists
+// Function to merge two doubly-linked lists using recursion
+
 t_node	*merge(t_node *first, t_node *second)
 {
 	if (!first)
@@ -40,8 +33,9 @@ t_node	*merge(t_node *first, t_node *second)
 	}
 }
 
-// Split a doubly linked list (DLL) into 2 DLLs of half sizes
-// we use prev because we start in the top of the stack
+// Split a doubly-linked list (DLL) into 2 DLLs of half size
+// This program uses "prev" because it starts on the top of the stack
+
 t_node	*split_merge_sort(t_node *head)
 {
 	t_node	*fast;
@@ -60,7 +54,8 @@ t_node	*split_merge_sort(t_node *head)
 	return (temp);
 }
 
-// Function to do merge sort
+// Applies merge-sort algorithm
+
 t_node	*merge_sort(t_node *head)
 {
 	t_node	*second;
