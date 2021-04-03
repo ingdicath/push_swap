@@ -8,37 +8,34 @@ WHITE = \033[0m
 
 # ----- Variables -----
 
-NAME = 		push_swap checker
-CC = 		gcc
-FLAGS = 	-Wall -Werror -Wextra
+NAME = 				push_swap checker
+CC = 				gcc
+FLAGS = 			-Wall -Werror -Wextra
 
-LIBFT = 	libft.a
-LIBFT_DIR = libft/
+LIBFT = 			libft.a
+LIBFT_DIR = 		libft/
 
-INC_PS = includes/
-INCLUDES = -I $(INC_PS) -I $(LIBFT_DIR)
+INC_PS = 			includes/
+INCLUDES = 			-I $(INC_PS) -I $(LIBFT_DIR)
 
 DIR_SRC_PS = 		src/push_swap/
 DIR_SRC_CHECK = 	src/checker/
 DIR_SRC_COMMON = 	src/common/
 
-SRC_PS = 		push_swap.c choose_moves.c
-SRC_CHECK = 	check_sort.c checker.c
-SRC_COMMON = 	input.c instructions.c\
-				merge_sort.c node_actions.c\
-				queue_actions.c\
-				rotate_reverse_moves.c swap_push_moves.c\
-				utils.c utils_push_swap.c\
-				displays_push_swap.c
+SRC_PS = 			push_swap.c choose_moves.c
+SRC_CHECK = 		check_sort.c checker.c
+SRC_COMMON = 		input.c instructions.c merge_sort.c node_actions.c\
+					queue_actions.c	rotate_reverse_moves.c swap_push_moves.c\
+					utils.c utils_push_swap.c displays_push_swap.c
 
 PATH_SRC_PS = 		$(addprefix $(DIR_SRC_PS), $(SRC_PS))
 PATH_SRC_CHECK = 	$(addprefix $(DIR_SRC_CHECK), $(SRC_CHECK))
 PATH_SRC_COMMON = 	$(addprefix $(DIR_SRC_COMMON), $(SRC_COMMON))
 
-OBJ_PS = 		$(PATH_SRC_PS:%.c=%.o)
-OBJ_CHECK = 	$(PATH_SRC_CHECK:%.c=%.o)
-OBJ_COMMON = 	$(PATH_SRC_COMMON:%.c=%.o)
-OBJ = 			$(OBJ_PS) $(OBJ_CHECK) $(OBJ_COMMON)
+OBJ_PS = 			$(PATH_SRC_PS:%.c=%.o)
+OBJ_CHECK = 		$(PATH_SRC_CHECK:%.c=%.o)
+OBJ_COMMON = 		$(PATH_SRC_COMMON:%.c=%.o)
+OBJ = 				$(OBJ_PS) $(OBJ_CHECK) $(OBJ_COMMON)
 
 # ----- Rules -----
 

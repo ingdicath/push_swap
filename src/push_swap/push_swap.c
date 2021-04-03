@@ -39,12 +39,15 @@ int	check_swap_b(t_node *stack_a, t_node *stack_b)
 }
 
 int	main(int argc, char **argv)
-{
+{		
 	t_node	*stack_a;
 	t_node	*stack_b;
 	t_node	*sorted_stack;
 	t_node	*instr_queue;
 	int	inst;
+
+	// printf("num of args: %d\n", argc);
+	// printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n", argv[0], argv[1], argv[2], argv[3], argv[4], argv[5], argv[6] );
 
 	reset_input(&stack_a, &stack_b, &sorted_stack);
 	if (argc == 1)

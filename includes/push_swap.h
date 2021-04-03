@@ -13,9 +13,9 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-/*
-** ------------------------------ Libraries -----------------------------------
-*/
+
+// ------------------------------ Libraries -----------------------------------
+
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -23,9 +23,8 @@
 # include "libft.h"
 # include <stdio.h> //borrar
 
-/*
-** ------------------ Circular doubly-linked list -----------------------------
-*/
+
+// ------------------ Circular doubly-linked list -----------------------------
 
 typedef struct s_node
 {
@@ -34,9 +33,9 @@ typedef struct s_node
 	struct s_node	*prev;
 }	t_node;
 
-/*
-** -------------------------- Movements ---------------------------------------
-*/
+
+// -------------------------- Movements ---------------------------------------
+
 typedef enum e_inst
 {
 	SA = 1,
@@ -53,9 +52,7 @@ typedef enum e_inst
 	ND = 12
 }	t_inst;
 
-/*
-** ------------------------------ checker -----------------------------------
-*/
+// ------------------------------ checker -----------------------------------
 
 t_node	*create_element(int data);
 void	push(t_node **head, int data);
@@ -83,9 +80,7 @@ int		check_sort(t_node *stack_a, t_node *stack_b, t_node *sorted);
 void	reset_input(t_node **stack_a, t_node **stack_b, t_node **sorted);
 t_node	*sort_checker(t_node **stack_a, t_node **stack_b);
 
-/*
-** ------------------------------ push_swap -----------------------------------
-*/
+// ------------------------------ push_swap -----------------------------------
 
 int		*pop_sorted_stack(t_node **head);
 int		check_swap_a(t_node *stack_a, t_node *sorted_stack);
@@ -98,10 +93,10 @@ void	set_moves_array(int *moves, t_node *stack_a, t_node *stack_b);
 int		next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack);
 int		find_len_stack(t_node **head); //check if remains
 void	print_instructions(int instr);
+void	fill_initial_stack(int i, char **str, t_node **a, t_node **sorted);
 
-/*
-** ------------------------------ test functions ------------------------------
-*/
+
+// ------------------------------ test functions ------------------------------
 
 int		node_size(t_node *head);
 void	display(t_node *head, char *name);

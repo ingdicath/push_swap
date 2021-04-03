@@ -12,7 +12,12 @@
 
 #include "push_swap.h"
 
-// put on queue
+/*
+** Enqueue: adding an element to the rear of the queue.
+** Peek: returns the value of the head node without dequeuing it.
+** Dequeue: removing an element from the front of the queue.
+*/
+
 void	enqueue(t_node **head, int data)
 {
 	t_node	*new_element;
@@ -37,7 +42,6 @@ void	enqueue(t_node **head, int data)
 	}
 }
 
-// chismosear head node
 int	*peek(t_node *head)
 {
 	if (head == NULL)
@@ -46,7 +50,6 @@ int	*peek(t_node *head)
 		return (&head->data);
 }
 
-// remove from the queue
 int	*deque(t_node **head)
 {
 	int		*data;

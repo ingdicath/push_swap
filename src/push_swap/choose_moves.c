@@ -12,7 +12,9 @@
 
 #include "push_swap.h"
 
-// Get element from array returns a node H, P or N
+
+// Get element from array returns a node Head, Prev or Next
+
 t_node	*get_node_from_index(int index, t_node *head_a)
 {
 	t_node	*element;
@@ -39,7 +41,10 @@ int	choose_best_node_index(int index, int winner, t_node *head_a)
 		return (winner);
 }
 
-// Get the element in stack A that requires less movements to push in stack B
+/*
+** Get the element from stack A that requires less movements to push in stack B
+*/
+
 int	find_index_less_moves(int *moves, t_node *head_a)
 {
 	int	index;
@@ -61,11 +66,11 @@ int	find_index_less_moves(int *moves, t_node *head_a)
 }
 
 /*
- * Find the amount of movements.
- * First, we calculate differences between A-Head, A-Prev and A-Next vs stack B
- */
+** Find the amount of movements.
+** First, we calculate differences between A-Head, A-Prev and A-Next vs stack B
+*/
 
-void	set_moves_array(int *moves, t_node *stack_a, t_node *stack_b)
+void	set_moves_array(int *moves, t_node *stack_a, t_node *stack_b) //acortar
 {
 	t_node	*temp;
 	int		res;
@@ -98,7 +103,7 @@ void	set_moves_array(int *moves, t_node *stack_a, t_node *stack_b)
 }
 
 /*
-* Choose next move
+** Choose next move
 */
 
 int	next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack)
@@ -106,7 +111,7 @@ int	next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack)
 	int	moves[6];
 	int	winner;
 
-	printf("Hola\n");
+	printf("Hola\n"); //quitar despues
 	ft_bzero(moves, 6);
 	if (stack_a->next->data < sorted_stack->data)
 	{
@@ -115,8 +120,8 @@ int	next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack)
 	}
 	set_moves_array(moves, stack_a, stack_b);
 	winner = find_index_less_moves(moves, stack_a);
-	printf("0-%d 1-%d 2-%d 3-%d 4-%d 5-%d\n", moves[0], moves[1], moves[2], moves[3], moves[4], moves[5] );
-	printf("winner: %d, value %d\n", winner, moves[winner]);
+	printf("0-%d 1-%d 2-%d 3-%d 4-%d 5-%d\n", moves[0], moves[1], moves[2], moves[3], moves[4], moves[5]); //quitar despues
+	printf("winner: %d, value %d\n", winner, moves[winner]); //quitar despues
 	if ((winner == 0 || winner == 1) && moves[winner] == 0 )
 		return (PB);
 	else if (winner == 0)

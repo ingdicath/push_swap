@@ -12,27 +12,62 @@
 
 #include "push_swap.h"
 
-// tail is included to disconnect from a circular double linked list
+// static void print_array(char **array) //borrar despues
+// {
+// 	int i;
+// 	i = 0;
+
+// 	while (array[i] != NULL)
+// 	{
+// 		printf("%s\n", array[i]);
+// 		i++;
+// 	}
+
+// }
+
+void	fill_initial_stack(int i, char **str, t_node **a, t_node **sorted)
+{
+	long	data;
+
+	// printf("i, %d str %s\n", i, str[i]);
+	if (!ft_isnumber(str[i]))
+		error_exit();
+	data = ft_atol(str[i]);
+	if (data > INT_MAX || data < INT_MIN)
+		error_exit();
+	push(a, (int)data);
+	push(sorted, (int)data);
+}
+
+/*
+**  Tail is included to disconnect sorted from a circular doubly-linked list
+*/
+
 void	build_input(int size, char **argv, t_node **a, t_node **sorted)
 {
 	int		i;
-	long	data;
 	t_node	*tail;
+	char	**str;
 
 	i = size;
+	str = argv;
+	if (size == 1)
+	{
+		str = ft_split(argv[1], ' ');
+		i = ft_array_size(str);
+	}		
+	// printf("size is: %d i %d\n", size, i);
+	// print_array(str);
 	while (i > 0)
 	{
-		if (!ft_isnumber(argv[i]))
-			break ;
-		data = ft_atol(argv[i]);
-		if (data > INT_MAX || data < INT_MIN)
-			break ;
-		push(a, (int)data);
-		push(sorted, (int)data);
+		if (size == 1)
+			fill_initial_stack(i - 1, str, a, sorted);
+		else
+			fill_initial_stack(i, str, a, sorted);
 		i--;
 	}
-	if (i > 0)
-		error_exit();
+	if (size == 1)
+		ft_free_array(str);
 	tail = (*sorted)->next;
 	(*sorted)->next = NULL;
 	tail->prev = NULL;
