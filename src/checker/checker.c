@@ -10,7 +10,7 @@ t_node	*sort_checker(t_node **stack_a, t_node **stack_b)
 	t_node	*instr_queue;
 
 	instr_queue = get_instructions();
-//	int i=1; //borrar
+	int i=1; //borrar
 	while (peek(instr_queue))
 	{
 		printf("instruction %d\n", *peek(instr_queue));
@@ -18,7 +18,7 @@ t_node	*sort_checker(t_node **stack_a, t_node **stack_b)
 		apply_instructions(stack_a, stack_b, *inst);
 //		display(*stack_a, "stack a -- middle");
 //		display(*stack_b, "stack b -- middle");
-//		display_step(*stack_a, *stack_b, NULL, i++, *inst); //funcion prueba
+		display_step(*stack_a, *stack_b, NULL, i++, *inst); //funcion prueba
 
 		free(inst);
 	}

@@ -23,7 +23,8 @@ int	choose_best_node_index(int index, int winner, t_node *head_a)
 {
 	t_node	*left;
 	t_node	*right;
-
+	if (winner == 0 || winner == 1)
+		return (winner);
 	left = get_node_from_index(index, head_a);
 	right = get_node_from_index(winner, head_a);
 	if (left->data < right->data)
@@ -43,9 +44,7 @@ int	find_index_less_moves(int *moves, t_node *head_a)
 	winner = 0;
 	while (index < 6)
 	{
-		if ((winner == 0 || winner == 1) && moves[winner] == 0)
-			break ;
-		else if (moves[index] < moves[winner] && moves[index] > -1)
+		if (moves[index] < moves[winner] && moves[index] > -1)
 			winner = index;
 		else if (moves[index] == moves[winner])
 			winner = choose_best_node_index(index, winner, head_a);
@@ -61,50 +60,61 @@ int	find_index_less_moves(int *moves, t_node *head_a)
 
 void	set_moves_array(int *moves, t_node *stack_a, t_node *stack_b) //acortar
 {
-	t_node	*temp;
-	int		res;
-	int		biggest;
+	t_node	*current;
+//	printf("init 0-%d 1-%d 2-%d 3-%d 4-%d 5-%d\n", moves[0], moves[1], moves[2], moves[3], moves[4], moves[5]); //quitar despues
 
-	temp = stack_b;
-	biggest = temp->data;
-	while (temp)
+	current = stack_b;
+	while (current)
 	{
-		res = stack_a->data - temp->data;
-		if (biggest > temp->data)
-			res *= -1;
-		if (biggest > stack_a->data)
-			res *= -1;
-//		if (res > 0 && moves[1] == 0)
-		if (res > 0)
-			moves[0]++;
-		else if (res < 0)
-			moves[1]++;
-		res = stack_a->prev->data - temp->data;
-		if (biggest > temp->data)
-			res *= -1;
-		if (biggest > stack_a->data)
-			res *= -1;
-//		if (res > 0 && moves[3] == 0)
-		if (res > 0)
-			moves[2]++;
-		else if (res < 0)
-			moves[3]++;
+		if (stack_a->data < stack_b->data)
+		{
+			if (stack_a->data < current->data && current->data < stack_b->data)
+				moves[1]++;
+			else
+				moves[0]++;
+		}
+		else
+		{
+			if (stack_a->data < current->data || current->data < stack_b->data)
+				moves[1]++;
+			else
+				moves[0]++;
+		}
+		if (stack_a->prev->data < stack_b->data)
+		{
+			if (stack_a->prev->data < current->data && current->data < stack_b->data)
+				moves[3]++;
+			else
+				moves[2]++;
+		}
+		else
+		{
+			if (stack_a->prev->data < current->data || current->data < stack_b->data)
+				moves[3]++;
+			else
+				moves[2]++;
+		}
 		if (moves[4] != -1)
 		{
-			res = stack_a->next->data - temp->data;
-			if (biggest > temp->data)
-				res *= -1;
-			if (biggest > stack_a->data)
-				res *= -1;
-			if (res > 0)
-//			if (res > 0 && moves[5] == 0)
-				moves[4]++;
-			else if (res < 0)
-				moves[5]++;
+			if(stack_a->next->data < stack_b->data)
+			{
+				if (stack_a->next->data < current->data && current->data < stack_b->data)
+					moves[5]++;
+				else
+					moves[4]++;
+			}
+			else
+			{
+				if (stack_a->next->data < current->data || current->data < stack_b->data)
+					moves[5]++;
+				else
+					moves[4]++;
+			}
 		}
-		if (temp == stack_b->next)
+
+		if (current == stack_b->next)
 			break ;
-		temp = temp->prev;
+		current = current->prev;
 	}
 }
 
@@ -116,12 +126,25 @@ int	next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack)
 	int	winner;
 
 //	printf("Hola\n"); //quitar despues
-	ft_bzero(moves, 6);
+//	ft_bzero(moves, 6);
+	moves[0]=0; // revisarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+	moves[1]=0;
 	if (stack_a->next->data < sorted_stack->data)
 	{
 		moves[4] = -1;
 		moves[5] = -1;
 	}
+	else
+	{
+		moves[4] = 0;
+		moves[5] = 0;
+	}
+	moves[2] = 0; // revisarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+	moves[3] = 0; //revisar
+
+
+//	printf("before 0-%d 1-%d 2-%d 3-%d 4-%d 5-%d\n", moves[0], moves[1], moves[2], moves[3], moves[4], moves[5]); //quitar despues
+
 	set_moves_array(moves, stack_a, stack_b);
 	winner = find_index_less_moves(moves, stack_a);
 //	printf("0-%d 1-%d 2-%d 3-%d 4-%d 5-%d\n", moves[0], moves[1], moves[2], moves[3], moves[4], moves[5]); //quitar despues
@@ -134,6 +157,8 @@ int	next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack)
 		return (RRB);
 	else if (winner == 2 || winner == 3)
 		return (SA);
+//	else if (winner == 5 && moves[winner] != 0)
+//		return (RRR);
 	else
 		return (RRA);
 }
