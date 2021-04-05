@@ -4,7 +4,7 @@
 
 #include "push_swap.h"
 
-// Get element from array returns a node Head, Prev or Next
+// Get element from array returns a node Head, Prev or NexT
 
 t_node	*get_node_from_index(int index, t_node *head_a)
 {
@@ -55,63 +55,83 @@ int	find_index_less_moves(int *moves, t_node *head_a)
 
 // Find the amount of movements.
 // First, we calculate differences between A-Head, A-Prev and A-Next vs stack 'b'
-// temp is for current value
-// biggest finds breakpoint
 
 void	set_moves_array(int *moves, t_node *stack_a, t_node *stack_b) //acortar
 {
 	t_node	*current;
-//	printf("init 0-%d 1-%d 2-%d 3-%d 4-%d 5-%d\n", moves[0], moves[1], moves[2], moves[3], moves[4], moves[5]); //quitar despues
 
 	current = stack_b;
 	while (current)
 	{
-		if (stack_a->data < stack_b->data)
+//		if ((stack_a->data > current->data) != (current->data > stack_b->data))
+//			moves[0]++;
+//		else
+//			moves[1]++;
+//		if (moves[2] != -1)
+//		{
+//			if ((stack_a->prev->data > current->data) != (current->data > stack_b->data))
+//				moves[2]++;
+//			else
+//				moves[3]++;
+//		}
+//		if (moves[4] != -1)
+//		{
+//			if ((stack_a->next->data > current->data) != (current->data > stack_b->data))
+//				moves[4]++;
+//			else
+//				moves[5]++;
+//		}
+
+// PARA XOR
+		if (stack_a->data > stack_b->data)
 		{
-			if (stack_a->data < current->data && current->data < stack_b->data)
-				moves[1]++;
-			else
+			if ((stack_a->data > current->data) != (current->data > stack_b->data))
 				moves[0]++;
+			else
+				moves[1]++;
 		}
+// PARA XNOR
 		else
 		{
-			if (stack_a->data < current->data || current->data < stack_b->data)
-				moves[1]++;
-			else
+			if ((stack_a->data > current->data) == (current->data > stack_b->data))
 				moves[0]++;
-		}
-		if (stack_a->prev->data < stack_b->data)
-		{
-			if (stack_a->prev->data < current->data && current->data < stack_b->data)
-				moves[3]++;
 			else
-				moves[2]++;
+				moves[1]++;
 		}
-		else
+		if (moves[2] != -1)
 		{
-			if (stack_a->prev->data < current->data || current->data < stack_b->data)
-				moves[3]++;
+			if (stack_a->prev->data > stack_b->data)
+			{
+				if ((stack_a->prev->data > current->data) != (current->data > stack_b->data))
+					moves[2]++;
+				else
+					moves[3]++;
+			}
 			else
-				moves[2]++;
+			{
+				if ((stack_a->prev->data > current->data) == (current->data > stack_b->data))
+					moves[2]++;
+				else
+					moves[3]++;
+			}
 		}
 		if (moves[4] != -1)
 		{
-			if(stack_a->next->data < stack_b->data)
+			if(stack_a->next->data > stack_b->data)
 			{
-				if (stack_a->next->data < current->data && current->data < stack_b->data)
-					moves[5]++;
-				else
+				if ((stack_a->next->data > current->data) != (current->data > stack_b->data))
 					moves[4]++;
+				else
+					moves[5]++;
 			}
 			else
 			{
-				if (stack_a->next->data < current->data || current->data < stack_b->data)
-					moves[5]++;
-				else
+				if ((stack_a->next->data > current->data) == (current->data > stack_b->data))
 					moves[4]++;
+				else
+					moves[5]++;
 			}
 		}
-
 		if (current == stack_b->next)
 			break ;
 		current = current->prev;
@@ -125,7 +145,6 @@ int	next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack)
 	int	moves[6];
 	int	winner;
 
-//	printf("Hola\n"); //quitar despues
 //	ft_bzero(moves, 6);
 	moves[0]=0; // revisarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
 	moves[1]=0;
@@ -136,15 +155,21 @@ int	next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack)
 	}
 	else
 	{
-		moves[4] = 0;
-		moves[5] = 0;
+		moves[4] = 1; //dejarlo por ahora con 1 (abril 4)
+		moves[5] = 1; // 1 include movement to push to the other stack
 	}
-	moves[2] = 0; // revisarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
-	moves[3] = 0; //revisar
-
+	if (stack_a->prev->data < sorted_stack->data)
+	{
+		moves[2] = -1; // revisarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+		moves[3] = -1;
+	}
+	else
+	{
+		moves[2] = 1; // revisarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+		moves[3] = 1; //revisar
+	}
 
 //	printf("before 0-%d 1-%d 2-%d 3-%d 4-%d 5-%d\n", moves[0], moves[1], moves[2], moves[3], moves[4], moves[5]); //quitar despues
-
 	set_moves_array(moves, stack_a, stack_b);
 	winner = find_index_less_moves(moves, stack_a);
 //	printf("0-%d 1-%d 2-%d 3-%d 4-%d 5-%d\n", moves[0], moves[1], moves[2], moves[3], moves[4], moves[5]); //quitar despues
@@ -156,9 +181,11 @@ int	next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack)
 	else if (winner == 1)
 		return (RRB);
 	else if (winner == 2 || winner == 3)
+	{
 		return (SA);
-//	else if (winner == 5 && moves[winner] != 0)
-//		return (RRR);
+	}
+	else if (winner == 5 && moves[winner] != 0)
+		return (RRR);
 	else
 		return (RRA);
 }
