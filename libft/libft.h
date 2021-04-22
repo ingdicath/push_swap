@@ -44,5 +44,6 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 long	ft_atol(const char *str);
 void	ft_bzero(void *s, size_t n);
+void	ft_print_array(char **array);
 
 #endif

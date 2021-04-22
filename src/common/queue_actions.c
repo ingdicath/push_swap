@@ -6,7 +6,7 @@
 
 // Enqueue: adding an element to the rear of the queue.
 // Dequeue: removing an element from the front of the queue.
-// Peek: returns the value of the head node without dequeuing it.
+// Peek: returns the value of the head nodes without dequeuing it.
 
 void	enqueue(t_node **head, int data)
 {
@@ -61,4 +61,17 @@ int	*deque(t_node **head)
 	*data = temp->data;
 	free(temp);
 	return (data);
+}
+
+void	print_queue(t_node	*instr_queue)
+{
+	int *step;
+
+	while (peek(instr_queue))
+	{
+		step = deque(&instr_queue);
+		print_instructions(*step);
+		ft_putstr("\n");
+//		free(step); //revisar si es necesario hacer el free aqui, se desactiva por warning
+	}
 }

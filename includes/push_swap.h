@@ -13,9 +13,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-
 // ------------------------------ Libraries -----------------------------------
-
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -23,8 +21,7 @@
 # include "libft.h"
 # include <stdio.h> //borrar
 
-
-// ------------------ Circular doubly-linked list -----------------------------
+// ------------------ Doubly-linked list --------------------------------------
 
 typedef struct s_node
 {
@@ -33,7 +30,24 @@ typedef struct s_node
 	struct s_node	*prev;
 }	t_node;
 
+typedef struct s_map
+{
+	int				key;
+	int				value;
+	struct s_map	*next;
+}	t_map;
 
+typedef struct s_moves
+{
+	int				total;
+	t_map 			*inst;
+}	t_moves;
+
+typedef struct s_stack
+{
+	t_node		*nodes;
+	int 		size;
+}	t_stack;
 // -------------------------- Movements ---------------------------------------
 
 typedef enum e_inst
@@ -83,18 +97,34 @@ t_node	*sort_checker(t_node **stack_a, t_node **stack_b);
 // ------------------------------ push_swap -----------------------------------
 
 int		*pop_sorted_stack(t_node **head);
-int		check_swap_a(t_node *stack_a, t_node *sorted_stack);
+int		check_swap_a(t_stack *stack_a, t_node *sorted_stack);
 int		check_swap_b(t_node *stack_a, t_node *stack_b);
 int		sorted(t_node *stack_a);
-t_node	*get_node_from_index(int index, t_node *head_a);
-int		choose_best_node_index(int index, int winner, t_node *head_a);
-int		find_index_less_moves(int *moves, t_node *head_a);
-void	set_moves_array(int *moves, t_node *stack_a, t_node *stack_b);
-int		next_move(t_node *stack_a, t_node *stack_b, t_node *sorted_stack);
-int		find_len_stack(t_node **head); //check if remains
+int		find_len_stack(t_node *head);
 void	print_instructions(int instr);
 void	fill_initial_stack(int i, char **str, t_node **a, t_node **sorted);
-
+void	reset_input_push_swap(t_stack *stack_a, t_stack *stack_b,
+			t_node **instr_queue);
+int		check_first_half_b(t_node *current_a, t_stack *stack_b);
+int		check_second_half_b(t_node *current_a, t_stack *stack_b);
+t_moves	*check_head_a(t_node *head_a, t_stack *stack_b);
+void	check_moves_a(t_stack *stack_a, t_stack *stack_b,
+			t_moves **current_moves);
+void	reset_moves(t_moves **moves);
+void	add_moves(t_moves *moves, int inst, int quantity);
+t_map	*create_map_element(int key, int value);
+void	free_moves(t_moves *moves);
+void 	apply_moves(t_moves *moves, t_node **stack_a, t_node **stack_b,
+			t_node **instr_queue);
+void	print_queue(t_node	*instr_queue);
+void	sort_stack_b(t_stack *stack_a, t_stack *stack_b, t_moves **moves,
+				  t_node **instr_queue);
+void	pass_to_stack_a(t_stack *stack_a, t_stack *stack_b, t_moves **moves,
+					 t_node **instr_queue);
+void	sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_moves **moves,
+				  t_node **instr_queue);
+void	fill_initial_stack_push_swap(int i, char **str, t_node **a);
+void	build_input_push_swap(int size, char **argv, t_stack *stack_a);
 
 // ------------------------------ test functions ------------------------------
 
@@ -103,4 +133,5 @@ void	display(t_node *head, char *name);
 void	display_qu(t_node *head, char *name);
 void	display_step(t_node *stack_a, t_node *stack_b, t_node *sorted_stack,
 				int count, int inst); // test function, borrar despues
+void	display_moves(t_moves *moves);
 #endif

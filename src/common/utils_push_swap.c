@@ -4,7 +4,7 @@
 
 #include "push_swap.h"
 
-int	*pop_sorted_stack(t_node **head)
+int	*pop_sorted_stack(t_node **head) //funcion antigua hasta 100 numbers
 {
 	int		*data;
 	t_node	*temp;
@@ -40,17 +40,17 @@ int	sorted(t_node *stack_a)
 	return (1);
 }
 
-int	find_len_stack(t_node **head) //borrar si no se necesita
+int	find_len_stack(t_node *head)
 {
 	t_node	*stack;
 	t_node	*end;
 	int		len;
 
 	len = 0;
-	stack = *head;
-	if (*head)
-		end = (*head)->next;
-	while (*head)
+	stack = head;
+	if (head)
+		end = head->next;
+	while (head)
 	{
 		len++;
 		if (stack == end)
@@ -58,4 +58,18 @@ int	find_len_stack(t_node **head) //borrar si no se necesita
 		stack = stack->prev;
 	}
 	return (len);
+}
+
+// revisar si es necesario crear funcion para reset map
+t_map	*create_map_element(int key, int value)
+{
+	t_map	*new_element;
+
+	new_element = (t_map *)malloc(sizeof(t_map));
+	if (!new_element)
+		error_exit();
+	new_element->key = key;
+	new_element->value = value;
+	new_element->next = NULL;
+	return (new_element);
 }

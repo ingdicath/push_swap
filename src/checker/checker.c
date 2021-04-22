@@ -19,7 +19,6 @@ t_node	*sort_checker(t_node **stack_a, t_node **stack_b)
 //		display(*stack_a, "stack a -- middle");
 //		display(*stack_b, "stack b -- middle");
 		display_step(*stack_a, *stack_b, NULL, i++, *inst); //funcion prueba
-
 		free(inst);
 	}
 	return (instr_queue);
@@ -43,7 +42,5 @@ int	main(int argc, char **argv)
 		ft_putendl_fd("OK", STDOUT_FILENO);
 	else
 		ft_putendl_fd("KO", STDOUT_FILENO);
-	// display(stack_a, "stack a");
-	// display(stack_b, "stack b");
 	return (0);
 }

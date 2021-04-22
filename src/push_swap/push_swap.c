@@ -4,243 +4,278 @@
 
 #include "push_swap.h"
 
-int	check_swap_a(t_node *stack_a, t_node *sorted_stack)
+void sort_stack_b(t_stack *stack_a, t_stack *stack_b, t_moves **moves,
+		t_node **instr_queue)
 {
-	if (stack_a->prev->data == sorted_stack->data)
-		return (1);
-	return (0);
-}
-
-int	check_swap_b(t_node *stack_a, t_node *stack_b)
-{
-	if (stack_b == NULL || stack_b->prev->data !=  stack_b->next->data)
-		return (0);
-	else if (stack_a->data > stack_b->data &&
-			stack_b->data > stack_b->prev->data &&
-			stack_a->data >  stack_b->next->data)
-		return (1);
-	else if (stack_a->data >  stack_b->data &&
-			stack_b->data <  stack_b->prev->data &&
-			stack_a->data <  stack_b->next->data)
-		return (1);else if (stack_a->data <  stack_b->data &&
-			stack_b->data >  stack_b->prev->data &&
-			stack_a->data <  stack_b->next->data)
-		return (1);
-	return (0);
-}
-
-void testFuera(t_node **stack_a, t_node **stack_b,
-			   t_node **sorted_stack, t_node **instr_queue, int *i)
-{
-	int inst;
-	int count_ra;
-	int count_rra;
-	t_node *current;
-	count_ra = 0;
-	count_rra = 0;
-	inst = PA;
-	apply_instructions(stack_a, stack_b, inst);
-	enqueue(instr_queue, inst);
-//	display_step((*stack_a), (*stack_b), (*sorted_stack), (*i), inst); //funcion prueba
-	(*i)++;  // remove, it is just for testing
-	current = (*stack_a);
-	while (current)
+	while (stack_a->nodes != stack_a->nodes->next)
 	{
-		if ((*sorted_stack) != NULL && current->data == (*sorted_stack)->data)
+		*moves = check_head_a(stack_a->nodes, stack_b);
+		if ((*moves)->total == 0)
 		{
-			pop_sorted_stack(sorted_stack);
-			count_ra++;
+			//			display_moves(moves);
+			apply_instructions(&stack_a->nodes, &stack_b->nodes, PB);
+			//			display_step(stack_a.nodes, stack_b.nodes	, sorted_stack, 0, PB);
+			enqueue(instr_queue, PB);
+			stack_a->size--;
+			stack_b->size++;
 		}
 		else
-			count_rra++;
+		{
+			check_moves_a(stack_a, stack_b, moves);
+			//			display_moves(moves);
+			apply_moves(*moves, &stack_a->nodes, &stack_b->nodes, instr_queue);
+		}
+	}
+}
 
-		if (current == (*stack_a)->next)
-			break ;
-		current = current->prev;
-	}
-	if (count_ra < count_rra)
+void pass_to_stack_a(t_stack *stack_a, t_stack *stack_b, t_moves **moves,
+		t_node **instr_queue)
+{
+	*moves = check_head_a(stack_a->nodes, stack_b);
+	if ((*moves)->total > 0)
 	{
-		while (count_ra > 0)
-		{
-			inst = RA;
-			apply_instructions(stack_a, stack_b, inst);
-			enqueue(instr_queue, inst);
-//			display_step((*stack_a), (*stack_b), (*sorted_stack), (*i), inst); //funcion prueba
-			count_ra--;
-			(*i)++;  // remove, it is just for testing
-		}
+		apply_moves(*moves, &stack_a->nodes, &stack_b->nodes, instr_queue);
+		//		display_step(stack_a.nodes, stack_b.nodes	, sorted_stack, 0, PB);
 	}
-	else
+	while (stack_b->nodes != NULL)
 	{
-		while (count_rra > 0)
-		{
-			inst = RRA;
-			apply_instructions(stack_a, stack_b, inst);
-			enqueue(instr_queue, inst);
-//			display_step((*stack_a), (*stack_b), (*sorted_stack), (*i), inst); //funcion prueba
-			count_rra--;
-			(*i)++;  // remove, it is just for testing
-		}
+		apply_instructions(&stack_a->nodes, &stack_b->nodes, PA);
+		enqueue(instr_queue, PA);
+		//		display_step(stack_a.nodes, stack_b.nodes	, sorted_stack, 0, PB);
+	}
+	//	display_qu(instr_queue, " all in a instructions");
+}
+
+void sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_moves **moves,
+				  t_node **instr_queue)
+{
+	int i;
+	t_node *temp;
+
+	i = 1;
+	stack_a->size = find_len_stack(stack_a->nodes);
+	temp = stack_a->nodes;
+	while (temp->data < temp->prev->data)
+	{
+		i++;
+		temp = temp->prev;
+	}
+	reset_moves(moves);
+	if (i < stack_a->size / 2)
+	{
+		add_moves(*moves, RA, i);
+		apply_moves(*moves, &stack_a->nodes, &stack_b->nodes, instr_queue);
+	}
+	else if (i < stack_a->size)
+	{
+		add_moves(*moves, RRA, stack_a->size - i);
+		apply_moves(*moves, &stack_a->nodes, &stack_b->nodes, instr_queue);
 	}
 }
 
 int	main(int argc, char **argv)
-{		
-	t_node	*stack_a;
-	t_node	*stack_b;
+{
+	t_stack	stack_a;
+	t_stack	stack_b;
 	t_node	*sorted_stack;
 	t_node	*instr_queue;
-	int	inst;
+	t_moves *moves;
 
-	reset_input(&stack_a, &stack_b, &sorted_stack);
+	reset_input_push_swap(&stack_a, &stack_b, &instr_queue);
 	if (argc == 1)
 		return (0);
-	build_input(argc - 1, argv, &stack_a, &sorted_stack);
-	if (sorted(stack_a))
+	build_input_push_swap(argc - 1, argv, &stack_a);
+	if (sorted(stack_a.nodes))
 		exit(0);
-	sorted_stack = merge_sort(sorted_stack);
-
-	int finished;
-	finished = 0;
-//	int len;
-//	len = find_len_stack(&stack_a);
-//	printf("len: %d\n", len);
-
-//	display_step(stack_a, stack_b, sorted_stack,1, 1);
-	int i = 1;
-
-//	display_step(stack_a, stack_b, sorted_stack, i-1, 0); //funcion prueba
-	while (sorted_stack != NULL && !finished)
-	{
-		if (stack_a->next->data == stack_a->prev->prev->data &&
-			((stack_a->data > stack_a->prev->data && stack_a->data > stack_a->next->data) ||
-			 (stack_a->data < stack_a->prev->data && stack_a->data < stack_a->next->data)) &&
-			stack_a->prev->data > stack_a->next->data && check_swap_b(stack_a, stack_b) &&
-			stack_b == NULL)
-			inst = SS;
-		else if (stack_a->next->data == stack_a->prev->prev->data &&
-				 ((stack_a->data > stack_a->prev->data && stack_a->data > stack_a->next->data) ||
-				  (stack_a->data < stack_a->prev->data && stack_a->data < stack_a->next->data)) &&
-				 stack_a->prev->data > stack_a->next->data
-				 && stack_b == NULL)
-			inst = SA;
-		else if (stack_a->next->data == stack_a->prev->prev->data &&
-				stack_a->data > stack_a->prev->data &&
-				stack_a->data < stack_a->next->data &&
-				stack_b == NULL)
-		{
-			inst = SA;
-			if (stack_a->prev->data == sorted_stack->data)
-				pop_sorted_stack(&sorted_stack);
-			if (stack_a->data == sorted_stack->data)
-				pop_sorted_stack(&sorted_stack);
-			if (stack_a->next->data == sorted_stack->data)
-				pop_sorted_stack(&sorted_stack);
-		}
-		else if (stack_a->next->data == stack_a->prev->prev->data &&
-				stack_a->data > stack_a->prev->data &&
-				stack_a->data > stack_a->next->data &&
-				stack_b == NULL)
-		{
-			inst = RA;
-			if (stack_a->prev->data == sorted_stack->data)
-				pop_sorted_stack(&sorted_stack);
-			if (stack_a->next->data == sorted_stack->data)
-				pop_sorted_stack(&sorted_stack);
-			if (stack_a->data == sorted_stack->data)
-				pop_sorted_stack(&sorted_stack);
-		}
-		else if (stack_a->next->data == stack_a->prev->prev->data &&
-				stack_a->data < stack_a->prev->data &&
-				stack_a->data > stack_a->next->data &&
-				stack_b == NULL)
-		{
-			inst = RRA;
-			if (stack_a->next->data == sorted_stack->data)
-				pop_sorted_stack(&sorted_stack);
-			if (stack_a->data == sorted_stack->data)
-				pop_sorted_stack(&sorted_stack);
-			if (stack_a->prev->data == sorted_stack->data)
-				pop_sorted_stack(&sorted_stack);
-		}
-		else if (stack_a->data == sorted_stack->data)
-		{
-			inst = RA;
-			pop_sorted_stack(&sorted_stack);
-		}
-		else if (stack_a->next->data == sorted_stack->data)
-		{
-			pop_sorted_stack(&sorted_stack);
-			continue ;
-		}
-		/**
-		else if (check_swap_a(stack_a, sorted_stack) && check_swap_b(stack_a, stack_b))
-			inst = SS;
-		else if (check_swap_a(stack_a, sorted_stack))
-		{
-			inst = SA;
-		}
-		 */
-//		else if (stack_b != NULL && stack_b->data == sorted_stack->data)
-//			inst = PA;
-		else if (stack_b == NULL || stack_b->data == stack_b->prev->data)
-			inst = PB; // Solo un elemento
-		else if (stack_a->data < sorted_stack->data )
-		{
-			finished = 1;
-			continue ;
-		}
-//
-//			&&
-//				stack_b->data > stack_b->prev->data)
-//			//funcion para decidir COMO MANDAR DE LA PILA b A LA A
-//			inst = RB; //opcion de mejora, upgrade a  SB para SS o RR
-
-//		else if (check_swap_b(stack_a, stack_b))
-//			inst = SB; por ser swap b
-		else
-			inst = next_move(stack_a,stack_b,sorted_stack);
-		apply_instructions(&stack_a, &stack_b, inst);
-		enqueue(&instr_queue, inst);
-//		display_step(stack_a, stack_b, sorted_stack, i, inst); //funcion prueba
-		i++;  // remove, it is just for testing
-	}
-
-	while (sorted_stack != NULL)
-	{
-		if (stack_b != NULL && stack_b->data > sorted_stack->data)
-		{
-			inst = PA;
-			apply_instructions(&stack_a, &stack_b, inst);
-			enqueue(&instr_queue, inst);
-//			display_step(stack_a, stack_b, sorted_stack, i, inst); //funcion prueba
-			i++;  // remove, it is just for testing
-		}
-		else if (stack_b->data == sorted_stack->data)
-		{
-			testFuera(&stack_a, &stack_b, &sorted_stack, &instr_queue, &i);
-		}
-	}
-
-//	display_qu(instr_queue, "instructions");
-//	display_step(stack_a, stack_b, sorted_stack, i, inst);
-//	printf("Moves %d\n", i-1);
-	i = find_len_stack(&instr_queue);
-	printf("queue %d\n", i);
-//	printf("Instruction is: %d", inst);
-
-// PRINT INSTRUCTIONS
-//	int *step;
-//	while (peek(instr_queue))
-//	{
-//		step = deque(&instr_queue);
-//		print_instructions(*step);
-//		if (instr_queue != NULL)
-//			ft_putstr("\n");
-//		else
-//			write(1, "\n", 1);
-////		step = deque(&instr_queue);
-//		free(step);
-//	}
+//	sorted_stack = merge_sort(sorted_stack);
+	stack_a.size = find_len_stack(stack_a.nodes);
+	//poner condicion si size <= 3 || size <= 5
+	sort_stack_b(&stack_a, &stack_b, &moves, &instr_queue);
+	pass_to_stack_a(&stack_a, &stack_b, &moves, &instr_queue);
+	sort_stack_a(&stack_a, &stack_b, &moves, &instr_queue);
+	print_queue(instr_queue);
 	return (0);
 }
+
+
+// PARA TRES Y CINCO
+
+//void sort_three(t_stack *stack_a, t_stack *stack_b, t_node *sorted_stack,
+//				t_node **instr_queue)
+//{
+//	int	inst;
+//
+//	while (sorted_stack != NULL)
+//	{
+//		if (stack_a->nodes->next->data == stack_a->nodes->prev->prev->data &&
+//			((stack_a->nodes->data > stack_a->nodes->prev->data && stack_a->nodes->data > stack_a->nodes->next->data) ||
+//			 (stack_a->nodes->data < stack_a->nodes->prev->data && stack_a->nodes->data < stack_a->nodes->next->data)) &&
+//			stack_a->nodes->prev->data > stack_a->nodes->next->data && check_swap_b(stack_a, stack_b))
+//			inst = SS;
+//		else if (stack_a->nodes->next->data == stack_a->nodes->prev->prev->data &&
+//				 ((stack_a->nodes->data > stack_a->nodes->prev->data && stack_a->nodes->data > stack_a->nodes->next->data) ||
+//				  (stack_a->nodes->data < stack_a->nodes->prev->data && stack_a->nodes->data < stack_a->nodes->next->data)) &&
+//				 stack_a->nodes->prev->data > stack_a->nodes->next->data)
+//			inst = SA;
+//		else if (stack_a->nodes->next->data == stack_a->nodes->prev->prev->data &&
+//				 stack_a->nodes->data > stack_a->nodes->prev->data &&
+//				 stack_a->nodes->data < stack_a->nodes->next->data)
+//		{
+//			inst = SA;
+//			if (stack_a->nodes->prev->data == sorted_stack->data)
+//				pop_sorted_stack(&sorted_stack);
+//			if (stack_a->nodes->data == sorted_stack->data)
+//				pop_sorted_stack(&sorted_stack);
+//			if (stack_a->nodes->next->data == sorted_stack->data)
+//				pop_sorted_stack(&sorted_stack);
+//		}
+//		else if (stack_a->nodes->next->data == stack_a->nodes->prev->prev->data &&
+//				 stack_a->nodes->data > stack_a->nodes->prev->data &&
+//				 stack_a->nodes->data > stack_a->nodes->next->data)
+//		{
+//			inst = RA;
+//			if (stack_a->nodes->prev->data == sorted_stack->data)
+//				pop_sorted_stack(&sorted_stack);
+//			if (stack_a->nodes->next->data == sorted_stack->data)
+//				pop_sorted_stack(&sorted_stack);
+//			if (stack_a->nodes->data == sorted_stack->data)
+//				pop_sorted_stack(&sorted_stack);
+//		}
+//		else if (stack_a->nodes->next->data == stack_a->nodes->prev->prev->data &&
+//				 stack_a->nodes->data < stack_a->nodes->prev->data &&
+//				 stack_a->nodes->data > stack_a->nodes->next->data)
+//		{
+//			inst = RRA;
+//			if (stack_a->nodes->next->data == sorted_stack->data)
+//				pop_sorted_stack(&sorted_stack);
+//			if (stack_a->nodes->data == sorted_stack->data)
+//				pop_sorted_stack(&sorted_stack);
+//			if (stack_a->nodes->prev->data == sorted_stack->data)
+//				pop_sorted_stack(&sorted_stack);
+//		}
+//		else if (stack_a->nodes->data == sorted_stack->data)
+//		{
+//			inst = RA;
+//			pop_sorted_stack(&sorted_stack);
+//		}
+//		else if (stack_a->nodes->next->data == sorted_stack->data)
+//		{
+//			pop_sorted_stack(&sorted_stack);
+//			continue ;
+//		}
+//		else if (check_swap_a(stack_a, sorted_stack) && check_swap_b(stack_a, stack_b))
+//			inst = SS;
+//		else if (check_swap_a(stack_a, sorted_stack))
+//			inst = SA;
+//		else if (stack_a->nodes->prev->data < stack_a->nodes->next->data &&
+//				 stack_a->nodes->data < stack_a->nodes->next->data &&
+//				 stack_a->nodes->next->data > sorted_stack->data &&
+//				 stack_a->nodes->prev->data > sorted_stack->data)
+//			inst = RRA;
+//		else if (stack_b != NULL && stack_b->nodes->data == sorted_stack->data)
+//			inst = PA;
+//		else if (stack_b == NULL || stack_b->nodes->data == stack_b->nodes->prev->data)
+//			inst = PB;
+//		else if (stack_a->nodes->data < sorted_stack->data &&
+//				 stack_b->nodes->data > stack_b->nodes->prev->data)
+//			inst = RB;
+//		else if (check_swap_b(stack_a, stack_b))
+//			inst = SB;
+//		else
+//			inst = next_move(stack_a,stack_b,sorted_stack); //esta funcion ya no existe
+//		apply_instructions(&stack_a, &stack_b, inst);
+//		enqueue(instr_queue, inst);
+////		display_step(stack_a, stack_b, sorted_stack, i, inst); //funcion prueba
+//		i++;  // remove, it is just for testing
+//	}
+//}
+
+
+
+
+// backup
+
+//int	main(int argc, char **argv)
+//{
+//	t_stack	stack_a;
+//	t_stack	stack_b;
+//	t_node	*sorted_stack;
+//	t_node	*instr_queue;
+//	t_moves *moves;
+//
+//	reset_input_push_swap(&stack_a, &stack_b, &sorted_stack, &instr_queue);
+//	if (argc == 1)
+//		return (0);
+//	build_input(argc - 1, argv, &stack_a.nodes, &sorted_stack);
+//	if (sorted(stack_a.nodes))
+//		exit(0);
+//	sorted_stack = merge_sort(sorted_stack);
+//	stack_a.size = find_len_stack(stack_a.nodes);
+//
+//	sort_stack_b(&stack_a, &stack_b, &moves, &instr_queue);
+//	// PRIMERA FUNCION
+//	while (stack_a.nodes != stack_a.nodes->next)
+//	{
+//		moves = check_head_a(stack_a.nodes, &stack_b);
+//		if (moves->total == 0)
+//		{
+////			display_moves(moves);
+//			apply_instructions(&stack_a.nodes, &stack_b.nodes, PB);
+////			display_step(stack_a.nodes, stack_b.nodes	, sorted_stack, 0, PB);
+//			enqueue(&instr_queue, PB);
+//			stack_a.size--;
+//			stack_b.size++;
+//		}
+//		else
+//		{
+//			check_moves_a(&stack_a, &stack_b, &moves);
+////			display_moves(moves);
+//			apply_moves(moves, &stack_a.nodes, &stack_b.nodes, &instr_queue);
+//		}
+//	}
+//
+//	// SEGUNDA FUNCION
+//	moves = check_head_a(stack_a.nodes, &stack_b);
+//	if (moves->total > 0)
+//	{
+//		apply_moves(moves, &stack_a.nodes, &stack_b.nodes, &instr_queue);
+////		display_step(stack_a.nodes, stack_b.nodes	, sorted_stack, 0, PB);
+//	}
+//	while (stack_b.nodes != NULL)
+//	{
+//		apply_instructions(&stack_a.nodes, &stack_b.nodes, PA);
+//		enqueue(&instr_queue, PA);
+////		display_step(stack_a.nodes, stack_b.nodes	, sorted_stack, 0, PB);
+//	}
+////	display_qu(instr_queue, " all in a instructions");
+//
+//
+//	// TERCERA FUNCION
+//
+//	stack_a.size = find_len_stack(stack_a.nodes);
+//	int i = 1;
+//	t_node *temp;
+//	temp = stack_a.nodes;
+//	while (temp->data < temp->prev->data)
+//	{
+//		i++;
+//		temp = temp->prev;
+//	}
+//	reset_moves(&moves);
+//	if (i < stack_a.size / 2)
+//	{
+//		add_moves(moves, RA, i);
+//		apply_moves(moves, &stack_a.nodes, &stack_b.nodes, &instr_queue);
+//	}
+//	else if (i < stack_a.size)
+//	{
+//		add_moves(moves, RRA, stack_a.size - i);
+//		apply_moves(moves, &stack_a.nodes, &stack_b.nodes, &instr_queue);
+//	}
+////	display_step(stack_a.nodes, stack_b.nodes, sorted_stack, 0, PB);
+////	display_qu(instr_queue, " all in a instructions");
+////	i = find_len_stack(instr_queue);
+////	printf("queue %d\n", i);
+//	print_queue(instr_queue);
+//	return (0);
+//}

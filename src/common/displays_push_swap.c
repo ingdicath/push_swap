@@ -127,3 +127,20 @@ void	display_qu(t_node *head, char *name) //funcion de prueba
 	}
 	printf("---- %s \n", name);
 }
+
+void	display_moves(t_moves *moves)
+{
+	t_map *temp;
+
+	dprintf(0, "total: %d | ", moves->total);
+	temp = moves->inst;
+	while (temp != NULL)
+	{
+		dprintf(0, "key: ");
+		print_instructions(temp->key);
+
+		dprintf(0, " value: %d -> |", temp->value);
+		temp = temp->next;
+	}
+	dprintf(0, "\n");
+}

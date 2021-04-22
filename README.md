@@ -21,10 +21,10 @@ output the smallest progam using _Push_swap_ instruction language that sorts int
 
 #### _Swap_
 
-Do nothing if there is only one or no elements.
+Do nothing if there is only one or no nodes.
 
-- **sa** -> swap a - swap the first 2 elements at the top of stack a.
-- **sb** -> swap b - swap the first 2 elements at the top of stack b.
+- **sa** -> swap a - swap the first 2 nodes at the top of stack a.
+- **sb** -> swap b - swap the first 2 nodes at the top of stack b.
 - **ss** -> sa and sb at the same time.
 
 #### _Push_
@@ -38,16 +38,16 @@ nothing if a is empty.
 
 The first element becomes the last one.
 
-- **ra** -> rotate a - shift up all elements of stack a by 1.
-- **rb** -> rotate b - shift up all elements of stack b by 1.
+- **ra** -> rotate a - shift up all nodes of stack a by 1.
+- **rb** -> rotate b - shift up all nodes of stack b by 1.
 - **rr** -> ra and rb at the same time.
 
 #### _Reverse_
 
 The last element becomes the first one.
 
-- **rra** -> reverse rotate a - shift down all elements of stack a by 1.
-- **rrb** -> reverse rotate b - shift down all elements of stack b by 1.
+- **rra** -> reverse rotate a - shift down all nodes of stack a by 1.
+- **rrb** -> reverse rotate b - shift down all nodes of stack b by 1.
 - **rrr** -> rra and rrb at the same time
 
 ---
