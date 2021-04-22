@@ -66,6 +66,10 @@ typedef enum e_inst
 	ND = 12
 }	t_inst;
 
+// ------------------------------ common -----------------------------------
+
+int		map_data_to_int(char *str);
+
 // ------------------------------ checker -----------------------------------
 
 t_node	*create_element(int data);
@@ -93,6 +97,7 @@ void	apply_instructions(t_node **stack_a, t_node **stack_b, int instr);
 int		check_sort(t_node *stack_a, t_node *stack_b, t_node *sorted);
 void	reset_input(t_node **stack_a, t_node **stack_b, t_node **sorted);
 t_node	*sort_checker(t_node **stack_a, t_node **stack_b);
+void	fill_stacks(char *str, t_node **a, t_node **sorted);
 
 // ------------------------------ push_swap -----------------------------------
 
@@ -102,7 +107,7 @@ int		check_swap_b(t_node *stack_a, t_node *stack_b);
 int		sorted(t_node *stack_a);
 int		find_len_stack(t_node *head);
 void	print_instructions(int instr);
-void	fill_initial_stack(int i, char **str, t_node **a, t_node **sorted);
+void	fill_push_swap_stack(char *str, t_node **a);
 void	reset_input_push_swap(t_stack *stack_a, t_stack *stack_b,
 			t_node **instr_queue);
 int		check_first_half_b(t_node *current_a, t_stack *stack_b);
@@ -134,4 +139,6 @@ void	display_qu(t_node *head, char *name);
 void	display_step(t_node *stack_a, t_node *stack_b, t_node *sorted_stack,
 				int count, int inst); // test function, borrar despues
 void	display_moves(t_moves *moves);
+
+void check_duplicates(t_node *stack);
 #endif

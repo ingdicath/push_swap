@@ -4,17 +4,26 @@
 
 #include "push_swap.h"
 
-void	fill_initial_stack(int i, char **str, t_node **a, t_node **sorted)
+
+void	fill_stacks(char *str, t_node **a, t_node **sorted)
+{
+	int	data;
+
+	data = map_data_to_int(str);
+	push(a, data);
+	push(sorted, data);
+}
+
+int map_data_to_int(char *str)
 {
 	long	data;
 
-	if (!ft_isnumber(str[i]))
+	if (!ft_isnumber(str))
 		error_exit();
-	data = ft_atol(str[i]);
+	data = ft_atol(str);
 	if (data > INT_MAX || data < INT_MIN)
 		error_exit();
-	push(a, (int)data);
-	push(sorted, (int)data);
+	return ((int)data);
 }
 
 //  Tail is included to disconnect sorted from a circular doubly-linked list
@@ -33,7 +42,7 @@ void	build_input(int size, char **argv, t_node **a, t_node **sorted)
 		j = ft_array_size(str)-1;
 		while (j >= 0)
 		{
-			fill_initial_stack(j, str, a, sorted);
+			fill_stacks(str[j], a, sorted);
 			j--;
 		}
 		ft_free_array(str);
@@ -46,38 +55,13 @@ void	build_input(int size, char **argv, t_node **a, t_node **sorted)
 
 // exclusivo para push swap
 
-void	fill_initial_stack_push_swap(int i, char **str, t_node **a)
-{
-	long	data;
-
-	if (!ft_isnumber(str[i]))
-		error_exit();
-	data = ft_atol(str[i]);
-	if (data > INT_MAX || data < INT_MIN)
-		error_exit();
-	push(a, (int)data);
-}
-
-// exclusivo para push swap
-
 void	build_input_push_swap(int size, char **argv, t_stack *stack_a)
 {
-	int		i;
-	int		j;
-	char	**str;
+	t_node *sorted;
 
-	i = size;
-	while (i > 0)
-	{
-		str = ft_split(argv[i], ' ');
-		j = ft_array_size(str)-1;
-		while (j >= 0)
-		{
-			fill_initial_stack_push_swap(j, str, a);
-			j--;
-		}
-		ft_free_array(str);
-		i--;
-	}
+	sorted = NULL;
+	build_input(size,argv,&stack_a->nodes,&sorted);
+	stack_a->size = find_len_stack(stack_a->nodes);
+	merge_sort(sorted);
+	clean_stack(&sorted);
 }
-

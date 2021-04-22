@@ -77,7 +77,6 @@ int	main(int argc, char **argv)
 {
 	t_stack	stack_a;
 	t_stack	stack_b;
-	t_node	*sorted_stack;
 	t_node	*instr_queue;
 	t_moves *moves;
 
@@ -87,9 +86,9 @@ int	main(int argc, char **argv)
 	build_input_push_swap(argc - 1, argv, &stack_a);
 	if (sorted(stack_a.nodes))
 		exit(0);
-//	sorted_stack = merge_sort(sorted_stack);
-	stack_a.size = find_len_stack(stack_a.nodes);
+
 	//poner condicion si size <= 3 || size <= 5
+	//	crear funcion para simplificar las 3 de abajo
 	sort_stack_b(&stack_a, &stack_b, &moves, &instr_queue);
 	pass_to_stack_a(&stack_a, &stack_b, &moves, &instr_queue);
 	sort_stack_a(&stack_a, &stack_b, &moves, &instr_queue);
