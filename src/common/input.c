@@ -4,7 +4,6 @@
 
 #include "push_swap.h"
 
-
 void	fill_stacks(char *str, t_node **a, t_node **sorted)
 {
 	int	data;
@@ -51,17 +50,4 @@ void	build_input(int size, char **argv, t_node **a, t_node **sorted)
 	tail = (*sorted)->next;
 	(*sorted)->next = NULL;
 	tail->prev = NULL;
-}
-
-// exclusivo para push swap
-
-void	build_input_push_swap(int size, char **argv, t_stack *stack_a)
-{
-	t_node *sorted;
-
-	sorted = NULL;
-	build_input(size,argv,&stack_a->nodes,&sorted);
-	stack_a->size = find_len_stack(stack_a->nodes);
-	merge_sort(sorted);
-	clean_stack(&sorted);
 }

@@ -4,31 +4,6 @@
 
 #include "push_swap.h"
 
-//int	check_swap_a(t_stack *stack_a, t_node *sorted_stack)
-//{
-//	if (stack_a->nodes->prev->data == sorted_stack->data)
-//		return (1);
-//	return (0);
-//}
-//
-//int	check_swap_b(t_stack *stack_a, t_stack *stack_b)
-//{
-//	if (stack_b == NULL || stack_b->prev->data !=  stack_b->next->data)
-//		return (0);
-//	else if (stack_a->data > stack_b->data &&
-//			stack_b->data > stack_b->prev->data &&
-//			stack_a->data >  stack_b->next->data)
-//		return (1);
-//	else if (stack_a->data >  stack_b->data &&
-//			stack_b->data <  stack_b->prev->data &&
-//			stack_a->data <  stack_b->next->data)
-//		return (1);else if (stack_a->data <  stack_b->data &&
-//			stack_b->data >  stack_b->prev->data &&
-//			stack_a->data <  stack_b->next->data)
-//		return (1);
-//	return (0);
-//}
-
 // moves_b returns the position to insert element from stack 'a' to stack 'b'
 // starting from the top
 

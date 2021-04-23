@@ -17,3 +17,10 @@ int	check_sort(t_node *stack_a, t_node *stack_b, t_node *sorted)
 	}
 	return (1);
 }
+
+void	reset_input(t_node **stack_a, t_node **stack_b, t_node **sorted)
+{
+	*stack_a = NULL;
+	*stack_b = NULL;
+	*sorted = NULL;
+}

@@ -48,7 +48,9 @@ add_executable(push_swap
         src/common/rotate_reverse_moves.c
         src/common/swap_push_moves.c
         src/common/utils.c
-        src/common/utils_push_swap.c
+        src/push_swap/utils_push_swap.c
         src/push_swap/push_swap.c
+        src/push_swap/input_push_swap.c
+        src/push_swap/sort.c
         src/push_swap/checks.c
         src/push_swap/moves.c)
