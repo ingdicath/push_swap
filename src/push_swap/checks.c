@@ -4,13 +4,21 @@
 
 #include "push_swap.h"
 
+int	is_pushable(int current_a, int current_b, int next_b)
+{
+	if ((current_a > current_b && (current_b > next_b || current_a < next_b)) ||
+		(next_b < current_b && current_a < current_b && current_a < next_b))
+		return (1);
+	return (0);
+}
+
 // moves_b returns the position to insert element from stack 'a' to stack 'b'
 // starting from the top
 
-int check_first_half_b(t_node *current_a, t_stack *stack_b)
+int check_first_half_b(int current_a, t_stack *stack_b)
 {
-	int moves_b;
-	t_node *current_b;
+	int		moves_b;
+	t_node	*current_b;
 
 	moves_b = 0;
 	if (stack_b->size == 0 || stack_b->size == 1)
@@ -18,12 +26,7 @@ int check_first_half_b(t_node *current_a, t_stack *stack_b)
 	current_b = stack_b->nodes;
 	while (moves_b <= stack_b->size / 2)
 	{
-		if ((current_a->data > current_b->data &&
-			(current_b->data > current_b->next->data ||
-			current_a->data < current_b->next->data)) ||
-			(current_b->next->data < current_b->data &&
-			current_a->data < current_b->data &&
-			current_a->data < current_b->next->data))
+		if (is_pushable(current_a, current_b->data, current_b->next->data))
 			return (moves_b);
 		else
 		{
@@ -34,10 +37,9 @@ int check_first_half_b(t_node *current_a, t_stack *stack_b)
 	return (-1);
 }
 
-// moves_b returns the position to insert element from stack 'a' to stack 'b'
+// 'moves_b' returns the position to insert element from stack 'a' to stack 'b'
 // starting from the tail
-
-int check_second_half_b(t_node *current_a, t_stack *stack_b)
+int	check_second_half_b(int current_a, t_stack *stack_b)
 {
 	int moves_b;
 	t_node *current_b;
@@ -46,12 +48,7 @@ int check_second_half_b(t_node *current_a, t_stack *stack_b)
 	current_b = stack_b->nodes->next;
 	while (moves_b <= stack_b->size / 2)
 	{
-		if ((current_a->data > current_b->data &&
-			(current_b->data > current_b->next->data ||
-			current_a->data < current_b->next->data)) ||
-			(current_b->next->data < current_b->data &&
-			current_a->data < current_b->data &&
-			current_a->data < current_b->next->data))
+		if (is_pushable(current_a, current_b->data, current_b->next->data))
 			return (moves_b);
 		else
 		{
@@ -68,12 +65,12 @@ t_moves *check_head_a(t_node *head_a, t_stack *stack_b)
 	int moves_b;
 
 	reset_moves(&moves);
-	moves_b = check_first_half_b(head_a, stack_b);
+	moves_b = check_first_half_b(head_a->data, stack_b);
 	if (moves_b == 0)
 		add_moves(moves, PB, 0);
 	else if (moves_b == -1)
 	{
-		moves_b = check_second_half_b(head_a, stack_b);
+		moves_b = check_second_half_b(head_a->data, stack_b);
 		add_moves(moves, RRB, moves_b);
 	}
 	else
@@ -82,7 +79,6 @@ t_moves *check_head_a(t_node *head_a, t_stack *stack_b)
 }
 
 // i starts 1 because of head
-
 void check_moves_a(t_stack *stack_a, t_stack *stack_b, t_moves **current_moves)
 {
 	int i;
@@ -97,12 +93,12 @@ void check_moves_a(t_stack *stack_a, t_stack *stack_b, t_moves **current_moves)
 	reset_moves(&moves);
 	while (i < (*current_moves)->total && i < (stack_a->size / 2))
 	{
-		moves_b = check_first_half_b(up_a, stack_b);
+		moves_b = check_first_half_b(up_a->data, stack_b);
 		if (moves_b == 0)
 			add_moves(moves, RA, i);
 		else if (moves_b == -1)
 		{
-			moves_b = check_second_half_b(up_a, stack_b);
+			moves_b = check_second_half_b(up_a->data, stack_b);
 			add_moves(moves, RA, i);
 			add_moves(moves, RRB, moves_b);
 		}
@@ -125,12 +121,12 @@ void check_moves_a(t_stack *stack_a, t_stack *stack_b, t_moves **current_moves)
 		}
 //		free_moves(moves);
 		reset_moves(&moves);
-		moves_b = check_second_half_b(down_a, stack_b);
+		moves_b = check_second_half_b(down_a->data, stack_b);
 		if (moves_b == 0)
 			add_moves(moves, RRA, i);
 		else if (moves_b == -1)
 		{
-			moves_b = check_first_half_b(down_a, stack_b);
+			moves_b = check_first_half_b(down_a->data, stack_b);
 			add_moves(moves, RRA, i);
 			add_moves(moves, RB, moves_b);
 		}

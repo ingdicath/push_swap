@@ -38,21 +38,18 @@ void	add_moves(t_moves *moves, int inst, int quantity)
 void 	apply_moves(t_moves *moves, t_node **stack_a, t_node **stack_b,
 					t_node **instr_queue)
 {
-	t_map *temp;
+	t_map *curr_inst;
 
-	temp = moves->inst;
-	while (temp != NULL)
+	curr_inst = moves->inst;
+	while (curr_inst != NULL)
 	{
-//		printf("moves --- %d\n", temp->value);
-		while (temp->value > 0)
+		while (curr_inst->value > 0)
 		{
-			apply_instructions(stack_a, stack_b, temp->key);
-//			printf("moves --- %d\n", temp->value);
-			enqueue(instr_queue, temp->key);
-//			printf("moves2 --- %d\n", temp->value);
-			temp->value--;
+			apply_instructions(stack_a, stack_b, curr_inst->key);
+			enqueue(instr_queue, curr_inst->key);
+			curr_inst->value--;
 		}
-		temp = temp->next;
+		curr_inst = curr_inst->next;
 	}
 	free_moves(moves);
 }

@@ -95,8 +95,9 @@ t_node	*sort_checker(t_node **stack_a, t_node **stack_b);
 
 int		sorted(t_node *stack_a);
 int		find_len_stack(t_node *head);
-int		check_first_half_b(t_node *current_a, t_stack *stack_b);
-int		check_second_half_b(t_node *current_a, t_stack *stack_b);
+int		check_first_half_b(int current_a, t_stack *stack_b);
+int		check_second_half_b(int current_a, t_stack *stack_b);
+int		is_pushable(int current_a, int current_b, int next_b);
 void	build_input_push_swap(int size, char **argv, t_stack *stack_a);
 void	reset_input_push_swap(t_stack *stack_a, t_stack *stack_b);
 void	clean_stack(t_node **stack);
@@ -109,12 +110,12 @@ void	check_moves_a(t_stack *stack_a, t_stack *stack_b,
 			t_moves **current_moves);
 void	apply_moves(t_moves *moves, t_node **stack_a, t_node **stack_b,
 			t_node **instr_queue);
-void	sort_three_num(t_node *stack_a, t_node *stack_b, t_node **instr_queue);
-void	sort_stack_b(t_stack *stack_a, t_stack *stack_b, t_moves **moves,
-			t_node **instr_queue);
+void	apply_three_num_rules(t_node *stack_a, t_node **instr_queue);
+void	insertion_sort_stack_b(t_stack *stack_a, t_stack *stack_b, t_node **instr_queue);
 void	pass_to_stack_a(t_stack *stack_a, t_stack *stack_b,
 					 t_node **instr_queue);
-void	sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_moves **moves,
+void	sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_node **instr_queue);
+void	apply_push_instruction(t_stack *from, t_stack *to, int inst,
 			t_node **instr_queue);
 t_map	*create_map_element(int key, int value);
 t_node	*sort_stack(t_stack *stack_a, t_stack *stack_b);

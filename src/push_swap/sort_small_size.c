@@ -4,19 +4,20 @@
 
 #include "push_swap.h"
 
-void	sort_three_num(t_node *stack_a, t_node *stack_b, t_node **instr_queue)
+void	apply_three_num_rules(t_node *stack_a, t_node **instr_queue)
 {
-	if ((stack_a->data > stack_a->prev->data &&
-	stack_a->data < stack_a->next->data &&
-	stack_a->prev->data < stack_a->next->data) ||
-	(stack_a->data > stack_a->prev->data &&
-	stack_a->data > stack_a->next->data &&
-	stack_a->prev->data > stack_a->next->data) ||
-	(stack_a->data < stack_a->prev->data &&
-	stack_a->data < stack_a->next->data &&
-	stack_a->prev->data > stack_a->next->data))
+	int	head;
+	int	middle;
+	int	tail;
+
+	head = stack_a->data;
+	middle = stack_a->prev->data;
+	tail = stack_a->next->data;
+	if ((head > middle && head < tail && middle < tail) ||
+		(head > middle && head > tail && middle > tail) ||
+		(head < middle && head < tail && middle > tail))
 	{
-		apply_instructions(&stack_a, &stack_b, SA);
+		apply_instructions(&stack_a, NULL, SA);
 		enqueue(instr_queue, SA);
 	}
 }
