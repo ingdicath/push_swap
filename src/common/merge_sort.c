@@ -4,7 +4,7 @@
 
 #include "push_swap.h"
 
-// Function to merge two doubly-linked lists using recursion
+// Merge two doubly-linked lists using recursion
 
 t_node	*merge(t_node *first, t_node *second)
 {
@@ -54,7 +54,7 @@ t_node	*split_merge_sort(t_node *head)
 	return (temp);
 }
 
-// Applies merge-sort algorithm
+// Apply merge-sort algorithm
 
 t_node	*merge_sort(t_node *head)
 {

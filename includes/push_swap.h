@@ -107,11 +107,12 @@ void	add_moves(t_moves *moves, int inst, int quantity);
 void	free_moves(t_moves *moves);
 void	check_moves_a(t_stack *stack_a, t_stack *stack_b,
 			t_moves **current_moves);
-void 	apply_moves(t_moves *moves, t_node **stack_a, t_node **stack_b,
+void	apply_moves(t_moves *moves, t_node **stack_a, t_node **stack_b,
 			t_node **instr_queue);
+void	sort_three_num(t_node *stack_a, t_node *stack_b, t_node **instr_queue);
 void	sort_stack_b(t_stack *stack_a, t_stack *stack_b, t_moves **moves,
 			t_node **instr_queue);
-void pass_to_stack_a(t_stack *stack_a, t_stack *stack_b,
+void	pass_to_stack_a(t_stack *stack_a, t_stack *stack_b,
 					 t_node **instr_queue);
 void	sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_moves **moves,
 			t_node **instr_queue);

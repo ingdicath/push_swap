@@ -7,5 +7,5 @@
 void	error_exit(void)
 {
 	ft_putendl_fd("Error", STDERR_FILENO);
-	exit(1); //revisar este codigo de error, 0? -1?
+	exit(1);
 }

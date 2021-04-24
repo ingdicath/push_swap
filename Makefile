@@ -29,7 +29,7 @@ DIR_SRC_COMMON = 	src/common/
 DIR_OBJ = 			objs/
 
 SRC_PS = 			push_swap.c input_push_swap.c checks.c moves.c sort.c\
-					utils_push_swap.c
+					utils_push_swap.c sort_small_size.c
 SRC_CHECK = 		check_sort.c checker.c
 SRC_COMMON = 		input.c instructions.c merge_sort.c node_actions.c\
 					queue_actions.c	rotate_reverse_moves.c swap_push_moves.c\

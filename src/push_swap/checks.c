@@ -69,13 +69,11 @@ t_moves *check_head_a(t_node *head_a, t_stack *stack_b)
 
 	reset_moves(&moves);
 	moves_b = check_first_half_b(head_a, stack_b);
-//	printf("1H moves - %d - %d\n", head_a->data, moves_b);
 	if (moves_b == 0)
 		add_moves(moves, PB, 0);
 	else if (moves_b == -1)
 	{
 		moves_b = check_second_half_b(head_a, stack_b);
-//		printf("2H moves -- %d - %d\n", head_a->data, moves_b);
 		add_moves(moves, RRB, moves_b);
 	}
 	else
@@ -99,16 +97,12 @@ void check_moves_a(t_stack *stack_a, t_stack *stack_b, t_moves **current_moves)
 	reset_moves(&moves);
 	while (i < (*current_moves)->total && i < (stack_a->size / 2))
 	{
-//		printf("up_data: %d | current_moves: %d | down_data: %d\n",
-//			   up_a->data, (*current_moves)->total, down_a->data);
 		moves_b = check_first_half_b(up_a, stack_b);
-//		printf("moves b1: %d\n", moves_b);
 		if (moves_b == 0)
 			add_moves(moves, RA, i);
 		else if (moves_b == -1)
 		{
 			moves_b = check_second_half_b(up_a, stack_b);
-//			printf("moves b2: %d\n", moves_b);
 			add_moves(moves, RA, i);
 			add_moves(moves, RRB, moves_b);
 		}
@@ -132,13 +126,11 @@ void check_moves_a(t_stack *stack_a, t_stack *stack_b, t_moves **current_moves)
 //		free_moves(moves);
 		reset_moves(&moves);
 		moves_b = check_second_half_b(down_a, stack_b);
-//		printf("moves b2*: %d\n", moves_b);
 		if (moves_b == 0)
 			add_moves(moves, RRA, i);
 		else if (moves_b == -1)
 		{
 			moves_b = check_first_half_b(down_a, stack_b);
-//			printf("moves b1*: %d\n", moves_b);
 			add_moves(moves, RRA, i);
 			add_moves(moves, RB, moves_b);
 		}
@@ -156,8 +148,6 @@ void check_moves_a(t_stack *stack_a, t_stack *stack_b, t_moves **current_moves)
 		}
 		if ((*current_moves)->total > moves->total)
 		{
-//			printf("current_moves %d | moves %d\n", (*current_moves)->total,
-//				   moves->total);
 			free_moves(*current_moves);
 			*current_moves = moves;
 			reset_moves(&moves);
@@ -166,6 +156,4 @@ void check_moves_a(t_stack *stack_a, t_stack *stack_b, t_moves **current_moves)
 		up_a = up_a->prev;
 		down_a = down_a->next;
 	}
-//	dprintf(0, "result: ");
-//	display_moves(*current_moves);
 }

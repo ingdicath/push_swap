@@ -53,4 +53,4 @@ add_executable(push_swap
         src/push_swap/input_push_swap.c
         src/push_swap/sort.c
         src/push_swap/checks.c
-        src/push_swap/moves.c)
+        src/push_swap/moves.c src/push_swap/sort_small_size.c)
