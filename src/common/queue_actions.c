@@ -72,6 +72,6 @@ void	print_queue(t_node	*instr_queue)
 		step = deque(&instr_queue);
 		print_instructions(*step);
 		ft_putstr("\n");
-//		free(step); //revisar si es necesario hacer el free aqui, se desactiva por warning
+		free(step);
 	}
 }

@@ -35,7 +35,7 @@ void	add_moves(t_moves *moves, int inst, int quantity)
 
 // empieza a aplicar los movimientos para cada valor en cada stack
 
-void 	apply_moves(t_moves *moves, t_node **stack_a, t_node **stack_b,
+void 	apply_moves(t_moves *moves, t_stack *stack_a, t_stack *stack_b,
 					t_node **instr_queue)
 {
 	t_map *curr_inst;
@@ -43,9 +43,11 @@ void 	apply_moves(t_moves *moves, t_node **stack_a, t_node **stack_b,
 	curr_inst = moves->inst;
 	while (curr_inst != NULL)
 	{
+		if (curr_inst->value == 0 && curr_inst->key == PB)
+			apply_push_instruction(stack_a, stack_b, PB, instr_queue);
 		while (curr_inst->value > 0)
 		{
-			apply_instructions(stack_a, stack_b, curr_inst->key);
+			apply_instructions(&stack_a->nodes, &stack_b->nodes, curr_inst->key);
 			enqueue(instr_queue, curr_inst->key);
 			curr_inst->value--;
 		}
@@ -74,7 +76,7 @@ t_moves	*choose_moves(t_moves *current, t_moves *new)
 // i starts 1 because of head
 // we receive current moves from head, return the best move
 
-t_moves	*best_moves(t_stack *stack_a, t_stack *stack_b, t_moves *current_moves)
+t_moves	*get_best_moves(t_stack *stack_a, t_stack *stack_b, t_moves *current_moves)
 {
 	int	i;
 	t_node *up_a;
