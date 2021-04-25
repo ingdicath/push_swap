@@ -17,18 +17,19 @@ t_node	*sort_stack(t_stack *stack_a, t_stack *stack_b)
 		return_to_stack_a(stack_a, stack_b, &instr_queue);
 	}
 	sort_stack_a(stack_a, stack_b, &instr_queue);
-	return instr_queue;
+	return (instr_queue);
 }
 
 void	insertion_sort_stack_b(t_stack *stack_a, t_stack *stack_b,
 			t_node **instr_queue)
 {
-	t_moves *moves;
+	t_moves	*moves;
+
 	while (stack_a->size > 1)
 	{
 		if (stack_a->size == 2 && is_positionable(stack_a->nodes->data,
-			stack_b->nodes->data,  stack_b->nodes->next->data))
-			break;
+				stack_b->nodes->data, stack_b->nodes->next->data))
+			break ;
 		moves = check_head_a(stack_a->nodes, stack_b);
 		if (moves->total > 0)
 			moves = get_best_moves(stack_a, stack_b, moves);
@@ -49,19 +50,19 @@ void	return_to_stack_a(t_stack *stack_a, t_stack *stack_b,
 			t_node **instr_queue)
 {
 	int	tail_a;
-	int current_b;
-	int tail_b;
+	int	current_b;
+	int	tail_b;
 
 	tail_a = stack_a->nodes->next->data;
-	current_b =  stack_b->nodes->data;
-	tail_b =  stack_b->nodes->next->data;
-	while (stack_b->size > 1 &&	!is_positionable(tail_a, current_b, tail_b))
+	current_b = stack_b->nodes->data;
+	tail_b = stack_b->nodes->next->data;
+	while (stack_b->size > 1 && !is_positionable(tail_a, current_b, tail_b))
 	{
 		apply_push_instruction(stack_b, stack_a, PA, instr_queue);
-		current_b =  stack_b->nodes->data;
+		current_b = stack_b->nodes->data;
 	}
-	if (stack_b->nodes != NULL && stack_a->size > 1 &&
-		!is_positionable(tail_a, stack_a->nodes->data, tail_b))
+	if (stack_b->nodes != NULL && stack_a->size > 1
+		&& !is_positionable(tail_a, stack_a->nodes->data, tail_b))
 	{
 		apply_instructions(&stack_a->nodes, &stack_b->nodes, RRA);
 		enqueue(instr_queue, RRA);

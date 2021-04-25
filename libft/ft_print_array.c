@@ -4,15 +4,15 @@
 
 #include "libft.h"
 
-void ft_print_array(char **array)
- {
- 	int i;
- 	i = 0;
+void	ft_print_array(char **array)
+{
+	int	i;
 
- 	while (array[i] != NULL)
- 	{
+	i = 0;
+	while (array[i] != NULL)
+	{
 		ft_putstr(array[i]);
- 		i++;
- 	}
- 	write(1, "\n", 1);
- }
+		i++;
+	}
+	write(1, "\n", 1);
+}

@@ -65,7 +65,7 @@ int	*deque(t_node **head)
 
 void	print_queue(t_node	*instr_queue)
 {
-	int *step;
+	int	*step;
 
 	while (peek(instr_queue))
 	{

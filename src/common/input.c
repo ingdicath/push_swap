@@ -13,7 +13,7 @@ void	fill_stacks(char *str, t_node **a, t_node **sorted)
 	push(sorted, data);
 }
 
-int map_data_to_int(char *str)
+int	map_data_to_int(char *str)
 {
 	long	data;
 
@@ -38,7 +38,7 @@ void	build_input(int size, char **argv, t_node **a, t_node **sorted)
 	while (i > 0)
 	{
 		str = ft_split(argv[i], ' ');
-		j = ft_array_size(str)-1;
+		j = ft_array_size(str) - 1;
 		while (j >= 0)
 		{
 			fill_stacks(str[j], a, sorted);

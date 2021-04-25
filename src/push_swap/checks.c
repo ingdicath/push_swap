@@ -4,10 +4,10 @@
 
 #include "push_swap.h"
 
-t_moves *check_head_a(t_node *head_a, t_stack *stack_b)
+t_moves	*check_head_a(t_node *head_a, t_stack *stack_b)
 {
-	t_moves *moves;
-	int moves_b;
+	t_moves	*moves;
+	int		moves_b;
 
 	reset_moves(&moves);
 	moves_b = check_first_half_b(head_a->data, stack_b);
@@ -26,7 +26,7 @@ t_moves *check_head_a(t_node *head_a, t_stack *stack_b)
 // moves_b returns the position to insert element from stack 'a' to stack 'b'
 // starting from the top
 
-int check_first_half_b(int current_a, t_stack *stack_b)
+int	check_first_half_b(int current_a, t_stack *stack_b)
 {
 	int		moves_b;
 	t_node	*current_b;
@@ -50,8 +50,8 @@ int check_first_half_b(int current_a, t_stack *stack_b)
 
 int	check_second_half_b(int current_a, t_stack *stack_b)
 {
-	int moves_b;
-	t_node *current_b;
+	int		moves_b;
+	t_node	*current_b;
 
 	moves_b = 1;
 	current_b = stack_b->nodes->next;
@@ -68,7 +68,7 @@ int	check_second_half_b(int current_a, t_stack *stack_b)
 void	check_first_half_a(int current_a, t_stack *stack_b, int index,
 			t_moves **moves)
 {
-	int moves_b;
+	int	moves_b;
 
 	reset_moves(moves);
 	moves_b = check_first_half_b(current_a, stack_b);
@@ -97,7 +97,7 @@ void	check_first_half_a(int current_a, t_stack *stack_b, int index,
 void	check_second_half_a(int current_a, t_stack *stack_b, int index,
 			t_moves **moves)
 {
-	int moves_b;
+	int	moves_b;
 
 	reset_moves(moves);
 	moves_b = check_second_half_b(current_a, stack_b);

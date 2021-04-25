@@ -6,7 +6,7 @@
 
 void	free_moves(t_moves *moves)
 {
-	t_map *temp;
+	t_map	*temp;
 
 	while (moves->inst != NULL)
 	{
@@ -18,7 +18,7 @@ void	free_moves(t_moves *moves)
 
 void	add_moves(t_moves *moves, int inst, int quantity)
 {
-	t_map *new_inst;
+	t_map	*new_inst;
 
 	new_inst = create_map_element(inst, quantity);
 	if (moves->inst == NULL)
@@ -38,7 +38,7 @@ void	add_moves(t_moves *moves, int inst, int quantity)
 void 	apply_moves(t_moves *moves, t_stack *stack_a, t_stack *stack_b,
 					t_node **instr_queue)
 {
-	t_map *curr_inst;
+	t_map	*curr_inst;
 
 	curr_inst = moves->inst;
 	while (curr_inst != NULL)
@@ -47,7 +47,8 @@ void 	apply_moves(t_moves *moves, t_stack *stack_a, t_stack *stack_b,
 			apply_push_instruction(stack_a, stack_b, PB, instr_queue);
 		while (curr_inst->value > 0)
 		{
-			apply_instructions(&stack_a->nodes, &stack_b->nodes, curr_inst->key);
+			apply_instructions(&stack_a->nodes, &stack_b->nodes,
+				curr_inst->key);
 			enqueue(instr_queue, curr_inst->key);
 			curr_inst->value--;
 		}
@@ -58,7 +59,7 @@ void 	apply_moves(t_moves *moves, t_stack *stack_a, t_stack *stack_b,
 
 t_moves	*choose_moves(t_moves *current, t_moves *new)
 {
-	t_moves *moves;
+	t_moves	*moves;
 
 	if (current->total > new->total)
 	{
@@ -76,12 +77,13 @@ t_moves	*choose_moves(t_moves *current, t_moves *new)
 // i starts 1 because of head
 // we receive current moves from head, return the best move
 
-t_moves	*get_best_moves(t_stack *stack_a, t_stack *stack_b, t_moves *current_moves)
+t_moves	*get_best_moves(t_stack *stack_a, t_stack *stack_b,
+		t_moves *current_moves)
 {
-	int	i;
-	t_node *up_a;
-	t_node *down_a;
-	t_moves *moves;
+	int		i;
+	t_node	*up_a;
+	t_node	*down_a;
+	t_moves	*moves;
 
 	up_a = stack_a->nodes->prev;
 	down_a = stack_a->nodes->next;
