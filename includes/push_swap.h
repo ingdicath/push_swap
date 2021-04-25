@@ -109,7 +109,7 @@ void	free_moves(t_moves *moves);
 void	apply_moves(t_moves *moves, t_stack *stack_a, t_stack *stack_b,
 			t_node **instr_queue);
 void	apply_three_num_rules(t_node *stack_a, t_node **instr_queue);
-void	insertion_sort_stack_b(t_stack *stack_a, t_stack *stack_b
+void	insertion_sort_stack_b(t_stack *stack_a, t_stack *stack_b,
 			t_node **instr_queue);
 void	return_to_stack_a(t_stack *stack_a, t_stack *stack_b,
 			t_node **instr_queue);
