@@ -97,7 +97,7 @@ int		sorted(t_node *stack_a);
 int		find_len_stack(t_node *head);
 int		check_first_half_b(int current_a, t_stack *stack_b);
 int		check_second_half_b(int current_a, t_stack *stack_b);
-int		is_pushable(int current_a, int current_b, int next_b);
+int		is_positionable(int current_a, int current_b, int next_b);
 void	build_input_push_swap(int size, char **argv, t_stack *stack_a);
 void	reset_input_push_swap(t_stack *stack_a, t_stack *stack_b);
 void	clean_stack(t_node **stack);
@@ -106,20 +106,24 @@ void	print_queue(t_node	*instr_queue);
 void	reset_moves(t_moves **moves);
 void	add_moves(t_moves *moves, int inst, int quantity);
 void	free_moves(t_moves *moves);
-void	check_moves_a(t_stack *stack_a, t_stack *stack_b,
-			t_moves **current_moves);
+t_moves *best_moves(t_stack *stack_a, t_stack *stack_b, t_moves *current_moves);
 void	apply_moves(t_moves *moves, t_node **stack_a, t_node **stack_b,
 			t_node **instr_queue);
 void	apply_three_num_rules(t_node *stack_a, t_node **instr_queue);
 void	insertion_sort_stack_b(t_stack *stack_a, t_stack *stack_b, t_node **instr_queue);
-void	pass_to_stack_a(t_stack *stack_a, t_stack *stack_b,
-					 t_node **instr_queue);
+void	return_to_stack_a(t_stack *stack_a, t_stack *stack_b,
+						  t_node **instr_queue);
 void	sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_node **instr_queue);
 void	apply_push_instruction(t_stack *from, t_stack *to, int inst,
 			t_node **instr_queue);
+void	check_first_half_a(int current_a, t_stack *stack_b, int index,
+			t_moves **moves);
+void	check_second_half_a(int current_a, t_stack *stack_b, int index,
+			t_moves **moves);
 t_map	*create_map_element(int key, int value);
 t_node	*sort_stack(t_stack *stack_a, t_stack *stack_b);
 t_moves	*check_head_a(t_node *head_a, t_stack *stack_b);
+t_moves	*choose_moves(t_moves *current, t_moves *new);
 
 // ------------------------------ test functions ------------------------------
 

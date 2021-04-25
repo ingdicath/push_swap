@@ -42,7 +42,6 @@ int	find_len_stack(t_node *head)
 	return (len);
 }
 
-// revisar si es necesario crear funcion para reset map
 t_map	*create_map_element(int key, int value)
 {
 	t_map	*new_element;
@@ -56,34 +55,21 @@ t_map	*create_map_element(int key, int value)
 	return (new_element);
 }
 
-void	clean_stack(t_node **stack)
+int	is_positionable(int current_a, int current_b, int next_b)
 {
-	if (*stack != NULL)
-	{
-		free(*stack);
-		*stack = NULL;
-	}
+	if ((current_a > current_b && (current_b > next_b || current_a < next_b)) ||
+		(next_b < current_b && current_a < current_b && current_a < next_b))
+		return (1);
+	return (0);
 }
 
-void	reset_input_push_swap(t_stack *stack_a, t_stack *stack_b)
+void	build_input_push_swap(int size, char **argv, t_stack *stack_a)
 {
-	stack_a->nodes = NULL;
-	stack_b->nodes = NULL;
-	stack_a->size = 0;
-	stack_b->size = 0;
-}
+	t_node *sorted;
 
-void	reset_moves(t_moves **moves)
-{
-	*moves = (t_moves *)malloc(sizeof(t_moves));
-	(*moves)->total = 0;
-	(*moves)->inst = NULL;
+	sorted = NULL;
+	build_input(size,argv,&stack_a->nodes,&sorted);
+	stack_a->size = find_len_stack(stack_a->nodes);
+	merge_sort(sorted);
+	clean_stack(&sorted);
 }
-
-//void reset_map(t_map **new_element) //revisar si es necesario poner
-//{
-//	*new_element = (t_map *)malloc(sizeof(t_map));
-//	(*new_element)->key = 0;
-//	(*new_element)->value = 0;
-//	(*new_element)->next = NULL;
-//}

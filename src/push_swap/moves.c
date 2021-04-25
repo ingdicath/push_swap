@@ -53,3 +53,46 @@ void 	apply_moves(t_moves *moves, t_node **stack_a, t_node **stack_b,
 	}
 	free_moves(moves);
 }
+
+t_moves	*choose_moves(t_moves *current, t_moves *new)
+{
+	t_moves *moves;
+
+	if (current->total > new->total)
+	{
+		moves = new;
+		free_moves(current);
+	}
+	else
+	{
+		moves = current;
+		free_moves(new);
+	}
+	return (moves);
+}
+
+// i starts 1 because of head
+// we receive current moves from head, return the best move
+
+t_moves	*best_moves(t_stack *stack_a, t_stack *stack_b, t_moves *current_moves)
+{
+	int	i;
+	t_node *up_a;
+	t_node *down_a;
+	t_moves *moves;
+
+	up_a = stack_a->nodes->prev;
+	down_a = stack_a->nodes->next;
+	i = 1;
+	while (i < current_moves->total && i < (stack_a->size / 2))
+	{
+		check_first_half_a(up_a->data, stack_b, i, &moves);
+		current_moves = choose_moves(current_moves, moves);
+		check_second_half_a(down_a->data, stack_b, i, &moves);
+		current_moves = choose_moves(current_moves, moves);
+		i++;
+		up_a = up_a->prev;
+		down_a = down_a->next;
+	}
+	return (current_moves);
+}
