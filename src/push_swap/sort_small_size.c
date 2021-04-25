@@ -13,9 +13,9 @@ void	apply_three_num_rules(t_node *stack_a, t_node **instr_queue)
 	head = stack_a->data;
 	middle = stack_a->prev->data;
 	tail = stack_a->next->data;
-	if ((head > middle && head < tail && middle < tail) ||
-		(head > middle && head > tail && middle > tail) ||
-		(head < middle && head < tail && middle > tail))
+	if ((head > middle && head < tail && middle < tail)
+		|| (head > middle && head > tail && middle > tail)
+		|| (head < middle && head < tail && middle > tail))
 	{
 		apply_instructions(&stack_a, NULL, SA);
 		enqueue(instr_queue, SA);

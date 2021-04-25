@@ -32,13 +32,13 @@ typedef struct s_map
 typedef struct s_moves
 {
 	int				total;
-	t_map 			*inst;
+	t_map			*inst;
 }	t_moves;
 
 typedef struct s_stack
 {
 	t_node		*nodes;
-	int 		size;
+	int			size;
 }	t_stack;
 
 // -------------------------- Movements ---------------------------------------
@@ -106,13 +106,13 @@ void	print_queue(t_node	*instr_queue);
 void	reset_moves(t_moves **moves);
 void	add_moves(t_moves *moves, int inst, int quantity);
 void	free_moves(t_moves *moves);
-t_moves *get_best_moves(t_stack *stack_a, t_stack *stack_b, t_moves *current_moves);
-void 	apply_moves(t_moves *moves, t_stack *stack_a, t_stack *stack_b,
-					t_node **instr_queue);
+void	apply_moves(t_moves *moves, t_stack *stack_a, t_stack *stack_b,
+			t_node **instr_queue);
 void	apply_three_num_rules(t_node *stack_a, t_node **instr_queue);
-void	insertion_sort_stack_b(t_stack *stack_a, t_stack *stack_b, t_node **instr_queue);
+void	insertion_sort_stack_b(t_stack *stack_a, t_stack *stack_b,
+			t_node **instr_queue);
 void	return_to_stack_a(t_stack *stack_a, t_stack *stack_b,
-						  t_node **instr_queue);
+			t_node **instr_queue);
 void	sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_node **instr_queue);
 void	apply_push_instruction(t_stack *from, t_stack *to, int inst,
 			t_node **instr_queue);
@@ -124,6 +124,8 @@ t_map	*create_map_element(int key, int value);
 t_node	*sort_stack(t_stack *stack_a, t_stack *stack_b);
 t_moves	*check_head_a(t_node *head_a, t_stack *stack_b);
 t_moves	*choose_moves(t_moves *current, t_moves *new);
+t_moves	*get_best_moves(t_stack *stack_a, t_stack *stack_b,
+			t_moves *current_moves);
 
 // ------------------------------ test functions ------------------------------
 
@@ -131,7 +133,7 @@ int		node_size(t_node *head);
 void	display(t_node *head, char *name);
 void	display_qu(t_node *head, char *name);
 void	display_step(t_node *stack_a, t_node *stack_b, t_node *sorted_stack,
-				int count, int inst); // test function, borrar despues
+			int count, int inst); // test function, borrar despues
 void	display_moves(t_moves *moves);
 
 #endif
