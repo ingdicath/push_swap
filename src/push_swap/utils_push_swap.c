@@ -70,6 +70,6 @@ void	build_input_push_swap(int size, char **argv, t_stack *stack_a)
 	sorted = NULL;
 	build_input(size, argv, &stack_a->nodes, &sorted);
 	stack_a->size = find_len_stack(stack_a->nodes);
-	merge_sort(sorted);
+	sorted = merge_sort(sorted);
 	clean_stack(&sorted);
 }

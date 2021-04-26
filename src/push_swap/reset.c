@@ -6,12 +6,15 @@
 
 void	clean_stack(t_node **stack)
 {
-	if (*stack != NULL)
+	t_node	*temp;
+
+	while (*stack != NULL)
 	{
-		free(*stack);
-		*stack = NULL;
+		temp = *stack;
+		*stack = (*stack)->prev;
+		free(temp);
 	}
-}
+}	
 
 void	reset_input_push_swap(t_stack *stack_a, t_stack *stack_b)
 {
