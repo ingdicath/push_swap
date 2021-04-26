@@ -123,7 +123,7 @@ void	check_second_half_a(int current_a, t_stack *stack_b, int index,
 t_map	*create_map_element(int key, int value);
 t_node	*sort_stack(t_stack *stack_a, t_stack *stack_b);
 t_moves	*check_head_a(t_node *head_a, t_stack *stack_b);
-t_moves	*choose_moves(t_moves *current, t_moves *new);
+t_moves	*choose_moves(t_moves **current, t_moves **new);
 t_moves	*get_best_moves(t_stack *stack_a, t_stack *stack_b,
 			t_moves *current_moves);
 

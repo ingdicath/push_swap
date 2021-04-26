@@ -24,9 +24,9 @@ int	sorted(t_node *stack_a)
 
 int	find_len_stack(t_node *head)
 {
+	int		len;
 	t_node	*stack;
 	t_node	*end;
-	int		len;
 
 	len = 0;
 	stack = head;

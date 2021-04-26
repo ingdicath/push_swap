@@ -6,8 +6,12 @@
 
 void	fill_stacks(char *str, t_node **a, t_node **sorted)
 {
-	int	data;
+	int		data;
+	size_t	count;
 
+	count = ft_strlen(str);
+	if (count > 11)
+		error_exit();
 	data = map_data_to_int(str);
 	push(a, data);
 	push(sorted, data);
@@ -31,8 +35,8 @@ void	build_input(int size, char **argv, t_node **a, t_node **sorted)
 {
 	int		i;
 	int		j;
-	t_node	*tail;
 	char	**str;
+	t_node	*tail;
 
 	i = size;
 	while (i > 0)

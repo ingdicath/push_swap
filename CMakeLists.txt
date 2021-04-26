@@ -41,13 +41,13 @@ add_executable(push_swap
         src/checker/checker.c
         src/common/displays_push_swap.c
         src/common/input.c
+        src/common/error.c
         src/common/instructions.c
         src/common/merge_sort.c
         src/common/node_actions.c
         src/common/queue_actions.c
         src/common/rotate_reverse_moves.c
         src/common/swap_push_moves.c
-        src/common/utils.c
         src/push_swap/utils_push_swap.c
         src/push_swap/push_swap.c
         src/push_swap/sort.c
