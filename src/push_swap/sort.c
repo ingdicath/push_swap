@@ -95,4 +95,6 @@ void	sort_stack_a(t_stack *stack_a, t_stack *stack_b, t_node **instr_queue)
 		add_moves(moves, RRA, stack_a->size - i);
 		apply_moves(moves, stack_a, stack_b, instr_queue);
 	}
+	else
+		free_moves(moves);
 }

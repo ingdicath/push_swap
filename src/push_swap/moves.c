@@ -14,6 +14,7 @@ void	free_moves(t_moves *moves)
 		free(moves->inst);
 		moves->inst = temp;
 	}
+	free(moves);
 }
 
 void	add_moves(t_moves *moves, int inst, int quantity)
