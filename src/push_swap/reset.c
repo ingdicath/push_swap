@@ -27,6 +27,8 @@ void	reset_input_push_swap(t_stack *stack_a, t_stack *stack_b)
 void	reset_moves(t_moves **moves)
 {
 	*moves = (t_moves *)malloc(sizeof(t_moves));
+	if (!*moves)
+		error_exit();
 	(*moves)->total = 0;
 	(*moves)->inst = NULL;
 }

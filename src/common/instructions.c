@@ -104,3 +104,12 @@ void	print_instructions(int instr)
 	else if (RRR == instr)
 		ft_putstr_fd("rrr", STDOUT_FILENO);
 }
+
+void	apply_push_instruction(t_stack *from, t_stack *to, int inst,
+			t_node **instr_queue)
+{
+	push_to_stack(&from->nodes, &to->nodes);
+	enqueue(instr_queue, inst);
+	from->size--;
+	to->size++;
+}

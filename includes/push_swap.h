@@ -85,7 +85,7 @@ t_node	*create_element(int data);
 // ------------------------------ checker -----------------------------------
 
 int		read_instruction(char *input);
-int		check_sort(t_node *stack_a, t_node *stack_b, t_node *sorted);
+int		is_sorted(t_node *stack_a, t_node *stack_b, t_node *sorted);
 void	apply_instructions(t_node **stack_a, t_node **stack_b, int instr);
 void	reset_input(t_node **stack_a, t_node **stack_b, t_node **sorted);
 t_node	*get_instructions(void);

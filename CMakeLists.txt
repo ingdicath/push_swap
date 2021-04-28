@@ -37,7 +37,7 @@ add_executable(push_swap
         libft/get_next_line.c
         libft/ft_print_array.c
         libft/libft.h
-        src/checker/check_sort.c
+        src/checker/sort_checker.c
         src/checker/checker.c
         src/common/displays_push_swap.c
         src/common/input.c
@@ -52,4 +52,4 @@ add_executable(push_swap
         src/push_swap/push_swap.c
         src/push_swap/sort.c
         src/push_swap/checks.c
-        src/push_swap/moves.c src/push_swap/sort_small_size.c src/push_swap/reset.c)
+        src/push_swap/moves.c src/push_swap/reset.c)

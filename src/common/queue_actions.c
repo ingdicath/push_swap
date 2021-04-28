@@ -58,6 +58,8 @@ int	*deque(t_node **head)
 		tail->next = *head;
 	}
 	data = (int *)malloc(sizeof(int));
+	if (!data)
+		error_exit();
 	*data = temp->data;
 	free(temp);
 	return (data);

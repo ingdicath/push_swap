@@ -9,6 +9,8 @@ t_node	*create_element(int data)
 	t_node	*new_element;
 
 	new_element = (t_node *)malloc(sizeof(t_node));
+	if (!new_element)
+		error_exit();
 	new_element->data = data;
 	new_element->prev = NULL;
 	new_element->next = NULL;
@@ -58,6 +60,8 @@ int	*pop(t_node **head)
 		tail->prev = *head;
 	}
 	data = (int *)malloc(sizeof(int));
+	if (!data)
+		error_exit();
 	*data = temp->data;
 	free(temp);
 	return (data);

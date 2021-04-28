@@ -55,14 +55,6 @@ t_map	*create_map_element(int key, int value)
 	return (new_element);
 }
 
-int	is_positionable(int current_a, int current_b, int next_b)
-{
-	if ((current_a > current_b && (current_b > next_b || current_a < next_b))
-		|| (next_b < current_b && current_a < current_b && current_a < next_b))
-		return (1);
-	return (0);
-}
-
 void	build_input_push_swap(int size, char **argv, t_stack *stack_a)
 {
 	t_node	*sorted;
@@ -72,4 +64,12 @@ void	build_input_push_swap(int size, char **argv, t_stack *stack_a)
 	stack_a->size = find_len_stack(stack_a->nodes);
 	sorted = merge_sort(sorted);
 	clean_stack(&sorted);
+}
+
+int	is_positionable(int current_a, int current_b, int next_b)
+{
+	if ((current_a > current_b && (current_b > next_b || current_a < next_b))
+		|| (next_b < current_b && current_a < current_b && current_a < next_b))
+		return (1);
+	return (0);
 }

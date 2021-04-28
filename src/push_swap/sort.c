@@ -20,6 +20,24 @@ t_node	*sort_stack(t_stack *stack_a, t_stack *stack_b)
 	return (instr_queue);
 }
 
+void	apply_three_num_rules(t_node *stack_a, t_node **instr_queue)
+{
+	int	head;
+	int	middle;
+	int	tail;
+
+	head = stack_a->data;
+	middle = stack_a->prev->data;
+	tail = stack_a->next->data;
+	if ((head > middle && head < tail && middle < tail)
+		|| (head > middle && head > tail && middle > tail)
+		|| (head < middle && head < tail && middle > tail))
+	{
+		apply_instructions(&stack_a, NULL, SA);
+		enqueue(instr_queue, SA);
+	}
+}
+
 void	insertion_sort_stack_b(t_stack *stack_a, t_stack *stack_b,
 			t_node **instr_queue)
 {
@@ -35,15 +53,6 @@ void	insertion_sort_stack_b(t_stack *stack_a, t_stack *stack_b,
 			moves = get_best_moves(stack_a, stack_b, moves);
 		apply_moves(moves, stack_a, stack_b, instr_queue);
 	}
-}
-
-void	apply_push_instruction(t_stack *from, t_stack *to, int inst,
-			t_node **instr_queue)
-{
-	push_to_stack(&from->nodes, &to->nodes);
-	enqueue(instr_queue, inst);
-	from->size--;
-	to->size++;
 }
 
 void	return_to_stack_a(t_stack *stack_a, t_stack *stack_b,
