@@ -22,26 +22,6 @@ int	sorted(t_node *stack_a)
 	return (1);
 }
 
-int	find_len_stack(t_node *head)
-{
-	int		len;
-	t_node	*stack;
-	t_node	*end;
-
-	len = 0;
-	stack = head;
-	if (head)
-		end = head->next;
-	while (head)
-	{
-		len++;
-		if (stack == end)
-			break ;
-		stack = stack->prev;
-	}
-	return (len);
-}
-
 t_map	*create_map_element(int key, int value)
 {
 	t_map	*new_element;

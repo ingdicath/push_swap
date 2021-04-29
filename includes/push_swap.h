@@ -75,7 +75,7 @@ void	rotate_multiple(t_node **head_a, t_node **head_b);
 void	reverse(t_node **head);
 void	reverse_multiple(t_node **head_a, t_node **head_b);
 void	error_exit(void);
-void	build_input(int size, char **argv, t_node **a, t_node **sorted);
+int		build_input(int size, char **argv, t_node **a, t_node **sorted);
 void	fill_stacks(char *str, t_node **a, t_node **sorted);
 t_node	*merge(t_node *first, t_node *second);
 t_node	*split_merge_sort(t_node *head);
@@ -89,7 +89,8 @@ int		is_sorted(t_node *stack_a, t_node *stack_b, t_node *sorted);
 void	apply_instructions(t_node **stack_a, t_node **stack_b, int instr);
 void	reset_input(t_node **stack_a, t_node **stack_b, t_node **sorted);
 t_node	*get_instructions(void);
-t_node	*sort_checker(t_node **stack_a, t_node **stack_b);
+t_node	*sort_checker(t_node **stack_a, t_node **stack_b, int flag);
+void	unlink_circular_ref(t_node **node);
 
 // ------------------------------ push_swap -----------------------------------
 
@@ -129,11 +130,14 @@ t_moves	*get_best_moves(t_stack *stack_a, t_stack *stack_b,
 
 // ------------------------------ test functions ------------------------------
 
-int		node_size(t_node *head);
 void	display(t_node *head, char *name);
 void	display_qu(t_node *head, char *name);
-void	display_step(t_node *stack_a, t_node *stack_b, t_node *sorted_stack,
-			int count, int inst); // test function, borrar despues
 void	display_moves(t_moves *moves);
+void	print_stack(int i, int size, t_node *stack);
+void	print_center_num(int num);
+void	print_footer(int inst, int count);
+void	print_step(t_stack *stack, int i);
+void	display_step(t_stack stack_a, t_stack stack_b, int count, int inst);
+void	print_debug_flag(t_node *node_a, t_node *node_b, int count, int inst);
 
 #endif

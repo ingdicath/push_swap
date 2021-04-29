@@ -33,7 +33,7 @@ SRC_PS = 			push_swap.c checks.c moves.c sort.c reset.c\
 SRC_CHECK = 		sort_checker.c checker.c
 SRC_COMMON = 		input.c instructions.c merge_sort.c node_actions.c\
 					queue_actions.c	rotate_reverse_moves.c swap_push_moves.c\
-					error.c displays_push_swap.c
+					error.c utils_common.c
 
 PATH_SRC_PS = 		$(addprefix $(DIR_SRC_PS), $(SRC_PS))
 PATH_SRC_CHECK = 	$(addprefix $(DIR_SRC_CHECK), $(SRC_CHECK))

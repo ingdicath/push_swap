@@ -31,15 +31,18 @@ int	map_data_to_int(char *str)
 
 //  Tail is included to disconnect sorted from a circular doubly-linked list
 
-void	build_input(int size, char **argv, t_node **a, t_node **sorted)
+int	build_input(int size, char **argv, t_node **a, t_node **sorted)
 {
 	int		i;
 	int		j;
+	int		flag;
 	char	**str;
-	t_node	*tail;
 
+	flag = 0;
 	i = size;
-	while (i > 0)
+	if (ft_strcmp(argv[1], "-v") == 0)
+		flag = 1;
+	while (i > flag)
 	{
 		str = ft_split(argv[i], ' ');
 		j = ft_array_size(str) - 1;
@@ -51,7 +54,18 @@ void	build_input(int size, char **argv, t_node **a, t_node **sorted)
 		ft_free_array(str);
 		i--;
 	}
-	tail = (*sorted)->next;
-	(*sorted)->next = NULL;
-	tail->prev = NULL;
+	unlink_circular_ref(sorted);
+	return (flag);
+}
+
+void	unlink_circular_ref(t_node **node)
+{
+	t_node	*tail;
+
+	if (*node != NULL)
+	{
+		tail = (*node)->next;
+		(*node)->next = NULL;
+		tail->prev = NULL;
+	}
 }
