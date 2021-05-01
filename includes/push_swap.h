@@ -13,6 +13,11 @@
 # include "libft.h"
 # include <stdio.h> //borrar
 
+// ------------------ Speed display variables ---------------------------------
+
+# define FIRST_WHILE 200000
+# define SECOND_WHILE 199999999
+
 // ------------------ Doubly-linked list --------------------------------------
 
 typedef struct s_node
@@ -135,7 +140,7 @@ void	display_qu(t_node *head, char *name);
 void	display_moves(t_moves *moves);
 void	print_stack(int i, int size, t_node *stack);
 void	print_center_num(int num);
-void	print_footer(int inst, int count);
+void	print_header(int inst, int count);
 void	print_step(t_stack *stack, int i);
 void	display_step(t_stack stack_a, t_stack stack_b, int count, int inst);
 void	print_debug_flag(t_node *node_a, t_node *node_b, int count, int inst);

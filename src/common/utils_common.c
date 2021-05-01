@@ -31,7 +31,7 @@ void	display_step(t_stack stack_a, t_stack stack_b, int count, int inst)
 	i = stack_a.size;
 	if (i< stack_b.size)
 		i = stack_b.size;
-	ft_putstr_fd("-------------------------\n", STDOUT_FILENO);
+	print_header(inst, count);
 	while (i > 0)
 	{
 		ft_putstr_fd("|", STDOUT_FILENO);
@@ -40,7 +40,7 @@ void	display_step(t_stack stack_a, t_stack stack_b, int count, int inst)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 		i--;
 	}
-	print_footer(inst, count);
+	ft_putstr_fd("-------------------------\n", STDOUT_FILENO);
 }
 
 void	display(t_node *head, char *name) //funcion de prueba
@@ -132,14 +132,18 @@ void	print_center_num(int num)
 	ft_putstr_fd("|", STDOUT_FILENO);
 }
 
-void	print_footer(int inst, int count)
+void	print_header(int inst, int count)
 {
-	ft_putstr_fd("| --------- | --------- |\n", STDOUT_FILENO);
-	ft_putstr_fd("|  stack A  |  stack B  |\n", STDOUT_FILENO);
-	print_instructions(inst);
-	ft_putstr_fd(",\tstep ", STDOUT_FILENO);
+	ft_putstr_fd("-------------------------\n", STDOUT_FILENO);
+	ft_putstr_fd("   ", STDOUT_FILENO);
+	if (count != 0)
+		print_instructions(inst);
+	ft_putstr_fd("\t|  step ", STDOUT_FILENO);
 	ft_putnbr_fd(count, STDOUT_FILENO);
 	ft_putstr_fd("\n", STDOUT_FILENO);
+	ft_putstr_fd("-------------------------\n", STDOUT_FILENO);
+	ft_putstr_fd("|  stack A  |  stack B  |\n", STDOUT_FILENO);
+	ft_putstr_fd("-------------------------\n", STDOUT_FILENO);
 }
 
 void	print_step(t_stack *stack, int i)
