@@ -1,18 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   queue_actions.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/03/29 08:08:54 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/29 08:08:54 by dsalaman      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+/*
+** Created by dsalaman on 2021/04/03
+*/
 
-#include "../../push_swap.h"
+#include "push_swap.h"
 
-// put on queue
+// Enqueue: adding an element to the rear of the queue.
+// Dequeue: removing an element from the front of the queue.
+// Peek: returns the value of the head nodes without dequeuing it.
+
 void	enqueue(t_node **head, int data)
 {
 	t_node	*new_element;
@@ -33,11 +28,9 @@ void	enqueue(t_node **head, int data)
 		new_element->prev = tail;
 		new_element->next = *head;
 		(*head)->prev = new_element;
-//		tail = new_element;  ///check this, the value is never used
 	}
 }
 
-// chismosear head node
 int	*peek(t_node *head)
 {
 	if (head == NULL)
@@ -46,7 +39,6 @@ int	*peek(t_node *head)
 		return (&head->data);
 }
 
-// remove from the queue
 int	*deque(t_node **head)
 {
 	int		*data;
@@ -66,7 +58,22 @@ int	*deque(t_node **head)
 		tail->next = *head;
 	}
 	data = (int *)malloc(sizeof(int));
+	if (!data)
+		error_exit();
 	*data = temp->data;
 	free(temp);
 	return (data);
+}
+
+void	print_queue(t_node	*instr_queue)
+{
+	int	*step;
+
+	while (peek(instr_queue))
+	{
+		step = deque(&instr_queue);
+		print_instructions(*step);
+		ft_putstr("\n");
+		free(step);
+	}
 }

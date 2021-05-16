@@ -1,22 +1,16 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   node_actions.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/03/29 08:08:41 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/29 08:08:41 by dsalaman      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+/*
+** Created by dsalaman on 2021/04/03
+*/
 
-#include "../../push_swap.h"
+#include "push_swap.h"
 
 t_node	*create_element(int data)
 {
 	t_node	*new_element;
 
 	new_element = (t_node *)malloc(sizeof(t_node));
+	if (!new_element)
+		error_exit();
 	new_element->data = data;
 	new_element->prev = NULL;
 	new_element->next = NULL;
@@ -66,6 +60,8 @@ int	*pop(t_node **head)
 		tail->prev = *head;
 	}
 	data = (int *)malloc(sizeof(int));
+	if (!data)
+		error_exit();
 	*data = temp->data;
 	free(temp);
 	return (data);

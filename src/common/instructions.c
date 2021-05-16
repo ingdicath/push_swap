@@ -1,16 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   instructions.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/03/29 08:08:03 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/04/01 19:22:08 by dsalaman      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+/*
+** Created by dsalaman on 2021/04/03
+*/
 
-#include "../../push_swap.h"
+#include "push_swap.h"
 
 int	read_instruction(char *input)
 {
@@ -27,7 +19,7 @@ int	read_instruction(char *input)
 	else if (ft_strcmp("ra", input) == 0)
 		return (RA);
 	else if (ft_strcmp("rb", input) == 0)
-		return (RA);
+		return (RB);
 	else if (ft_strcmp("rr", input) == 0)
 		return (RR);
 	else if (ft_strcmp("rra", input) == 0)
@@ -111,4 +103,13 @@ void	print_instructions(int instr)
 		ft_putstr_fd("rrb", STDOUT_FILENO);
 	else if (RRR == instr)
 		ft_putstr_fd("rrr", STDOUT_FILENO);
+}
+
+void	apply_push_instruction(t_stack *from, t_stack *to, int inst,
+			t_node **instr_queue)
+{
+	push_to_stack(&from->nodes, &to->nodes);
+	enqueue(instr_queue, inst);
+	from->size--;
+	to->size++;
 }

@@ -1,16 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   swap_push_moves.c                                  :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: dsalaman <dsalaman@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2021/03/29 08:09:14 by dsalaman      #+#    #+#                 */
-/*   Updated: 2021/03/29 08:09:14 by dsalaman      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
+/*
+** Created by dsalaman on 2021/04/03
+*/
 
-#include "../../push_swap.h"
+#include "push_swap.h"
 
 void	swap(t_node **head)
 {

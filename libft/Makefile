@@ -17,7 +17,7 @@ SRC = ft_atoi.c ft_isemptyline.c ft_isnumber.c ft_iswhitespace.c ft_put_error.c\
 	ft_strjoin.c ft_strlen.c ft_substr.c ft_strtrim.c get_next_line.c\
 	ft_strcmp_trim.c ft_free_array.c ft_array_size.c ft_min.c ft_max.c\
 	ft_ispositive_number.c ft_isdigit.c ft_putendl_fd.c ft_putchar_fd.c\
-	ft_atol.c ft_bzero.c
+	ft_atol.c ft_bzero.c ft_print_array.c ft_numlen.c ft_putnbr_fd.c
 
 OBJECTS = $(SRC:.c=.o)
 
