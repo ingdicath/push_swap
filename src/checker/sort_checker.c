@@ -8,7 +8,7 @@ t_node	*sort_checker(t_node **stack_a, t_node **stack_b, int flag)
 {
 	int		*inst;
 	t_node	*instr_queue;
-	int count;
+	int		count;
 
 	count = 0;
 	instr_queue = get_instructions();

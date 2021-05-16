@@ -29,7 +29,7 @@ void	display_step(t_stack stack_a, t_stack stack_b, int count, int inst)
 	int	i;
 
 	i = stack_a.size;
-	if (i< stack_b.size)
+	if (i < stack_b.size)
 		i = stack_b.size;
 	print_header(inst, count);
 	while (i > 0)
@@ -43,75 +43,12 @@ void	display_step(t_stack stack_a, t_stack stack_b, int count, int inst)
 	ft_putstr_fd("-------------------------\n", STDOUT_FILENO);
 }
 
-void	display(t_node *head, char *name) //funcion de prueba
-{
-	t_node	*temp;
-	t_node	*tail;
-
-	temp = head;
-	if (head == NULL)
-		printf("Empty stack\n");
-	else
-	{
-		if (head->next != NULL)
-			tail = head->next;
-		while (temp != NULL && temp != tail)
-		{
-			printf("%d\n", temp->data);
-			temp = temp->prev;
-		}
-		if (temp != NULL)
-			printf("%d\n", temp->data);
-	}
-	printf("---- %s \n", name);
-}
-
-void	display_qu(t_node *head, char *name) //funcion de prueba
-{
-	t_node	*temp;
-	t_node	*tail;
-
-	temp = head;
-	if (head == NULL)
-		printf("Empty queue\n");
-	else
-	{
-		if (head->prev != NULL)
-			tail = head->prev;
-		while (temp != NULL && temp != tail)
-		{
-			printf("%d\n", temp->data);
-			temp = temp->next;
-		}
-		if (temp != NULL)
-			printf("%d\n", temp->data);
-	}
-	printf("---- %s \n", name);
-}
-
-void	display_moves(t_moves *moves)
-{
-	t_map *temp;
-
-	dprintf(0, "total: %d | ", moves->total);
-	temp = moves->inst;
-	while (temp != NULL)
-	{
-		dprintf(0, "key: ");
-		print_instructions(temp->key);
-
-		dprintf(0, " value: %d -> |", temp->value);
-		temp = temp->next;
-	}
-	dprintf(0, "\n");
-}
-
 void	print_center_num(int num)
 {
-	int len;
-	int dif;
-	int split;
-	int i;
+	int	len;
+	int	dif;
+	int	split;
+	int	i;
 
 	len = ft_numlen(num);
 	dif = 11 - len;
