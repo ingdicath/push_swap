@@ -11,7 +11,6 @@
 # include <unistd.h>
 # include <limits.h>
 # include "libft.h"
-# include <stdio.h> //borrar
 
 // ------------------ Speed display variables ---------------------------------
 
@@ -135,10 +134,6 @@ t_moves	*get_best_moves(t_stack *stack_a, t_stack *stack_b,
 
 // ------------------------------ test functions ------------------------------
 
-void	display(t_node *head, char *name);
-void	display_qu(t_node *head, char *name);
-void	display_moves(t_moves *moves);
-void	print_stack(int i, int size, t_node *stack);
 void	print_center_num(int num);
 void	print_header(int inst, int count);
 void	print_step(t_stack *stack, int i);
