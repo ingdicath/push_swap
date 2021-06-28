@@ -1,6 +1,8 @@
 # push_swap
 
-CODAM project Curriculum 2019, added  to common core in March 2021
+CODAM project Curriculum 2019, added to common core in March 2021.
+
+❗ _Important:_ The subject was changed in May 2021. This project was based on the previous subject.
 
 - **Project type**: Algorithm implementation.
 - **Objective**: Sorting data on a stack with a limited set of instructions, using
@@ -17,11 +19,14 @@ Write 2 programs in C:
 - The second one called **push_swap** which calculates and displays on the standard
 output the smallest progam using _Push_swap_ instruction language that sorts integer arguments received.
 
+### Allowed functions
+
+write, read, malloc, free, exit
+
+
 ### Movements allowed
 
-#### _Swap_
-
-Do nothing if there is only one or no nodes.
+#### _Swap_ : Do nothing if there is only one or no nodes.
 
 - **sa** -> swap a - swap the first 2 nodes at the top of stack a.
 - **sb** -> swap b - swap the first 2 nodes at the top of stack b.
@@ -34,17 +39,13 @@ nothing if b is empty.
 - **pb** -> push b - take the first element at the top of a and put it at the top of b. Do
 nothing if a is empty.
 
-#### _Rotate_
-
-The first element becomes the last one.
+#### _Rotate_ : The first element becomes the last one.
 
 - **ra** -> rotate a - shift up all nodes of stack a by 1.
 - **rb** -> rotate b - shift up all nodes of stack b by 1.
 - **rr** -> ra and rb at the same time.
 
-#### _Reverse_
-
-The last element becomes the first one.
+#### _Reverse_ : The last element becomes the first one.
 
 - **rra** -> reverse rotate a - shift down all nodes of stack a by 1.
 - **rrb** -> reverse rotate b - shift down all nodes of stack b by 1.
@@ -52,81 +53,49 @@ The last element becomes the first one.
 
 ---
 
-## Terms
+## Strategy
 
-- [Complexity](https://en.wikipedia.org/wiki/Analysis_of_algorithms)
-- [Stacks](https://en.wikipedia.org/wiki/Stack_(abstract_data_type))
+The approach for solving this project was using the circular doubly linked list to make rotate and reverse operations more efficient and, therefore, use fewer movements. An example of this is shown in the following image:
+
+<p align="center"><img src="https://github.com/ingdicath/images_md/blob/main/CDLL.png" width="70%" height="70%"></p>
+
+Basically, the sorting algorithm used for checker was _merge-sort_ and for push_swap was an _insertion sort_ modified.
 
 
-## Useful links
 
-- [Data structures and Algorithms with their complexities](https://www.hackerearth.com/practice/notes/big-o-cheatsheet-series-data-structures-and-algorithms-with-thier-complexities-1/)
-- [Big O notation](https://www.youtube.com/watch?v=v4cd1O4zkGw&list=PLX6IKgS15Ue02WDPRCmYKuZicQHit9kFt&index=5)
-- [Introduction to Big O Notation and Time Complexity](https://www.youtube.com/watch?v=D6xkbGLQesk)
-- [Medium article](https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a)
-- [Seven steps to solve algorithms](https://www.youtube.com/watch?v=GKgAVjJxh9w&list=PLX6IKgS15Ue02WDPRCmYKuZicQHit9kFt&index=1)
-- [Data structures - series](https://www.youtube.com/watch?v=92S4zgXN17o&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=2)
 
-ver de ultimas
 
 ---
+## How to use :hammer:
 
-## To do
+1. Clone the repository and go to folder ```cd push_swap```
+2. Type in the terminal ```make```
 
-### Allowed functions
+### Usage of checker and push_swap
 
-◦ write
-◦ read
-◦ malloc
-◦ free
-◦ exit
+1. They can be used separately using spaces and double quotes:
 
-### Program structure
+`./checker 4 2 8 1 3`
 
-Build stacks: The game is composed of 2 stacks named a and b
+`./checker "4 2 8 1 3"`
 
-1) CHECKER PROGRAM (manual)
+`./checker "4" "2" "8" "1" "3"`
 
-- Input Validation
+2. They can be used together:
 
-	- No duplicates
-	- random number integer of either positive or negative
-	- name of the executable: ./checker ./push_swap
-	- no bigger number
-	- numbers separated by spaces
+`ARG="4 2 8 1 3"`
 
-- Data structure
+`./push_swap $ARG | ./checker $ARG`
 
-	- Check stacks
-		- stack a have numbers
-		- stack b starts empty
-	- Define movements
-		- swap: sa, sb, ss
-		- push: pa, pb
-		- rotate: ra, rb, rr
-		- reverse rotate: rra, rrb, rrr
-	- Define sorting algorithm
+3. They can be used together with an extra flag "-v" to show every sorting step
 
-	- Starts: stack 'a' with numbers in desorder and stack 'b' empty
-	- Ends: stack 'a' with sorting numbers and stack 'b' empty
+`./push_swap $ARG | ./checker -v $ARG`
 
-Study: List, linked list, double linked list, stack, queue,
+---
+## Resources :books:
 
-2) PUSH SWAP (automatic)
+More info in the Wiki!
 
-- Algorithm (push_swap)
-
-Study:  review sorting algorithm (bubble ), binary tree (could be)
-
-### Learnings
-
-- We build 3 stacks: a, b, sorted
-- When sorting the stack, we also identify duplicates
-- Stack a store input data as requested
-- In sorted stack we apply merge sort.
-- sorted stack is just double linked, a and b are circular double linked list
-
-
-porque escogi el merge sort???
-
+----
+## Outputs 😎
 
