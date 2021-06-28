@@ -24,7 +24,7 @@ output the smallest progam using _Push_swap_ instruction language that sorts int
 write, read, malloc, free, exit
 
 
-### Movements allowed
+### Allowed movements
 
 #### _Swap_ : Do nothing if there is only one or no nodes.
 
@@ -55,18 +55,22 @@ nothing if a is empty.
 
 ## Strategy
 
+### Solving checker
+
+The sorting algorithm used for checker was _merge-sort_
+
+### Solving push_swap
+
 The approach for solving this project was using the circular doubly linked list to make rotate and reverse operations more efficient and, therefore, use fewer movements. An example of this is shown in the following image:
 
-<p align="center"><img src="https://github.com/ingdicath/images_md/blob/main/CDLL.png" width="70%" height="70%"></p>
+<p align="center"><img src="https://github.com/ingdicath/images_md/blob/main/CDLL.png" width="60%" height="60%"></p>
 
-Basically, the sorting algorithm used for checker was _merge-sort_ and for push_swap was an _insertion sort_ modified.
-
-
-
+For numbers less or equal to 3, a simpler sort method was used.
+For numbers greater than 3, it was used an _insertion sort_ modified algorithm. The method consists in passing numbers from stack "a" to stack "b", sorting in "b" numbers in descending order. Before pushing a number on stack b, it is checked whether the number, under certain rules, is positionable  at the head or at the tail of the stack. This process is done until stack "a" is almost empty, with just one or two numbers depending on the numbers on stack "b". Then, the numbers were push back to stack "a".
 
 
 ---
-## How to use :hammer:
+## How to build :hammer:
 
 1. Clone the repository and go to folder ```cd push_swap```
 2. Type in the terminal ```make```
@@ -98,4 +102,6 @@ More info in the Wiki!
 
 ----
 ## Outputs 😎
+
+
 
