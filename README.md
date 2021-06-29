@@ -63,12 +63,17 @@ The sorting algorithm used for checker was _merge-sort_.
 
 This project used **circular doubly linked list** to make rotate and reverse operations more efficient and, therefore, use fewer movements. An example of this is shown in the following image:
 
-<p align="center"><img src="https://github.com/ingdicath/images_md/blob/main/CDLL.png" width="60%" height="60%"></p>
+
+<p align="center"><img src="https://github.com/ingdicath/images_md/blob/main/CDLL.png" width="40%" height="40%"></p>
 
 The behavior could be similar to a boat steering wheel: depending on the movement, it could be turned to the right or to the left to quickly access the head or tail.
 
-For numbers less or equal to 3, a simpler sort method was used.
-For numbers greater than 3, it was used an _insertion sort_ modified algorithm. The method consists in passing numbers from stack "a" to stack "b", sorting in "b" numbers in descending order. Before pushing a number on stack b, it is checked whether the number, under certain rules, is positionable  at the head or at the tail of the stack. This process is done until stack "a" is almost empty, with just one or two numbers depending on the numbers on stack "b". Then, the numbers were push back to stack "a".
+For stack size less or equal to 3, a simpler sort method was used.
+For stack size greater than 3, it was used an _insertion sort_ modified algorithm. The method consists in to move numbers from stack "a" to stack "b". 
+
+Before pushing a number on stack "b", it is checked in stack "a" which number costs fewer movements to be positionable at the head of stack "b" and ensuring to maintain the descending order in stack "b". 
+
+This process is done until stack "a" is almost empty, when just one or two numbers left in stack a depending on the numbers on stack "b". Then, the numbers were push back to stack "a".
 
 
 ---
