@@ -2,7 +2,7 @@
 
 CODAM project Curriculum 2019, added to common core in March 2021.
 
-❗ _Important:_ The subject was changed in May 2021. This project was based on the previous subject.
+❗ _Important:_ The subject changed in May 2021. This project has been done according to the previous subject.
 
 - **Project type**: Algorithm implementation.
 - **Objective**: Sorting data on a stack with a limited set of instructions, using
@@ -57,13 +57,15 @@ nothing if a is empty.
 
 ### Solving checker
 
-The sorting algorithm used for checker was _merge-sort_
+The sorting algorithm used for checker was _merge-sort_.
 
 ### Solving push_swap
 
-The approach for solving this project was using the circular doubly linked list to make rotate and reverse operations more efficient and, therefore, use fewer movements. An example of this is shown in the following image:
+This project used **circular doubly linked list** to make rotate and reverse operations more efficient and, therefore, use fewer movements. An example of this is shown in the following image:
 
 <p align="center"><img src="https://github.com/ingdicath/images_md/blob/main/CDLL.png" width="60%" height="60%"></p>
+
+The behavior could be similar to a boat steering wheel: depending on the movement, it could be turned to the right or to the left to quickly access the head or tail.
 
 For numbers less or equal to 3, a simpler sort method was used.
 For numbers greater than 3, it was used an _insertion sort_ modified algorithm. The method consists in passing numbers from stack "a" to stack "b", sorting in "b" numbers in descending order. Before pushing a number on stack b, it is checked whether the number, under certain rules, is positionable  at the head or at the tail of the stack. This process is done until stack "a" is almost empty, with just one or two numbers depending on the numbers on stack "b". Then, the numbers were push back to stack "a".
@@ -87,13 +89,12 @@ For numbers greater than 3, it was used an _insertion sort_ modified algorithm. 
 
 2. They can be used together:
 
-`ARG="4 2 8 1 3"`
+`ARG="4 2 8 1 3" ./push_swap $ARG | ./checker $ARG`
 
-`./push_swap $ARG | ./checker $ARG`
 
-3. They can be used together with an extra flag "-v" to show every sorting step
+3. They can be used together with an extra flag "-v" to show every sorting step:
 
-`./push_swap $ARG | ./checker -v $ARG`
+`ARG="4 2 8 1 3" ./push_swap $ARG | ./checker -v $ARG`
 
 ---
 ## Resources :books:
