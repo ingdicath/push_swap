@@ -63,8 +63,7 @@ The sorting algorithm used for checker was _merge-sort_.
 
 This project used **circular doubly linked list** to make rotate and reverse operations more efficient and, therefore, use fewer movements. An example of this is shown in the following image:
 
-
-<p align="center"><img src="https://github.com/ingdicath/images_md/blob/main/CDLL.png" width="40%" height="40%"></p>
+<br /><p align="center"><img src="https://github.com/ingdicath/images_md/blob/main/CDLL.png" width="40%" height="40%"></p>
 
 The behavior could be similar to a boat steering wheel: depending on the movement, it could be turned to the right or to the left to quickly access the head or tail.
 
@@ -82,7 +81,7 @@ This process is done until stack "a" is almost empty, when just one or two numbe
 1. Clone the repository and go to folder ```cd push_swap```
 2. Type in the terminal ```make```
 
-### Usage of checker and push_swap
+### Usage of _checker_ and _push_swap_
 
 1. They can be used separately using spaces and double quotes:
 
@@ -97,7 +96,7 @@ This process is done until stack "a" is almost empty, when just one or two numbe
 `ARG="4 2 8 1 3" ./push_swap $ARG | ./checker $ARG`
 
 
-3. They can be used together with an extra flag "-v" to show every sorting step:
+3. They can be used together with an extra flag "-v" to show the stacks in every sorting step:
 
 `ARG="4 2 8 1 3" ./push_swap $ARG | ./checker -v $ARG`
 
