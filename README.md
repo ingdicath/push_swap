@@ -99,14 +99,3 @@ This process is done until stack "a" is almost empty, when just one or two numbe
 3. They can be used together with an extra flag "-v" to show the stacks in every sorting step:
 
 `ARG="4 2 8 1 3" ./push_swap $ARG | ./checker -v $ARG`
-
----
-## Resources :books:
-
-More info in the Wiki!
-
-----
-## Outputs 😎
-
-
-
