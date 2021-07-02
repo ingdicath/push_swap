@@ -63,7 +63,7 @@ The sorting algorithm used for checker was _merge-sort_.
 
 This project used **circular doubly linked list** to make rotate and reverse operations more efficient and, therefore, use fewer movements. An example of this is shown in the following image:
 
-<br /><p align="center"><img src="https://github.com/ingdicath/images_md/blob/main/CDLL.png" width="40%" height="40%"></p>
+<br /><p align="center"><img src="https://github.com/ingdicath/push_swap/blob/main/demo/CDLL.png" width="48%" height="48%"></p>
 
 The behavior could be similar to a boat steering wheel: depending on the movement, it could be turned to the right or to the left to quickly access the head or tail.
 
@@ -83,7 +83,7 @@ This process is done until stack "a" is almost empty, when just one or two numbe
 
 ### Usage of _checker_ and _push_swap_
 
-1. They can be used separately using spaces and double quotes:
+<br >1. They can be used separately using spaces and double quotes:
 
 `./checker 4 2 8 1 3`
 
@@ -91,11 +91,14 @@ This process is done until stack "a" is almost empty, when just one or two numbe
 
 `./checker "4" "2" "8" "1" "3"`
 
-2. They can be used together:
+<br >2. They can be used together:
 
-`ARG="4 2 8 1 3" ./push_swap $ARG | ./checker $ARG`
+`ARG="4 2 8 1 3"; ./push_swap $ARG | ./checker $ARG`
 
 
-3. They can be used together with an extra flag "-v" to show the stacks in every sorting step:
+<br >3. They can be used together with an extra flag "-v" to show the stacks in every sorting step:
 
-`ARG="4 2 8 1 3" ./push_swap $ARG | ./checker -v $ARG`
+`ARG="4 2 8 1 3"; ./push_swap $ARG | ./checker -v $ARG`
+
+<br /><p align="center"><img src="https://github.com/ingdicath/push_swap/blob/main/demo/push_swap.gif" width="60%" height="60%"></p>
+
