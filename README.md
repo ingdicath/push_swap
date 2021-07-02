@@ -10,7 +10,7 @@ the lowest possible number of actions, through manipulating various types of alg
 
 ---
 
-## Requirements
+## Requirements :pushpin:
 
 Write 2 programs in C:
 
@@ -21,7 +21,7 @@ output the smallest progam using _Push_swap_ instruction language that sorts int
 
 ### Allowed functions
 
-write, read, malloc, free, exit
+```write, read, malloc, free, exit```
 
 
 ### Allowed movements
@@ -53,7 +53,7 @@ nothing if a is empty.
 
 ---
 
-## Strategy
+## Strategy :bulb:
 
 ### Solving checker
 
@@ -93,12 +93,16 @@ This process is done until stack "a" is almost empty, when just one or two numbe
 
 <br >2. They can be used together:
 
-`ARG="4 2 8 1 3"; ./push_swap $ARG | ./checker $ARG`
+`A="5 6 8 7 1 9 10 4 3"; ./push_swap $A | ./checker $A`
 
 
 <br >3. They can be used together with an extra flag "-v" to show the stacks in every sorting step:
 
-`ARG="4 2 8 1 3"; ./push_swap $ARG | ./checker -v $ARG`
+`A="5 6 8 7 1 9 10 4 3"; ./push_swap $A | ./checker -v $A`
 
 <br /><p align="center"><img src="https://github.com/ingdicath/push_swap/blob/main/demo/push_swap.gif" width="60%" height="60%"></p>
 
+---
+## Resources :books:
+
+More info in the Wiki!
